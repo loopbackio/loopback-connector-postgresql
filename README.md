@@ -2,43 +2,6 @@
 
 The PostgreSQL Connector module for for [loopback-datasource-juggler](http://docs.strongloop.com/loopback-datasource-juggler/).
 
-## Installation
-
-To simplify the installation of [node-postgresql](https://github.com/strongloop/node-postgresql) module and PostgreSQL instant clients,
-we introduce [loopback-postgresql-installer](https://github.com/strongloop/loopback-postgresql-installer) as a dependency which installs
-and configures node-postgresql upon `npm install`.
-
-Please note `config.oracleUrl` is the property to define the base URL to download the corresponding node-postgresql bundle for the local
-environment.
-
-The bundle file name is `loopback-postgresql-<platform>-<arch>-<version>.tar.gz`. The `version` is the same as the `version` in package.json.
-
-    "dependencies": {
-        "loopback-postgresql-installer": "git+ssh://git@github.com:strongloop/loopback-postgresql-installer.git",
-             ...
-    },
-    "config": {
-        "oracleUrl": "http://7e9918db41dd01dbf98e-ec15952f71452bc0809d79c86f5751b6.r22.cf1.rackcdn.com"
-    },
-
-**The `oracleUrl` can be overridden via LOOPBACK_ORACLE_URL environment variable.**
-
-For MacOSX, the full URL is:
-
-http://7e9918db41dd01dbf98e-ec15952f71452bc0809d79c86f5751b6.r22.cf1.rackcdn.com/loopback-postgresql-MacOSX-x64-0.0.1.tar.gz
-
-`libaio` library is required on Linux systems:
-
-* On Unbuntu/Debian
-
-        ﻿sudo apt-get install libaio1
-
-* On Fedora/CentOS/RHEL
-
-        ﻿sudo yum install libaio
-
-
-**Please make sure c:\instantclient_12_1\vc10 comes before c:\instantclient_12_1**
 
 ## Connector settings
 
@@ -150,14 +113,6 @@ PostgreSQL data sources allow you to discover model definition information from 
           pkTableName: 'PRODUCT',
           pkColumnName: 'ID' }
 
-
-### Synchronous APIs for discovery
-
-* PostgreSQL.prototype.discoverModelDefinitionsSync = function (options)
-* PostgreSQL.prototype.discoverModelPropertiesSync = function (table, options)
-* PostgreSQL.prototype.discoverPrimaryKeysSync= function(table, options)
-* PostgreSQL.prototype.discoverForeignKeysSync= function(table, options)
-* PostgreSQL.prototype.discoverExportedForeignKeysSync= function(table, options)
 
 ### Discover/build/try the models
 
@@ -297,7 +252,6 @@ LoopBack PostgreSQL connector creates the following schema objects for a given m
 ## Running examples
 
 * example/app.js: Demonstrate the asynchronous discovery
-* example/app-sync.js: Demonstrate the synchronous discovery
 
 ## Running tests
 
