@@ -6,7 +6,7 @@ var async = require('async');
 var db;
 
 before(function () {
-    db = getDataSource();
+    db = getSchema();
 });
 
 describe('Mapping models', function () {
@@ -25,28 +25,28 @@ describe('Mapping models', function () {
                 /*
                 "id": {
                     "type": "String", "required": true, "length": 20, "id": 1, "postgresql": {
-                        "columnName": "INVENTORY_ID", "dataType": "VARCHAR2", "nullable": "N"
+                        "columnName": "INVENTORY_ID", "dataType": "VARCHAR", "nullable": "N"
                     }
                 },
                 */
                 "productId": {
                     "type": "String", "required": true, "length": 20, "id": 1, "postgresql": {
-                        "columnName": "PRODUCT_ID", "dataType": "VARCHAR2", "nullable": "N"
+                        "columnName": "PRODUCT_ID", "dataType": "VARCHAR", "nullable": "N"
                     }
                 },
                 "locationId": {
                     "type": "String", "required": true, "length": 20, "id": 2, "postgresql": {
-                        "columnName": "LOCATION_ID", "dataType": "VARCHAR2", "nullable": "N"
+                        "columnName": "LOCATION_ID", "dataType": "VARCHAR", "nullable": "N"
                     }
                 },
                 "available": {
-                    "type": "Number", "required": false, "length": 22, "postgresql": {
-                        "columnName": "AVAILABLE", "dataType": "NUMBER", "nullable": "Y"
+                    "type": "Number", "required": false, "postgresql": {
+                        "columnName": "AVAILABLE", "dataType": "INTEGER", "nullable": "Y"
                     }
                 },
                 "total": {
-                    "type": "Number", "required": false, "length": 22, "postgresql": {
-                        "columnName": "TOTAL", "dataType": "NUMBER", "nullable": "Y"
+                    "type": "Number", "required": false, "postgresql": {
+                        "columnName": "TOTAL", "dataType": "INTEGER", "nullable": "Y"
                     }
                 }
             }
