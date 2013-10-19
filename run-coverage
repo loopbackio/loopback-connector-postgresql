@@ -1,0 +1,11 @@
+#!/bin/bash
+ROOT=`dirname $0`
+OS=`uname -s`
+if [ "$OS" == "Darwin" ]; then
+  export DYLD_LIBRARY_PATH="$DYLD_LIBRARY_PATH:$ROOT/node_modules/instantclient"
+elif [ "$OS" == "Linux" ]; then
+  export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$ROOT/node_modules/instantclient"
+else
+  export PATH="$PATH:$ROOT/node_modules/instantclient"
+fi
+$ROOT/node_modules/.bin/mocha --timeout 30000 --require $ROOT/test/init.js -r blanket -R html-cov $ROOT/test/*.test.js > $ROOT/coverage_loopback-connector-oracle.html

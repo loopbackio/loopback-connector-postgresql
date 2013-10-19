@@ -1,0 +1,9 @@
+{
+"content": [
+    "README.md",
+    {"title": "LoopBack PostgreSQL Connector API", "depth": 2},
+    "lib/postgresql.js"
+  ],
+  "codeSectionDepth": 3
+}
+

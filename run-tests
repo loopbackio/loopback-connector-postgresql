@@ -1,0 +1,4 @@
+#!/bin/bash
+ROOT=`dirname $0`
+$ROOT/node_modules/.bin/mocha --timeout 30000 --require $ROOT/test/init.js $ROOT/test/*.test.js
+
