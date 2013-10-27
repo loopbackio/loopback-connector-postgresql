@@ -1,114 +1,78 @@
---------------------------------------------------------
---  File created - Thursday-September-05-2013
---------------------------------------------------------
-DROP TABLE CUSTOMER CASCADE CONSTRAINTS PURGE;
-DROP TABLE SESSION CASCADE CONSTRAINTS PURGE;
-DROP TABLE LOCATION CASCADE CONSTRAINTS PURGE;
-DROP TABLE PRODUCT CASCADE CONSTRAINTS PURGE;
-DROP TABLE INVENTORY CASCADE CONSTRAINTS PURGE;
-DROP TABLE RESERVATION CASCADE CONSTRAINTS PURGE;
+﻿set search_path to "strongloop",public;
+drop table if exists "customer" cascade;
+drop table if exists "session" cascade;
+drop table if exists "location" cascade;
+drop table if exists "product" cascade;
+drop table if exists "inventory" cascade;
+drop table if exists "reservation" cascade;
 
---------------------------------------------------------
---  DDL for Table CUSTOMER
---------------------------------------------------------
-
-  CREATE TABLE "CUSTOMER"
-   (	"ID" VARCHAR2(20),
-	"USERNAME" VARCHAR2(1024),
-	"EMAIL" VARCHAR2(1024),
-	"PASSWORD" VARCHAR2(1024),
-	"NAME" VARCHAR2(40),
-	"MILITARY_AGENCY" VARCHAR2(20),
-	"REALM" VARCHAR2(1024),
-	"EMAILVERIFIED" CHAR(1),
-	"VERIFICATIONTOKEN" VARCHAR2(1024),
-	"CREDENTIALS" VARCHAR2(1024),
-	"CHALLENGES" VARCHAR2(1024),
-	"STATUS" VARCHAR2(1024),
-	"CREATED" DATE,
-	"LASTUPDATED" DATE
+  create table "customer"
+   (	"id" varchar(64),
+	"username" varchar(1024),
+	"email" varchar(1024),
+	"password" varchar(1024),
+	"name" varchar(40),
+	"military_agency" varchar(20),
+	"realm" varchar(1024),
+	"emailverified" char(1),
+	"verificationtoken" varchar(1024),
+	"credentials" varchar(1024),
+	"challenges" varchar(1024),
+	"status" varchar(1024),
+	"created" date,
+	"lastupdated" date
    ) ;
-/
---------------------------------------------------------
---  DDL for Table INVENTORY
---------------------------------------------------------
 
-  CREATE TABLE "INVENTORY"
-   (	"ID" VARCHAR2(20),
-	"PRODUCT_ID" VARCHAR2(20),
-	"LOCATION_ID" VARCHAR2(20),
-	"AVAILABLE" NUMBER(22,0),
-	"TOTAL" NUMBER(22,0)
+  create table "inventory"
+   (	"id" varchar(64),
+	"product_id" varchar(20),
+	"location_id" varchar(20),
+	"available" integer,
+	"total" integer
    ) ;
-/
 
--- CREATE SEQUENCE INVENTORY_ID_SEQ START WITH 1 INCREMENT BY 1 NOMAXVALUE;
--- CREATE OR REPLACE TRIGGER INVENTORY_ID_TRIGGER BEFORE
---  INSERT ON INVENTORY FOR EACH row BEGIN
---  SELECT INVENTORY_ID_SEQ.nextval INTO :new.id FROM dual;
--- END;
--- /
---------------------------------------------------------
---  DDL for Table LOCATION
---------------------------------------------------------
-
-  CREATE TABLE "LOCATION"
-   (	"ID" VARCHAR2(20),
-	"STREET" VARCHAR2(64),
-	"CITY" VARCHAR2(64),
-	"ZIPCODE" VARCHAR2(16),
-	"NAME" VARCHAR2(32),
-	"GEO" VARCHAR2(1024)
+  create table "location"
+   (	"id" varchar(64),
+	"street" varchar(64),
+	"city" varchar(64),
+	"zipcode" varchar(16),
+	"name" varchar(32),
+	"geo" point
    ) ;
-/
---------------------------------------------------------
---  DDL for Table PRODUCT
---------------------------------------------------------
 
-  CREATE TABLE "PRODUCT"
-   (	"ID" VARCHAR2(20),
-	"NAME" VARCHAR2(64),
-	"AUDIBLE_RANGE" NUMBER(22,0),
-	"EFFECTIVE_RANGE" NUMBER(22,0),
-	"ROUNDS" NUMBER(22,0),
-	"EXTRAS" VARCHAR2(64),
-	"FIRE_MODES" VARCHAR2(64)
+  create table "product"
+   (	"id" varchar(64),
+	"name" varchar(64),
+	"audible_range" integer,
+	"effective_range" integer,
+	"rounds" integer,
+	"extras" varchar(64),
+	"fire_modes" varchar(64)
    ) ;
-/
---------------------------------------------------------
---  DDL for Table RESERVATION
---------------------------------------------------------
 
-  CREATE TABLE "RESERVATION"
-   (	"ID" VARCHAR2(20),
-	"PRODUCT_ID" VARCHAR2(20),
-	"LOCATION_ID" VARCHAR2(20),
-	"CUSTOMER_ID" VARCHAR2(20),
-	"QTY" NUMBER,
-	"STATUS" VARCHAR2(20),
-	"RESERVE_DATE" DATE,
-	"PICKUP_DATE" DATE,
-	"RETURN_DATE" DATE
+  create table "reservation"
+   (	"id" varchar(64),
+	"product_id" varchar(20),
+	"location_id" varchar(20),
+	"customer_id" varchar(20),
+	"qty" integer,
+	"status" varchar(20),
+	"reserve_date" date,
+	"pickup_date" date,
+	"return_date" date
    ) ;
-/
---------------------------------------------------------
---  DDL for Table SESSION
---------------------------------------------------------
 
-  CREATE TABLE "SESSION"
-   (	"ID" VARCHAR2(64),
-	"UID" VARCHAR2(1024),
-	"TTL" NUMBER
+  create table "session"
+   (	"id" varchar(64),
+	"uid" varchar(1024),
+	"ttl" integer
    ) ;
-/
-REM INSERTING into CUSTOMER
-SET DEFINE OFF;
+
 Insert into CUSTOMER (ID,USERNAME,EMAIL,PASSWORD,NAME,MILITARY_AGENCY,REALM,EMAILVERIFIED,VERIFICATIONTOKEN,CREDENTIALS,CHALLENGES,STATUS,CREATED,LASTUPDATED) values ('612','bat','bat@bar.com','$2a$10$BEG18wcYQn7TRkFIc59EB.vmnsEwqJWMlYM4DNG73iZb.MKA1rjAC',null,null,null,null,null,'[]','[]',null,null,null);
 Insert into CUSTOMER (ID,USERNAME,EMAIL,PASSWORD,NAME,MILITARY_AGENCY,REALM,EMAILVERIFIED,VERIFICATIONTOKEN,CREDENTIALS,CHALLENGES,STATUS,CREATED,LASTUPDATED) values ('613','baz','baz@bar.com','$2a$10$jkSYF2gLMdI4CwVQh8AStOs0b24lDu9p8jccnmri/0rvhtwsicm9C',null,null,null,null,null,'[]','[]',null,null,null);
 Insert into CUSTOMER (ID,USERNAME,EMAIL,PASSWORD,NAME,MILITARY_AGENCY,REALM,EMAILVERIFIED,VERIFICATIONTOKEN,CREDENTIALS,CHALLENGES,STATUS,CREATED,LASTUPDATED) values ('610','foo','foo@bar.com','$2a$10$tn1hN7Xv6x74cCB7tVfwkeaaJTd4/6q4RbCMzgmAJeWe40xqrRSui',null,null,null,null,null,'[]','[]',null,null,null);
 Insert into CUSTOMER (ID,USERNAME,EMAIL,PASSWORD,NAME,MILITARY_AGENCY,REALM,EMAILVERIFIED,VERIFICATIONTOKEN,CREDENTIALS,CHALLENGES,STATUS,CREATED,LASTUPDATED) values ('611','bar','bar@bar.com','$2a$10$a8mCol6d5vQXm6vubqXl8e5V66StEg6E8vzjQqPpoyk95Vm3smpiK',null,null,null,null,null,'[]','[]',null,null,null);
-REM INSERTING into INVENTORY
-SET DEFINE OFF;
+
 Insert into INVENTORY (ID,PRODUCT_ID,LOCATION_ID,AVAILABLE,TOTAL) values ('441','6','91',8,19);
 Insert into INVENTORY (ID,PRODUCT_ID,LOCATION_ID,AVAILABLE,TOTAL) values ('442','7','91',21,23);
 Insert into INVENTORY (ID,PRODUCT_ID,LOCATION_ID,AVAILABLE,TOTAL) values ('443','8','91',35,63);
@@ -625,16 +589,14 @@ Insert into INVENTORY (ID,PRODUCT_ID,LOCATION_ID,AVAILABLE,TOTAL) values ('437',
 Insert into INVENTORY (ID,PRODUCT_ID,LOCATION_ID,AVAILABLE,TOTAL) values ('438','3','91',15,28);
 Insert into INVENTORY (ID,PRODUCT_ID,LOCATION_ID,AVAILABLE,TOTAL) values ('439','4','91',56,97);
 Insert into INVENTORY (ID,PRODUCT_ID,LOCATION_ID,AVAILABLE,TOTAL) values ('440','5','91',20,30);
-REM INSERTING into LOCATION
-SET DEFINE OFF;
+
 Insert into LOCATION (ID,STREET,CITY,ZIPCODE,NAME,GEO) values ('87','7153 East Thomas Road','Scottsdale','85251','Phoenix Equipment Rentals','-111.9271738,33.48034450000001');
 Insert into LOCATION (ID,STREET,CITY,ZIPCODE,NAME,GEO) values ('91','2799 Broadway','New York','10025','Cascabel Armory','-73.9676965,40.8029807');
 Insert into LOCATION (ID,STREET,CITY,ZIPCODE,NAME,GEO) values ('89','1850 El Camino Real','Menlo Park','94027','Military Weaponry','-122.194253,37.459525');
 Insert into LOCATION (ID,STREET,CITY,ZIPCODE,NAME,GEO) values ('92','32/66-70 Marine Parade','Coolangatta','4225','Marine Parade','153.536972,-28.167598');
 Insert into LOCATION (ID,STREET,CITY,ZIPCODE,NAME,GEO) values ('90','Tolstraat 200','Amsterdam','1074','Munitions Shopmore','4.907475499999999,52.3530638');
 Insert into LOCATION (ID,STREET,CITY,ZIPCODE,NAME,GEO) values ('88','390 Lang Road','Burlingame','94010','Bay Area Firearms','-122.3381437,37.5874391');
-REM INSERTING into PRODUCT
-SET DEFINE OFF;
+
 Insert into PRODUCT (ID,NAME,AUDIBLE_RANGE,EFFECTIVE_RANGE,ROUNDS,EXTRAS,FIRE_MODES) values ('4','M9',53,75,15,null,'Single');
 Insert into PRODUCT (ID,NAME,AUDIBLE_RANGE,EFFECTIVE_RANGE,ROUNDS,EXTRAS,FIRE_MODES) values ('3','M1911',53,50,7,null,'Single');
 Insert into PRODUCT (ID,NAME,AUDIBLE_RANGE,EFFECTIVE_RANGE,ROUNDS,EXTRAS,FIRE_MODES) values ('6','Makarov SD',0,50,8,null,'Single');
@@ -721,73 +683,27 @@ Insert into PRODUCT (ID,NAME,AUDIBLE_RANGE,EFFECTIVE_RANGE,ROUNDS,EXTRAS,FIRE_MO
 Insert into PRODUCT (ID,NAME,AUDIBLE_RANGE,EFFECTIVE_RANGE,ROUNDS,EXTRAS,FIRE_MODES) values ('87','NV Goggles',null,null,null,null,null);
 Insert into PRODUCT (ID,NAME,AUDIBLE_RANGE,EFFECTIVE_RANGE,ROUNDS,EXTRAS,FIRE_MODES) values ('2','G17',53,75,15,'Flashlight','Single');
 Insert into PRODUCT (ID,NAME,AUDIBLE_RANGE,EFFECTIVE_RANGE,ROUNDS,EXTRAS,FIRE_MODES) values ('5','M9 SD',0,75,15,'Silenced','Single');
-REM INSERTING into RESERVATION
-SET DEFINE OFF;
-REM INSERTING into "SESSION"
-SET DEFINE OFF;
 
---------------------------------------------------------
---  View
---------------------------------------------------------
 
-CREATE OR REPLACE VIEW INVENTORY_VIEW
-                AS
-  SELECT P.name AS product,
-    L.name      AS location,
-    I.available
-  FROM INVENTORY I,
-    PRODUCT P,
-    LOCATION L
-  WHERE p.id = I.product_id
-  AND l.id   = I.location_id;
+create or replace view "inventory_view"
+                as
+  select p.name as product,
+    l.name      as location,
+    i.available
+  from "inventory" i,
+    "product" p,
+    "location" l
+  where p.id = i.product_id
+  and l.id   = i.location_id;
 
---------------------------------------------------------
---  Constraints for Table CUSTOMER
---------------------------------------------------------
-
-  ALTER TABLE "CUSTOMER" ADD PRIMARY KEY ("ID") ENABLE;
-/
---------------------------------------------------------
---  Constraints for Table INVENTORY
---------------------------------------------------------
-
-  ALTER TABLE "INVENTORY" ADD PRIMARY KEY ("ID") ENABLE;
-/
---------------------------------------------------------
---  Constraints for Table LOCATION
---------------------------------------------------------
-
-  ALTER TABLE "LOCATION" ADD PRIMARY KEY ("ID") ENABLE;
-/
---------------------------------------------------------
---  Constraints for Table PRODUCT
---------------------------------------------------------
-
-  ALTER TABLE "PRODUCT" ADD PRIMARY KEY ("ID") ENABLE;
-/
---------------------------------------------------------
---  Constraints for Table SESSION
---------------------------------------------------------
-
-  ALTER TABLE "SESSION" ADD PRIMARY KEY ("ID") ENABLE;
-/
---------------------------------------------------------
---  Ref Constraints for Table INVENTORY
---------------------------------------------------------
-
-  ALTER TABLE "INVENTORY" ADD CONSTRAINT "LOCATION_FK" FOREIGN KEY ("LOCATION_ID")
-	  REFERENCES "LOCATION" ("ID") ENABLE;
-  ALTER TABLE "INVENTORY" ADD CONSTRAINT "PRODUCT_FK" FOREIGN KEY ("PRODUCT_ID")
-	  REFERENCES "PRODUCT" ("ID") ENABLE;
-/
---------------------------------------------------------
---  Ref Constraints for Table RESERVATION
---------------------------------------------------------
-
-  ALTER TABLE "RESERVATION" ADD CONSTRAINT "RESERVATION_CUSTOMER_FK" FOREIGN KEY ("CUSTOMER_ID")
-	  REFERENCES "CUSTOMER" ("ID") ENABLE;
-  ALTER TABLE "RESERVATION" ADD CONSTRAINT "RESERVATION_LOCATION_FK" FOREIGN KEY ("LOCATION_ID")
-	  REFERENCES "LOCATION" ("ID") ENABLE;
-  ALTER TABLE "RESERVATION" ADD CONSTRAINT "RESERVATION_PRODUCT_FK" FOREIGN KEY ("PRODUCT_ID")
-	  REFERENCES "PRODUCT" ("ID") ENABLE;
-/
+  alter table "customer" add primary key ("id");
+  alter table "inventory" add primary key ("id");
+  alter table "location" add primary key ("id");
+  alter table "product" add primary key ("id");
+  alter table "session" add primary key ("id");
+  alter table "inventory" add constraint "location_fk" foreign key ("location_id") references "location" ("id");
+  alter table "inventory" add constraint "product_fk" foreign key ("product_id")
+	  references "product" ("id");
+  alter table "reservation" add constraint "reservation_customer_fk" foreign key ("customer_id") references "customer" ("id");
+  alter table "reservation" add constraint "reservation_location_fk" foreign key ("location_id") references "location" ("id");
+  alter table "reservation" add constraint "reservation_product_fk" foreign key ("product_id") references "product" ("id");

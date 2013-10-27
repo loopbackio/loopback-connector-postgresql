@@ -18,7 +18,7 @@ describe('Mapping models', function () {
             "options": {
                 "idInjection": false,
                 "postgresql": {
-                    "schema": "STRONGLOOP", "table": "INVENTORYTEST"
+                    "schema": "strongloop", "table": "inventorytest"
                 }
             },
             "properties": {
@@ -31,22 +31,22 @@ describe('Mapping models', function () {
                 */
                 "productId": {
                     "type": "String", "required": true, "length": 20, "id": 1, "postgresql": {
-                        "columnName": "PRODUCT_ID", "dataType": "VARCHAR", "nullable": "N"
+                        "columnName": "product_id", "dataType": "VARCHAR", "nullable": "N"
                     }
                 },
                 "locationId": {
                     "type": "String", "required": true, "length": 20, "id": 2, "postgresql": {
-                        "columnName": "LOCATION_ID", "dataType": "VARCHAR", "nullable": "N"
+                        "columnName": "location_id", "dataType": "VARCHAR", "nullable": "N"
                     }
                 },
                 "available": {
                     "type": "Number", "required": false, "postgresql": {
-                        "columnName": "AVAILABLE", "dataType": "INTEGER", "nullable": "Y"
+                        "columnName": "available", "dataType": "INTEGER", "nullable": "Y"
                     }
                 },
                 "total": {
                     "type": "Number", "required": false, "postgresql": {
-                        "columnName": "TOTAL", "dataType": "INTEGER", "nullable": "Y"
+                        "columnName": "total", "dataType": "INTEGER", "nullable": "Y"
                     }
                 }
             }

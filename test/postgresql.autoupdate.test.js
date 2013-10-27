@@ -15,8 +15,8 @@ describe('PostgreSQL connector', function () {
             "options": {
                 "idInjection": false,
                 "postgresql": {
-                    "schema": "TEST",
-                    "table": "CUSTOMER_TEST"
+                    "schema": "test",
+                    "table": "customer_test"
                 }
             },
             "properties": {
@@ -49,8 +49,8 @@ describe('PostgreSQL connector', function () {
             "options": {
                 "idInjection": false,
                 "postgresql": {
-                    "schema": "TEST",
-                    "table": "CUSTOMER_TEST"
+                    "schema": "test",
+                    "table": "customer_test"
                 }
             },
             "properties": {
@@ -64,8 +64,8 @@ describe('PostgreSQL connector', function () {
                     "required": false,
                     "length": 60,
                     "postgresql": {
-                        "columnName": "EMAIL",
-                        "dataType": "VARCHAR",
+                        "columnName": "email",
+                        "dataType": "varchar",
                         "dataLength": 60,
                         "nullable": "Y"
                     }
@@ -87,28 +87,28 @@ describe('PostgreSQL connector', function () {
 
         ds.automigrate(function () {
 
-            ds.discoverModelProperties('CUSTOMER_TEST', function (err, props) {
+            ds.discoverModelProperties('customer_test', function (err, props) {
                 assert.equal(props.length, 4);
                 var names = props.map(function(p) {
                     return p.columnName;
                 });
-                assert.equal(names[0], 'ID');
-                assert.equal(names[1], 'NAME');
-                assert.equal(names[2], 'EMAIL');
-                assert.equal(names[3], 'AGE');
+                assert.equal(names[0], 'id');
+                assert.equal(names[1], 'name');
+                assert.equal(names[2], 'email');
+                assert.equal(names[3], 'age');
 
                 ds.createModel(schema_v2.name, schema_v2.properties, schema_v2.options);
 
                 ds.autoupdate(function (err, result) {
-                    ds.discoverModelProperties('CUSTOMER_TEST', function (err, props) {
+                    ds.discoverModelProperties('customer_test', function (err, props) {
                         assert.equal(props.length, 4);
                         var names = props.map(function(p) {
                             return p.columnName;
                         });
-                        assert.equal(names[0], 'ID');
-                        assert.equal(names[1], 'EMAIL');
-                        assert.equal(names[2], 'FIRSTNAME');
-                        assert.equal(names[3], 'LASTNAME');
+                        assert.equal(names[0], 'id');
+                        assert.equal(names[1], 'email');
+                        assert.equal(names[2], 'firstname');
+                        assert.equal(names[3], 'lastname');
                         // console.log(err, result);
                         done(err, result);
                     });
