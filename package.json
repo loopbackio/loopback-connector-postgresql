@@ -14,11 +14,14 @@
     "test": "./run-tests"
   },
   "dependencies": {
-    "loopback-datasource-juggler": "git+ssh://git@github.com:strongloop/loopback-datasource-juggler.git",
     "async": "~0.2.9",
     "pg": "~2.8.0"
   },
+  "peerDependencies": {
+    "loopback-datasource-juggler": "1.x.x"
+  },
   "devDependencies": {
+    "loopback-datasource-juggler": "1.x.x",
     "should": "~1.2.2",
     "mocha": "~1.14.0",
     "rc": "~0.3.0"
