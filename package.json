@@ -14,8 +14,8 @@
     "test": "./run-tests"
   },
   "dependencies": {
-    "async": "~0.2.9",
-    "pg": "~2.8.0"
+    "async": "~0.2.10",
+    "pg": "~2.11.1"
   },
   "peerDependencies": {
     "loopback-datasource-juggler": "1.x.x"
@@ -23,12 +23,15 @@
   "devDependencies": {
     "loopback-datasource-juggler": "1.x.x",
     "should": "~1.2.2",
-    "mocha": "~1.14.0",
-    "rc": "~0.3.0"
+    "mocha": "~1.17.1",
+    "rc": "~0.3.3"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/strongloop/loopback-connector-postgresql.git"
   },
-  "license": "StrongLoop"
+  "license": {
+    "name": "Dual Artistic-2.0/StrongLoop",
+    "url": "https://github.com/strongloop/strong-oracle/blob/master/LICENSE"
+  }
 }
