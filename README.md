@@ -8,10 +8,10 @@ The PostgreSQL Connector module for for [loopback-datasource-juggler](http://doc
 The connector can be configured using the following settings from the data source.
 
 * host or hostname (default to 'localhost'): The host name or ip address of the PostgreSQL DB server
-* port (default to 1521): The port number of the PostgreSQL DB server
+* port (default to 5432): The port number of the PostgreSQL DB server
 * username or user: The user name to connect to the PostgreSQL DB
 * password: The password
-* database (default to 'XE'): The PostgreSQL DB listener name
+* database: The PostgreSQL database name
 * debug (default to false)
 
 ## Discovering Models

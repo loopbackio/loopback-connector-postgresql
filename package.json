@@ -32,6 +32,6 @@
   },
   "license": {
     "name": "Dual Artistic-2.0/StrongLoop",
-    "url": "https://github.com/strongloop/strong-oracle/blob/master/LICENSE"
+    "url": "https://github.com/strongloop/loopback-connector-postgresql/blob/master/LICENSE"
   }
 }
