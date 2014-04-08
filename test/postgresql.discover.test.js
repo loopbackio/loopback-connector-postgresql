@@ -175,7 +175,6 @@ describe('Discover model foreign keys', function () {
 describe('Discover LDL schema from a table', function () {
   it('should return an LDL schema for inventory', function (done) {
     db.discoverSchema('inventory', {owner: 'strongloop'}, function (err, schema) {
-      // console.log('%j', schema);
       assert(schema.name === 'Inventory');
       assert(schema.options.postgresql.schema === 'strongloop');
       assert(schema.options.postgresql.table === 'inventory');
