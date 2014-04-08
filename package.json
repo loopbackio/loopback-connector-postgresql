@@ -14,17 +14,18 @@
     "test": "./run-tests"
   },
   "dependencies": {
-    "async": "~0.2.10",
-    "pg": "~2.11.1"
+    "async": "~0.7.0",
+    "pg": "~3.0.1",
+    "debug": "~0.8.0"
   },
   "peerDependencies": {
     "loopback-datasource-juggler": "1.x.x"
   },
   "devDependencies": {
     "loopback-datasource-juggler": "1.x.x",
-    "should": "~1.2.2",
-    "mocha": "~1.17.1",
-    "rc": "~0.3.3"
+    "should": "~1.3.0",
+    "mocha": "~1.18.2",
+    "rc": "~0.3.4"
   },
   "repository": {
     "type": "git",
