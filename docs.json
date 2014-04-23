@@ -1,8 +1,15 @@
 {
-"content": [
-    "README.md",
-    {"title": "LoopBack PostgreSQL Connector API", "depth": 2},
-    "lib/postgresql.js"
+  "content": [
+    {
+      "title": "LoopBack PostgreSQL Connector",
+      "depth": 2
+    },
+    "lib/postgresql.js",
+    {
+      "title": "Discovery API",
+      "depth": 2
+    },
+    "lib/discovery.js"
   ],
   "codeSectionDepth": 3
 }
