@@ -14,7 +14,7 @@ describe('PostgreSQL connector', function () {
       "options": {
         "idInjection": false,
         "postgresql": {
-          "schema": "test",
+          "schema": "public",
           "table": "customer_test"
         }
       },
@@ -47,7 +47,7 @@ describe('PostgreSQL connector', function () {
       "options": {
         "idInjection": false,
         "postgresql": {
-          "schema": "test",
+          "schema": "public",
           "table": "customer_test"
         }
       },
