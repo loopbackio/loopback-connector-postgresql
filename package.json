@@ -1,6 +1,6 @@
 {
   "name": "loopback-connector-postgresql",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Loopback PostgreSQL Connector",
   "keywords": [
     "StrongLoop",
@@ -14,7 +14,7 @@
     "test": "./run-tests"
   },
   "dependencies": {
-    "async": "~0.7.0",
+    "async": "~0.8.0",
     "pg": "~3.0.1",
     "debug": "~0.8.0"
   },
