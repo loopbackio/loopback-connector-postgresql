@@ -18,7 +18,7 @@ describe('Mapping models', function () {
       "options": {
         "idInjection": false,
         "postgresql": {
-          "schema": "strongloop", "table": "inventorytest"
+          "schema": "public", "table": "inventorytest"
         }
       },
       "properties": {
@@ -51,9 +51,10 @@ describe('Mapping models', function () {
         }
       }
     };
-    var models = db.buildModels(schema);
+    var models = db.modelBuilder.buildModels(schema);
     // console.log(models);
     var Model = models['TestInventory'];
+    Model.attachTo(db);
 
     db.automigrate(function (err, data) {
       async.series([
