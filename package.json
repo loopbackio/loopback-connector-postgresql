@@ -1,6 +1,6 @@
 {
   "name": "loopback-connector-postgresql",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Loopback PostgreSQL Connector",
   "keywords": [
     "StrongLoop",
