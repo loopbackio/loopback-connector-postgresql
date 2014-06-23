@@ -16,10 +16,8 @@
   "dependencies": {
     "async": "~0.9.0",
     "pg.js": "~3.2.0",
-    "debug": "~0.8.0"
-  },
-  "peerDependencies": {
-    "loopback-datasource-juggler": "1.x.x"
+    "debug": "~0.8.0",
+    "loopback-connector": "1.x"
   },
   "devDependencies": {
     "loopback-datasource-juggler": "1.x.x",
