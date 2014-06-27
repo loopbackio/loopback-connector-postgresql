@@ -117,8 +117,11 @@ describe('Discover model primary keys', function () {
         done(err);
       } else {
         models.forEach(function (m) {
-          // console.dir(m);
-          assert(m.tableName === 'product');
+          assert.deepEqual(m, { owner: 'strongloop',
+            tableName: 'product',
+            columnName: 'id',
+            keySeq: 1,
+            pkName: 'product_pkey' });
         });
         done(null, models);
       }
