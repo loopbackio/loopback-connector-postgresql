@@ -1,3 +1,4 @@
+var juggler = require('loopback-datasource-juggler');
 require('loopback-datasource-juggler/test/common.batch.js');
 require('loopback-datasource-juggler/test/include.test.js');
 
@@ -14,6 +15,7 @@ describe('postgresql connector', function () {
     Post = db.define('PostWithBoolean', {
       title: { type: String, length: 255, index: true },
       content: { type: String },
+      loc: 'GeoPoint',
       approved: Boolean
     });
   });
@@ -41,6 +43,20 @@ describe('postgresql connector', function () {
       Post.findById(p.id, function(err, p) {
         should.not.exists(err);
         p.should.have.property('approved', false);
+        done();
+      });
+    });
+  });
+
+  it('should support GeoPoint types', function(done) {
+    var GeoPoint = juggler.ModelBuilder.schemaTypes.geopoint;
+    var loc = new GeoPoint({lng: 10, lat: 20});
+    Post.create({title: 'T1', content: 'C1', loc: loc}, function(err, p) {
+      should.not.exists(err);
+      Post.findById(p.id, function(err, p) {
+        should.not.exists(err);
+        p.loc.lng.should.be.eql(10);
+        p.loc.lat.should.be.eql(20);
         done();
       });
     });
