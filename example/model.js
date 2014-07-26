@@ -9,7 +9,7 @@ var Account = ds.createModel('account', {
     name: String,
     emails: [String],
     age: Number},
-    {strcit: true});
+    {strict: true});
 
 ds.automigrate('account', function(err) {
 // Create two instances
