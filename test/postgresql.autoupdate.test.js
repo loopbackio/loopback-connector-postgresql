@@ -114,5 +114,18 @@ describe('PostgreSQL connector', function () {
       });
     });
   });
+
+  it('should report errors for automigrate', function() {
+    ds.automigrate('XYZ', function(err) {
+      assert(err);
+    });
+  });
+
+  it('should report errors for autoupdate', function() {
+    ds.autoupdate('XYZ', function(err) {
+      assert(err);
+    });
+  });
+
 });
 
