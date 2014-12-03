@@ -35,9 +35,11 @@ describe('postgresql connector', function () {
     });
   });
 
+  var post;
   it('should support boolean types with false value', function(done) {
-    Post.create({title: 'T1', content: 'C1', approved: false}, function(err, p) {
+    Post.create({title: 'T2', content: 'C2', approved: false}, function(err, p) {
       should.not.exists(err);
+      post = p;
       Post.findById(p.id, function(err, p) {
         should.not.exists(err);
         p.should.have.property('approved', false);
@@ -45,6 +47,29 @@ describe('postgresql connector', function () {
       });
     });
   });
+
+  it('should return the model instance for upsert', function(done) {
+    Post.upsert({id: post.id, title: 'T2_new', content: 'C2_new',
+      approved: true}, function(err, p) {
+      p.should.have.property('id', post.id);
+      p.should.have.property('title', 'T2_new');
+      p.should.have.property('content', 'C2_new');
+      p.should.have.property('approved', true);
+      done();
+    });
+  });
+
+  it('should return the model instance for upsert when id is not present',
+    function(done) {
+      Post.upsert({title: 'T2_new', content: 'C2_new', approved: true},
+        function(err, p) {
+          p.should.have.property('id');
+          p.should.have.property('title', 'T2_new');
+          p.should.have.property('content', 'C2_new');
+          p.should.have.property('approved', true);
+          done();
+        });
+    });
 
 });
 
