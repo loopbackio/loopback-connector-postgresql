@@ -31,7 +31,7 @@ describe('PostgreSQL connector', function () {
         },
         "email": {
           "type": "String",
-          "required": false,
+          "required": true,
           "length": 40
         },
         "age": {
@@ -65,7 +65,7 @@ describe('PostgreSQL connector', function () {
             "columnName": "email",
             "dataType": "varchar",
             "dataLength": 60,
-            "nullable": "Y"
+            "nullable": "YES"
           }
         },
         "firstName": {
@@ -90,6 +90,10 @@ describe('PostgreSQL connector', function () {
         var names = props.map(function (p) {
           return p.columnName;
         });
+        assert.equal(props[0].nullable, 'NO');
+        assert.equal(props[1].nullable, 'YES');
+        assert.equal(props[2].nullable, 'NO');
+        assert.equal(props[3].nullable, 'YES');
         assert.equal(names[0], 'id');
         assert.equal(names[1], 'name');
         assert.equal(names[2], 'email');
