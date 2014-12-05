@@ -1,3 +1,19 @@
+2014-12-05, Version 1.2.1
+=========================
+
+ * Update deps (Raymond Feng)
+
+ * Better handle nullable/required (Raymond Feng)
+
+
+2014-12-02, Version 1.2.0
+=========================
+
+ * Bump version (Raymond Feng)
+
+ * Fall back to default upsert implementation (Raymond Feng)
+
+
 2014-11-27, Version 1.1.5
 =========================
 
