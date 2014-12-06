@@ -23,10 +23,12 @@ describe('postgresql connector', function () {
       done();
     });
   });
-
+  
+  var post;
   it('should support boolean types with true value', function(done) {
     Post.create({title: 'T1', content: 'C1', approved: true}, function(err, p) {
       should.not.exists(err);
+      post = p;
       Post.findById(p.id, function(err, p) {
         should.not.exists(err);
         p.should.have.property('approved', true);
@@ -35,7 +37,18 @@ describe('postgresql connector', function () {
     });
   });
 
-  var post;
+  it('should support updating boolean types with false value', function(done) {
+    Post.update({id: post.id}, {approved: false}, function(err, p) {
+      should.not.exists(err);
+      Post.findById(p.id, function(err, p) {
+        should.not.exists(err);
+        p.should.have.property('approved', false);
+        done();
+      });
+    });
+  });
+
+
   it('should support boolean types with false value', function(done) {
     Post.create({title: 'T2', content: 'C2', approved: false}, function(err, p) {
       should.not.exists(err);
