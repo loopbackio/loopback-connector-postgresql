@@ -1,3 +1,15 @@
+2014-12-13, Version 1.2.2
+=========================
+
+ * allow false value for BOOLEAN NOT NULL column (slively)
+
+ * use null if param is undefined (Adrian Debbeler)
+
+ * added test for updating false values (Adrian Debbeler)
+
+ * allow false values as params (Adrian Debbeler)
+
+
 2014-12-05, Version 1.2.1
 =========================
 
