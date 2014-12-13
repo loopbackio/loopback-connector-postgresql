@@ -38,9 +38,9 @@ describe('postgresql connector', function () {
   });
 
   it('should support updating boolean types with false value', function(done) {
-    Post.update({id: post.id}, {approved: false}, function(err, p) {
+    Post.update({id: post.id}, {approved: false}, function(err) {
       should.not.exists(err);
-      Post.findById(p.id, function(err, p) {
+      Post.findById(post.id, function(err, p) {
         should.not.exists(err);
         p.should.have.property('approved', false);
         done();
