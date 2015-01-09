@@ -1,3 +1,11 @@
+2015-01-09, Version 1.3.0
+=========================
+
+ * Escape number literals to avoid SQL injection (Raymond Feng)
+
+ * Fix bad CLA URL in CONTRIBUTING.md (Ryan Graham)
+
+
 2014-12-13, Version 1.2.2
 =========================
 
