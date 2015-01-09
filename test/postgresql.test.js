@@ -84,6 +84,46 @@ describe('postgresql connector', function () {
         });
     });
 
+  it('should escape number values to defect SQL injection in findById',
+    function(done) {
+      Post.findById('(SELECT 1+1)', function(err, p) {
+        should.exists(err);
+        done();
+      });
+    });
+
+  it('should escape number values to defect SQL injection in find',
+    function(done) {
+      Post.find({where: {id: '(SELECT 1+1)'}}, function(err, p) {
+        should.exists(err);
+        done();
+      });
+    });
+
+  it('should escape number values to defect SQL injection in find with gt',
+    function(done) {
+      Post.find({where: {id: {gt: '(SELECT 1+1)'}}}, function(err, p) {
+        should.exists(err);
+        done();
+      });
+    });
+
+  it('should escape number values to defect SQL injection in find',
+    function(done) {
+      Post.find({limit: '(SELECT 1+1)'}, function(err, p) {
+        should.exists(err);
+        done();
+      });
+    });
+
+  it('should escape number values to defect SQL injection in find with inq',
+    function(done) {
+      Post.find({where: {id: {inq: ['(SELECT 1+1)']}}}, function(err, p) {
+        should.exists(err);
+        done();
+      });
+    });
+
 });
 
 // FIXME: The following test cases are to be reactivated for PostgreSQL
