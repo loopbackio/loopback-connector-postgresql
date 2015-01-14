@@ -10,7 +10,7 @@ lib-cov
 *.out
 *.pid
 *.gz
-
+.lvimrc
 pids
 logs
 results
