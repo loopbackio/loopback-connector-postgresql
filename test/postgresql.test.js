@@ -63,7 +63,6 @@ describe('postgresql connector', function () {
     });
   });
 
-<<<<<<< HEAD
   it('should return the model instance for upsert', function(done) {
     Post.upsert({id: post.id, title: 'T2_new', content: 'C2_new',
       approved: true}, function(err, p) {
