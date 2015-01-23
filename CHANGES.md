@@ -1,3 +1,21 @@
+2015-01-23, Version 1.4.0
+=========================
+
+ * Remove the usage of `CREATE SCHEMA IF NOT EXISTS' for compatibility (Raymond Feng)
+
+ * one-line fix for #51 (Andrey Loukhnov)
+
+ * basic tests for PR #53 (Andrey Loukhnov)
+
+ * basic tests for PR #54 (Andrey Loukhnov)
+
+ * provide database column default values via Loopback model description (Andrey Loukhnov)
+
+ * autocreate schema if it does not exist during migration/update (Andrey Loukhnov)
+
+ * Use connection pooling from the driver (Raymond Feng)
+
+
 2015-01-09, Version 1.3.0
 =========================
 
