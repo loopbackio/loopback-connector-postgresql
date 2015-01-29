@@ -1,3 +1,17 @@
+2015-01-29, Version 1.5.0
+=========================
+
+ * added more tests to cover changes introduced by "filter undefined fields" commit (Andrey Loukhnov)
+
+ * code formatting settings for multiple IDEs (Andrey Loukhnov)
+
+ * Fix merging issue (Raymond Feng)
+
+ * Typecast lat/lng values to number. (Berkeley Martinez)
+
+ * Add support for GeoPoint type (Raymond Feng)
+
+
 2015-01-23, Version 1.4.0
 =========================
 

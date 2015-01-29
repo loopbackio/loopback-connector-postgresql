@@ -195,3 +195,17 @@ describe('Discover LDL schema from a table', function () {
     });
   });
 });
+
+describe('Discover and build models', function() {
+  it('should build a model from discovery', function(done) {
+
+    db.discoverAndBuildModels('GeoPoint', {schema: 'strongloop'}, function(err, schema) {
+      schema.Geopoint.find(function(err, data) {
+        assert(!err);
+        assert(Array.isArray(data));
+        assert(data[0].location);
+        done();
+      });
+    });
+  });
+});
