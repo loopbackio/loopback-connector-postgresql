@@ -1,4 +1,10 @@
-2015-01-29, Version 1.5.0
+2015-02-21, Version 1.6.0
+=========================
+
+ * Upgrade deps (Raymond Feng)
+
+
+2015-01-28, Version 1.5.0
 =========================
 
  * added more tests to cover changes introduced by "filter undefined fields" commit (Andrey Loukhnov)
