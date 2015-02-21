@@ -78,7 +78,7 @@ describe('Mapping models', function () {
               r.should.have.property('productId');
               r.should.have.property('locationId');
               r.should.have.property('available');
-              r.should.not.have.property('total');
+              r.should.have.property('total', undefined);
             });
             callback(null, results);
           });
@@ -91,7 +91,7 @@ describe('Mapping models', function () {
               r.should.have.property('productId');
               r.should.have.property('locationId');
               r.should.have.property('available');
-              r.should.not.have.property('total');
+              r.should.have.property('total', undefined);
             });
             callback(null, results);
           });
