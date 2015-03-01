@@ -1,4 +1,10 @@
-2015-02-21, Version 1.6.0
+2015-03-01, Version 1.6.1
+=========================
+
+ * Fix the conversion of point types due to driver changes (Raymond Feng)
+
+
+2015-02-20, Version 1.6.0
 =========================
 
  * Upgrade deps (Raymond Feng)
