@@ -1,4 +1,14 @@
-2015-03-01, Version 1.6.1
+2015-04-02, Version 1.7.0
+=========================
+
+ * Update deps (Raymond Feng)
+
+ * Return count when updating or deleting models (Simon Ho)
+
+ * Add instructions to running tests section (Simon Ho)
+
+
+2015-02-28, Version 1.6.1
 =========================
 
  * Fix the conversion of point types due to driver changes (Raymond Feng)
