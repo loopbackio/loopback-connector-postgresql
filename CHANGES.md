@@ -1,3 +1,9 @@
+2015-05-11, Version 1.7.1
+=========================
+
+ * Make sure err is reported (Raymond Feng)
+
+
 2015-04-02, Version 1.7.0
 =========================
 
