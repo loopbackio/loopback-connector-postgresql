@@ -1,3 +1,11 @@
+2015-05-13, Version 2.0.0
+=========================
+
+ * Update deps (Raymond Feng)
+
+ * Refactor the connector impl to use base sql connector (Raymond Feng)
+
+
 2015-05-11, Version 1.7.1
 =========================
 
