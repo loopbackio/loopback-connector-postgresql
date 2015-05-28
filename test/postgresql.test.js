@@ -2,10 +2,10 @@ var juggler = require('loopback-datasource-juggler');
 require('loopback-datasource-juggler/test/common.batch.js');
 require('loopback-datasource-juggler/test/include.test.js');
 
-
+require('./init');
 var should = require('should');
 
-var Post, db;
+var Post, db, created;
 
 describe('postgresql connector', function () {
 
@@ -16,8 +16,10 @@ describe('postgresql connector', function () {
       title: { type: String, length: 255, index: true },
       content: { type: String },
       loc: 'GeoPoint',
+      created: Date,
       approved: Boolean
     });
+    created = new Date();
   });
 
   it('should run migration', function (done) {
@@ -25,10 +27,12 @@ describe('postgresql connector', function () {
       done();
     });
   });
-  
+
   var post;
   it('should support boolean types with true value', function(done) {
-    Post.create({title: 'T1', content: 'C1', approved: true}, function(err, p) {
+    Post.create(
+      {title: 'T1', content: 'C1', approved: true, created: created},
+      function(err, p) {
       should.not.exists(err);
       post = p;
       Post.findById(p.id, function(err, p) {
@@ -50,9 +54,10 @@ describe('postgresql connector', function () {
     });
   });
 
-
   it('should support boolean types with false value', function(done) {
-    Post.create({title: 'T2', content: 'C2', approved: false}, function(err, p) {
+    Post.create(
+      {title: 'T2', content: 'C2', approved: false, created: created},
+      function(err, p) {
       should.not.exists(err);
       post = p;
       Post.findById(p.id, function(err, p) {
@@ -60,6 +65,29 @@ describe('postgresql connector', function () {
         p.should.have.property('approved', false);
         done();
       });
+    });
+  });
+
+  it('should support date types with eq', function(done) {
+    Post.find({
+      where: {created: created}
+    }, function(err, posts) {
+      if(err) return done(err);
+      posts.length.should.eql(2);
+      done();
+    });
+  });
+
+  it('should support date types with between', function(done) {
+    Post.find({
+      where: {
+        created: {
+          between: [new Date(Date.now() - 5000), new Date(Date.now() + 5000)]
+        }}
+    }, function(err, posts) {
+      if(err) return done(err);
+      posts.length.should.eql(2);
+      done();
     });
   });
 
