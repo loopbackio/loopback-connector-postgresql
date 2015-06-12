@@ -38,6 +38,7 @@ describe('postgresql connector', function () {
       Post.findById(p.id, function(err, p) {
         should.not.exists(err);
         p.should.have.property('approved', true);
+        p.created.getTime().should.be.eql(created.getTime());
         done();
       });
     });
