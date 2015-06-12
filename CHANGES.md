@@ -1,3 +1,11 @@
+2015-06-12, Version 2.2.0
+=========================
+
+ * Make sure UTC is used for date (Raymond Feng)
+
+ * Add a test case for date type (Raymond Feng)
+
+
 2015-05-18, Version 2.1.0
 =========================
 
