@@ -1,3 +1,9 @@
+2015-07-15, Version 2.2.1
+=========================
+
+ * include the length of the column if its a char type. change character varying to varchar to match columnDataType method (Brandon Cooper)
+
+
 2015-06-12, Version 2.2.0
 =========================
 
