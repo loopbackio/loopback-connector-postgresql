@@ -206,6 +206,15 @@ describe('postgresql connector', function () {
           console.warn.restore();
         });
 
+        it('should work', function(done) {
+          Post.find({where: {content: {regexp: '^a/i'}}}, function(err, posts) {
+            should.not.exist(err);
+            posts.length.should.equal(1);
+            posts[0].content.should.equal('AAA');
+            done();
+          });
+        });
+
         it('should print a warning when the global flag is set',
             function(done) {
           Post.find({where: {content: {regexp: '^a/g'}}}, function(err, posts) {
@@ -234,7 +243,6 @@ describe('postgresql connector', function () {
             done();
           });
         });
-
       });
 
       context('using flags', function() {
@@ -243,6 +251,15 @@ describe('postgresql connector', function () {
         });
         afterEach(function removeSpy()  {
           console.warn.restore();
+        });
+
+        it('should work', function(done) {
+          Post.find({where: {content: {regexp: /^a/i}}}, function(err, posts) {
+            should.not.exist(err);
+            posts.length.should.equal(1);
+            posts[0].content.should.equal('AAA');
+            done();
+          });
         });
 
         it('should print a warning when the global flag is set',
@@ -284,6 +301,16 @@ describe('postgresql connector', function () {
       });
 
       context('using flags', function() {
+        it('should work', function(done) {
+          Post.find({where: {content: {regexp: new RegExp(/^a/i)}}},
+              function(err, posts) {
+            should.not.exist(err);
+            posts.length.should.equal(1);
+            posts[0].content.should.equal('AAA');
+            done();
+          });
+        });
+
         it('should print a warning when the global flag is set',
             function(done) {
           Post.find({where: {content: {regexp: /^a/g}}}, function(err, posts) {
