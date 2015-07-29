@@ -313,7 +313,7 @@ describe('postgresql connector', function () {
 
         it('should print a warning when the global flag is set',
             function(done) {
-          Post.find({where: {content: {regexp: /^a/g}}}, function(err, posts) {
+          Post.find({where: {content: {regexp: new RegExp(/^a/g)}}}, function(err, posts) {
             console.warn.calledOnce.should.be.ok;
             done();
           });
@@ -321,7 +321,7 @@ describe('postgresql connector', function () {
 
         it('should print a warning when the multiline flag is set',
             function(done) {
-          Post.find({where: {content: {regexp: /^a/m}}}, function(err, posts) {
+          Post.find({where: {content: {regexp: new RegExp(/^a/m)}}}, function(err, posts) {
             console.warn.calledOnce.should.be.ok;
             done();
           });
