@@ -32,7 +32,11 @@ describe('PostgreSQL connector', function () {
         "email": {
           "type": "String",
           "required": true,
-          "length": 40
+          "length": 40,
+          "index": {
+            "unique": false,
+            "type": "hash"
+          }
         },
         "age": {
           "type": "Number",
@@ -55,7 +59,8 @@ describe('PostgreSQL connector', function () {
         "id": {
           "type": "String",
           "length": 20,
-          "id": 1
+          "id": 1,
+          "index": {"unique": true}
         },
         "email": {
           "type": "String",
@@ -66,12 +71,14 @@ describe('PostgreSQL connector', function () {
             "dataType": "varchar",
             "dataLength": 60,
             "nullable": "YES"
-          }
+          },
+          "index": true
         },
         "firstName": {
           "type": "String",
           "required": false,
-          "length": 40
+          "length": 40,
+          "index": true
         },
         "lastName": {
           "type": "String",
@@ -99,20 +106,79 @@ describe('PostgreSQL connector', function () {
         assert.equal(names[2], 'email');
         assert.equal(names[3], 'age');
 
-        ds.createModel(schema_v2.name, schema_v2.properties, schema_v2.options);
+        // check indexes
+        ds.connector.discoverModelIndexes('CustomerTest', function (err, indexes) {
+          assert.deepEqual(indexes, {
+            customer_test_email_idx: {
+              table: 'customer_test',
+              type: 'hash',
+              primary: false,
+              unique: false,
+              keys: ['email'],
+              order: ['ASC'] },
 
-        ds.autoupdate(function (err, result) {
-          ds.discoverModelProperties('customer_test', function (err, props) {
-            assert.equal(props.length, 4);
-            var names = props.map(function (p) {
-              return p.columnName;
+            customer_test_pkey: {
+              table: 'customer_test',
+              type: 'btree',
+              primary: true,
+              unique: true,
+              keys: ['id'],
+              order: ['ASC'] }
+          });
+
+          ds.createModel(schema_v2.name, schema_v2.properties, schema_v2.options);
+
+          ds.autoupdate(function (err, result) {
+            ds.discoverModelProperties('customer_test', function (err, props) {
+              assert.equal(props.length, 4);
+              var names = props.map(function (p) {
+                return p.columnName;
+              });
+              assert.equal(names[0], 'id');
+              assert.equal(names[1], 'email');
+              assert.equal(names[2], 'firstname');
+              assert.equal(names[3], 'lastname');
+
+              // verify that indexes have been updated
+              ds.connector.discoverModelIndexes('CustomerTest', function (err, indexes) {
+                assert.deepEqual(indexes, {
+                  customer_test_pkey: {
+                    table: 'customer_test',
+                    type: 'btree',
+                    primary: true,
+                    unique: true,
+                    keys: [ 'id' ],
+                    order: [ 'ASC' ] },
+
+                  customer_test_id_idx: {
+                    table: 'customer_test',
+                    type: 'btree',
+                    primary: false,
+                    unique: true,
+                    keys: [ 'id' ],
+                    order: [ 'ASC' ] },
+
+                  customer_test_email_idx: {
+                    table: 'customer_test',
+                    type: 'hash',
+                    primary: false,
+                    unique: false,
+                    keys: [ 'email' ],
+                    order: [ 'ASC' ] },
+
+                  customer_test_firstname_idx: {
+                    table: 'customer_test',
+                    type: 'btree',
+                    primary: false,
+                    unique: false,
+                    keys: [ 'firstname' ],
+                    order: [ 'ASC' ] }
+                });
+
+                // console.log(err, result);
+                done(err, result);
+              });
             });
-            assert.equal(names[0], 'id');
-            assert.equal(names[1], 'email');
-            assert.equal(names[2], 'firstname');
-            assert.equal(names[3], 'lastname');
-            // console.log(err, result);
-            done(err, result);
           });
         });
       });

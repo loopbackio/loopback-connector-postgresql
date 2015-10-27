@@ -55,10 +55,18 @@ describe('database default field values', function() {
         " where table_name = 'postwithdbdefaultvalue'" +
         " and column_name='created'";
 
-      db.connector.execute(query, function(err, results) {
-        assert.equal(results[0].column_default, "now()");
-        done(err);
-      });
+      function verifyColumnDefault() {
+        db.connector.execute(query, [], function(err, results) {
+          assert.equal(results[0].column_default, "now()");
+          done(err);
+        });
+      }
+
+      if (db.connected) {
+        verifyColumnDefault();
+      } else {
+        db.once('connected', verifyColumnDefault);
+      }
     });
 
   it('should create a record with default value', function(done) {

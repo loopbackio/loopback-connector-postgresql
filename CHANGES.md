@@ -1,3 +1,41 @@
+2015-07-30, Version 2.3.0
+=========================
+
+ * Clean up regexp operator tests (Simon Ho)
+
+ * Fix regexp operator test (Simon Ho)
+
+ * Add regexp operator tests (Simon Ho)
+
+ * Add support for RegExp operator (Simon Ho)
+
+ * Clean up buildExpression function (Simon Ho)
+
+ * Remove NOTICE that doesn't apply (Raymond Feng)
+
+
+2015-07-14, Version 2.2.1
+=========================
+
+ * include the length of the column if its a char type. change character varying to varchar to match columnDataType method (Brandon Cooper)
+
+
+2015-06-12, Version 2.2.0
+=========================
+
+ * Make sure UTC is used for date (Raymond Feng)
+
+ * Add a test case for date type (Raymond Feng)
+
+
+2015-05-18, Version 2.1.0
+=========================
+
+ * Update deps (Raymond Feng)
+
+ * Add transaction support (Raymond Feng)
+
+
 2015-05-13, Version 2.0.0
 =========================
 

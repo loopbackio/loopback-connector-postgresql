@@ -9,3 +9,5 @@ global.getDataSource = global.getSchema = function () {
   };
   return db;
 };
+
+global.sinon = require('sinon');
