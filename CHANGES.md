@@ -1,3 +1,15 @@
+2015-11-07, Version 2.4.0
+=========================
+
+ * Refer to licenses with a link (Sam Roberts)
+
+ * Use strongloop conventions for licensing (Sam Roberts)
+
+ * Fix the error handling for createTable (Raymond Feng)
+
+ * Add index implementation (Mark Riedesel)
+
+
 2015-07-30, Version 2.3.0
 =========================
 

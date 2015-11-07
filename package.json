@@ -1,6 +1,6 @@
 {
   "name": "loopback-connector-postgresql",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "description": "Loopback PostgreSQL Connector",
   "keywords": [
     "StrongLoop",
@@ -33,6 +33,6 @@
   },
   "license": "Artistic-2.0",
   "optionalDependencies": {
-    "sl-blip": "http://blip.strongloop.com/loopback-connector-postgresql@2.3.0"
+    "sl-blip": "http://blip.strongloop.com/loopback-connector-postgresql@2.4.0"
   }
 }
