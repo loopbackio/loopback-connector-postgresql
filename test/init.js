@@ -7,7 +7,7 @@ if (process.env.CI) {
     host: process.env.POSTGRESQL_HOST || config.host || 'localhost',
     port: process.env.POSTGRESQL_PORT || config.port || 5432,
     database: 'test',
-    username: process.env.POSTGRESQL_USERNAME || config.username,
+    username: process.env.POSTGRESQL_USER || config.username,
     password: process.env.POSTGRESQL_PASSWORD || config.password
   };
 }
