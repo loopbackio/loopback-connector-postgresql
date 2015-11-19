@@ -4,11 +4,11 @@ var config = require('rc')('loopback', {test: {postgresql: {}}}).test.postgresql
 
 if (process.env.CI) {
   config = {
-    host: process.env.POSTGRESQL_HOST || config.host || 'localhost',
-    port: process.env.POSTGRESQL_PORT || config.port || 5432,
+    host: process.env.TEST_POSTGRESQL_HOST || config.host || 'localhost',
+    port: process.env.TEST_POSTGRESQL_PORT || config.port || 5432,
     database: 'test',
-    username: process.env.POSTGRESQL_USER || config.username,
-    password: process.env.POSTGRESQL_PASSWORD || config.password
+    username: process.env.TEST_POSTGRESQL_USER || config.username,
+    password: process.env.TEST_POSTGRESQL_PASSWORD || config.password
   };
 }
 
