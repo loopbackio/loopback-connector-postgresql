@@ -31,8 +31,5 @@
     "type": "git",
     "url": "https://github.com/strongloop/loopback-connector-postgresql.git"
   },
-  "license": "Artistic-2.0",
-  "optionalDependencies": {
-    "sl-blip": "http://blip.strongloop.com/loopback-connector-postgresql@2.4.0"
-  }
+  "license": "Artistic-2.0"
 }
