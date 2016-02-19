@@ -1,3 +1,17 @@
+2016-02-19, Version 2.4.1
+=========================
+
+ * Remove sl-blip from dependencies (Miroslav Bajtoš)
+
+ * Upgrade should to 8.0.2 (Simon Ho)
+
+ * Seperate env variable for test db (cgole)
+
+ * changed USERNAME to USER (cgole)
+
+ * add CI DB server (cgole)
+
+
 2015-11-07, Version 2.4.0
 =========================
 
