@@ -197,5 +197,47 @@ describe('PostgreSQL connector', function () {
     });
   });
 
+  it('should produce valid sql for setting column nullability', function(done) {
+    // Initial schema
+    var schema_v1 =
+    {
+      "name": "NamePersonTest",
+      "options": {
+        "idInjection": false,
+        "postgresql": {
+          "schema": "public",
+          "table": "name_person_test"
+        }
+      },
+      "properties": {
+        "id": {
+          "type": "String",
+          "length": 20,
+          "id": 1
+        },
+        "name": {
+          "type": "String",
+          "required": false,
+          "length": 40
+        }
+      }
+    };
+
+    // Change nullability
+    var schema_v2 = JSON.parse(JSON.stringify(schema_v1));
+    schema_v2.properties.name.required = true;
+
+    // Create initial schema
+    ds.createModel(schema_v1.name, schema_v1.properties, schema_v1.options);
+    ds.automigrate(function () {
+      // Create updated schema
+      ds.createModel(schema_v2.name, schema_v2.properties, schema_v2.options);
+      ds.connector.getTableStatus(schema_v2.name, function (err, actualFields) {
+        var sql = ds.connector.getPropertiesToModify(schema_v2.name, actualFields)[0];
+        assert.equal(sql, 'ALTER COLUMN "name" SET NOT NULL', 'Check that the SQL is correctly spaced.');
+        done();
+      });
+    });
+  });
 });
 
