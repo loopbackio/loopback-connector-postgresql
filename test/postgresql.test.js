@@ -1,4 +1,5 @@
 var juggler = require('loopback-datasource-juggler');
+var CreateDS = juggler.DataSource;
 require('loopback-datasource-juggler/test/common.batch.js');
 require('loopback-datasource-juggler/test/include.test.js');
 
@@ -6,6 +7,46 @@ require('./init');
 var should = require('should');
 
 var Post, db, created;
+
+describe('lazyConnect', function() {
+  it('should skip connect phase (lazyConnect = true)', function(done) {
+    var dsConfig = {
+      host: '127.0.0.1',
+      port: 4,
+      lazyConnect: true,
+      debug: false,
+    };
+    var ds = getDS(dsConfig);
+
+    var errTimeout = setTimeout(function() {
+      done();
+    }, 2000);
+    ds.on('error', function(err) {
+      clearTimeout(errTimeout);
+      done(err);
+    });
+  });
+
+  it('should report connection error (lazyConnect = false)', function(done) {
+    var dsConfig = {
+      host: '127.0.0.1',
+      port: 4,
+      lazyConnect: false,
+      debug: false,
+    };
+    var ds = getDS(dsConfig);
+
+    ds.on('error', function(err) {
+      err.message.should.containEql('ECONNREFUSED');
+      done();
+    });
+  });
+});
+
+getDS = function(config) {
+  var db = new CreateDS(require('../'), config);
+  return db;
+};
 
 describe('postgresql connector', function () {
 
