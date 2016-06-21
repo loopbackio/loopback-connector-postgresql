@@ -1,3 +1,23 @@
+2016-06-21, Version 2.5.0
+=========================
+
+ * update/insert copyright notices (Ryan Graham)
+
+ * relicense as Artistic-2.0 only (Ryan Graham)
+
+ * Lazy connect when booting from swagger (juehou)
+
+ * Fix typo in SET NOT NULL migration. (Jonas Peter Hyatt)
+
+ * Reverts previous change (jimmylimm)
+
+ * Revert "Moves the default back to VARCHAR(1024) from text" (James Limmer)
+
+ * Moves the default back to VARCHAR(1024) from text (James Limmer)
+
+ * - Adds support for long JSON strings when using `embedOne` from other models. - Converts JSON columns to TEXT for extra length allowance (James Limmer)
+
+
 2016-02-19, Version 2.4.1
 =========================
 
