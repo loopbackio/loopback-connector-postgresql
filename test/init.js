@@ -17,8 +17,8 @@ if (process.env.CI) {
   };
 }
 
-var url = 'postgres://' + config.username || config.user + ':' +
-  config.password + '@' + config.host || config.hostname + ':' +
+var url = 'postgres://' + (config.username || config.user) + ':' +
+  config.password + '@' + (config.host || config.hostname) + ':' +
   config.port + '/' + config.database;
 
 global.getDataSource = global.getSchema = function(useUrl) {
@@ -26,7 +26,7 @@ global.getDataSource = global.getSchema = function(useUrl) {
   if (useUrl) {
     settings = {url: url};
   }
-  var db = new DataSource(require('../'), config);
+  var db = new DataSource(require('../'), settings);
   db.log = function(a) {
     // console.log(a);
   };
