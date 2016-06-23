@@ -13,7 +13,7 @@ var db, Post;
 describe('transactions', function() {
 
   before(function(done) {
-    db = getDataSource();
+    db = getDataSource(true);
     Post = db.define('PostTX', {
       title: {type: String, length: 255, index: true},
       content: {type: String}

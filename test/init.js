@@ -17,9 +17,17 @@ if (process.env.CI) {
   };
 }
 
-global.getDataSource = global.getSchema = function () {
+var url = 'postgres://' + config.username || config.user + ':' +
+  config.password + '@' + config.host || config.hostname + ':' +
+  config.port + '/' + config.database;
+
+global.getDataSource = global.getSchema = function(useUrl) {
+  var settings = config;
+  if (useUrl) {
+    settings = {url: url};
+  }
   var db = new DataSource(require('../'), config);
-  db.log = function (a) {
+  db.log = function(a) {
     // console.log(a);
   };
   return db;
