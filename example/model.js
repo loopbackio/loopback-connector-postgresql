@@ -2,6 +2,8 @@
 // Node module: loopback-connector-postgresql
 // This file is licensed under the Artistic License 2.0.
 // License text available at https://opensource.org/licenses/Artistic-2.0
+var SG = require('strong-globalize');
+var g = SG();
 
 var DataSource = require('loopback-datasource-juggler').DataSource;
 

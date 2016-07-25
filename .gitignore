@@ -17,3 +17,7 @@ results
 
 npm-debug.log
 docs
+
+!intl/
+intl/*
+!intl/en/
