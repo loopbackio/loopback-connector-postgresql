@@ -18,7 +18,7 @@
     "debug": "^2.1.1",
     "loopback-connector": "^2.1.0",
     "pg": "^6.0.0",
-    "strong-globalize": "^2.5.7"
+    "strong-globalize": "^2.5.8"
   },
   "devDependencies": {
     "bluebird": "^2.9.12",
