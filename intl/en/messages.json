@@ -1,0 +1,9 @@
+{
+  "a0078d732b2dbabf98ed2efcdb55b402": "{{table}} is a required string argument: {0}",
+  "fc3b8fde2e08c74cafb55f25c4841a4b": "{{options}} must be an object: {0}",
+  "16cbc6b164ad51e193938132d059ce3f": "{{Index keys}} definition appears to be invalid: {0}",
+  "80a32e80cbed65eba2103201a7c94710": "Model not found: {0}",
+  "1752695ee513f17d70e82753c0b6ef1a": "{{PostgreSQL}} regex syntax does not respect the {{`m`}} flag",
+  "b811d24a7d249e0aedff11523626fbfd": "{{Placeholder}} for identifiers is not supported",
+  "bfe8fb104f017b365e64da57ed975db6": "{{PostgreSQL}} regex syntax does not respect the {{`g`}} flag"
+}
