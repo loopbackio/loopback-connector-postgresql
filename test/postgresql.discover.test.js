@@ -12,7 +12,8 @@ var DataSource = require('loopback-datasource-juggler').DataSource;
 var db;
 
 before(function () {
-  var config = require('rc')('loopback', {dev: {postgresql: {}}}).dev.postgresql;
+  var config = getDBConfig();
+  config.database = 'strongloop';
   db = new DataSource(require('../'), config);
 });
 
