@@ -11,7 +11,7 @@ if (process.env.CI) {
   config = {
     host: process.env.TEST_POSTGRESQL_HOST || config.host || 'localhost',
     port: process.env.TEST_POSTGRESQL_PORT || config.port || 5432,
-    database: 'test',
+    database: process.env.TEST_POSTGRESQL_DATABASE || 'emptytest',
     username: process.env.TEST_POSTGRESQL_USER || config.username,
     password: process.env.TEST_POSTGRESQL_PASSWORD || config.password
   };
