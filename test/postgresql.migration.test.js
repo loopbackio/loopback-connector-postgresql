@@ -82,7 +82,7 @@ function setup(done) {
 
   db = getSchema();
 
-  UserDataWithIndexes = db.define('UserDataWithIndexes', {
+  var UserDataWithIndexes = db.define('UserDataWithIndexes', {
     email: {type: String, null: false, index: true},
     name: String,
     bio: Schema.Text,
