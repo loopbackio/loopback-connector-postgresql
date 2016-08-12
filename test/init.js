@@ -3,6 +3,7 @@
 // This file is licensed under the Artistic License 2.0.
 // License text available at https://opensource.org/licenses/Artistic-2.0
 
+'use strict';
 var DataSource = require('loopback-datasource-juggler').DataSource;
 
 var config = require('rc')('loopback', {test: {postgresql: {}}}).test.postgresql;
@@ -35,7 +36,7 @@ global.getDBConfig = function(useUrl) {
     settings = {url: url};
   };
   return settings;
-}
+};
 global.getDataSource = global.getSchema = function(useUrl) {
   var settings = getDBConfig(useUrl);
   var db = new DataSource(require('../'), settings);
