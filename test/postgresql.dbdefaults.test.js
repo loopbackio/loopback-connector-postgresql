@@ -3,7 +3,6 @@
 // This file is licensed under the Artistic License 2.0.
 // License text available at https://opensource.org/licenses/Artistic-2.0
 
-'use strict';
 var should = require('should'),
   assert = require('assert');
 var InvalidDefault, Post, db;
@@ -16,27 +15,27 @@ describe('database default field values', function() {
       created: {
         type: 'Date',
         postgresql: {
-          dbDefault: 'now()',
-        },
+          dbDefault: "now()"
+        }
       },
       defaultInt: {
         type: 'Number',
         postgresql: {
-          dbDefault: '5',
-        },
+          dbDefault: "5"
+        }
       },
       oneMore: {
-        type: 'Number',
-      },
+        type: 'Number'
+      }
     });
 
     InvalidDefault = db.define('PostWithInvalidDbDefaultValue', {
       created: {
         type: 'Date',
         postgresql: {
-          dbDefault: "'5'",
-        },
-      },
+          dbDefault: "'5'"
+        }
+      }
     });
   });
 
@@ -55,15 +54,15 @@ describe('database default field values', function() {
 
   it('should have \'now()\' default value in SQL column definition',
     function(done) {
-      var query = 'select column_name, data_type, character_maximum_length,' +
-        ' column_default' +
-        ' from information_schema.columns' +
+      var query = "select column_name, data_type, character_maximum_length," +
+        " column_default" +
+        " from information_schema.columns" +
         " where table_name = 'postwithdbdefaultvalue'" +
         " and column_name='created'";
 
       function verifyColumnDefault() {
         db.connector.execute(query, [], function(err, results) {
-          assert.equal(results[0].column_default, 'now()');
+          assert.equal(results[0].column_default, "now()");
           done(err);
         });
       }
@@ -98,4 +97,4 @@ describe('database default field values', function() {
       });
     });
   });
-});
+})
