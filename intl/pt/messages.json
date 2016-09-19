@@ -1,0 +1,10 @@
+{
+  "a0078d732b2dbabf98ed2efcdb55b402": "{{table}} é um argumento de sequência necessário: {0}",
+  "fc3b8fde2e08c74cafb55f25c4841a4b": "{{options}} deve ser um objeto: {0}",
+  "16cbc6b164ad51e193938132d059ce3f": "Definição de {{Index keys}} parece ser inválida: {0}",
+  "80a32e80cbed65eba2103201a7c94710": "Modelo não localizado: {0}",
+  "1752695ee513f17d70e82753c0b6ef1a": "Sintaxe regex de {{PostgreSQL}} não respeita a sinalização {{`m`}}",
+  "b811d24a7d249e0aedff11523626fbfd": "{{Placeholder}} para identificadores não é suportado",
+  "bfe8fb104f017b365e64da57ed975db6": "Sintaxe regex de {{PostgreSQL}} não respeita a sinalização {{`g`}}"
+}
+

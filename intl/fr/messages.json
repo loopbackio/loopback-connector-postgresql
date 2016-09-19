@@ -1,0 +1,10 @@
+{
+  "a0078d732b2dbabf98ed2efcdb55b402": "{{table}} est un argument de chaîne obligatoire : {0}",
+  "fc3b8fde2e08c74cafb55f25c4841a4b": "{{options}} doit être un objet : {0}",
+  "16cbc6b164ad51e193938132d059ce3f": "La définition {{Index keys}} s'avère non valide : {0}",
+  "80a32e80cbed65eba2103201a7c94710": "Modèle introuvable : {0}",
+  "1752695ee513f17d70e82753c0b6ef1a": "La syntaxe {{PostgreSQL}} regex ne respecte pas l'indicateur {{`m`}}",
+  "b811d24a7d249e0aedff11523626fbfd": "{{Placeholder}} pour les identificateurs n'est pas pris en charge",
+  "bfe8fb104f017b365e64da57ed975db6": "La syntaxe {{PostgreSQL}} regex ne respecte pas l'indicateur {{`g`}}"
+}
+
