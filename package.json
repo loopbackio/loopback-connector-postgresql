@@ -27,7 +27,7 @@
   "devDependencies": {
     "eslint": "^2.13.1",
     "eslint-config-loopback": "^4.0.0",
-    "loopback-datasource-juggler": "^3.0.0-alpha.8",
+    "loopback-datasource-juggler": "^3.0.0",
     "mocha": "^2.1.0",
     "rc": "^1.0.0",
     "should": "^8.0.2",
