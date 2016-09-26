@@ -1,0 +1,10 @@
+{
+  "a0078d732b2dbabf98ed2efcdb55b402": "{{table}}은 필수 문자열 인수임: {0}",
+  "fc3b8fde2e08c74cafb55f25c4841a4b": "{{options}}이(가) 오브젝트여야 함: {0}",
+  "16cbc6b164ad51e193938132d059ce3f": "{{Index keys}} 정의가 올바르지 않음으로 표시됨: {0}",
+  "80a32e80cbed65eba2103201a7c94710": "모델을 찾을 수 없음: {0}",
+  "1752695ee513f17d70e82753c0b6ef1a": "{{PostgreSQL}} regex 구문에서 {{`m`}} 플래그를 준수하지 않음",
+  "b811d24a7d249e0aedff11523626fbfd": "ID에 대해 {{Placeholder}}이(가) 지원되지 않음",
+  "bfe8fb104f017b365e64da57ed975db6": "{{PostgreSQL}} regex 구문에서 {{`g`}} 플래그를 준수하지 않음"
+}
+

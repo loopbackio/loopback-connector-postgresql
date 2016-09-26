@@ -1,0 +1,10 @@
+{
+  "a0078d732b2dbabf98ed2efcdb55b402": "{{table}} is een verplicht tekenreeksargument: {0}",
+  "fc3b8fde2e08c74cafb55f25c4841a4b": "{{options}} moet een object zijn: {0}",
+  "16cbc6b164ad51e193938132d059ce3f": "{{Index keys}}-definitie is ongeldig: {0}",
+  "80a32e80cbed65eba2103201a7c94710": "Model is niet gevonden: {0}",
+  "1752695ee513f17d70e82753c0b6ef1a": "Syntaxis van {{PostgreSQL}}-expressie voldoet niet aan vlag {{`m`}}",
+  "b811d24a7d249e0aedff11523626fbfd": "{{Placeholder}} voor ID's wordt niet ondersteund",
+  "bfe8fb104f017b365e64da57ed975db6": "Syntaxis van {{PostgreSQL}}-expressie voldoet niet aan vlag {{`g`}}"
+}
+

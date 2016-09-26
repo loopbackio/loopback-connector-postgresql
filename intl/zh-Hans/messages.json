@@ -1,0 +1,10 @@
+{
+  "a0078d732b2dbabf98ed2efcdb55b402": "{{table}} 是必需的字符串自变量：{0}",
+  "fc3b8fde2e08c74cafb55f25c4841a4b": "{{options}} 必须是对象：{0}",
+  "16cbc6b164ad51e193938132d059ce3f": "{{Index keys}} 定义似乎无效：{0}",
+  "80a32e80cbed65eba2103201a7c94710": "找不到模型：{0}",
+  "1752695ee513f17d70e82753c0b6ef1a": "{{PostgreSQL}} 正则表达式语法不考虑 {{`m`}} 标志",
+  "b811d24a7d249e0aedff11523626fbfd": "不支持将 {{Placeholder}} 用于标识",
+  "bfe8fb104f017b365e64da57ed975db6": "{{PostgreSQL}} 正则表达式语法不考虑 {{`g`}} 标志"
+}
+
