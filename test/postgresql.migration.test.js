@@ -14,9 +14,7 @@ describe('migrations', function() {
   before(setup);
 
   it('should run migration', function(done) {
-    db.automigrate('UserDataWithIndexes', function() {
-      done();
-    });
+    db.automigrate('UserDataWithIndexes', done);
   });
 
   it('UserDataWithIndexes should have correct indexes', function(done) {
@@ -89,6 +87,7 @@ function setup(done) {
     birthDate: Date,
     pendingPeriod: Number,
     createdByAdmin: Boolean,
+    deleted: {type: Boolean, required: true, default: false},
   }, {
     indexes: {
       udwi_index1: {
