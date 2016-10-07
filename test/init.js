@@ -9,18 +9,22 @@ var DataSource = require('loopback-datasource-juggler').DataSource;
 var config = require('rc')('loopback', {test: {postgresql: {}}}).test.postgresql;
 
 if (process.env.CI) {
-  process.env.PGHOST = process.env.TEST_POSTGRESQL_HOST ||
-    process.env.POSTGRESQL_HOST || process.env.PGHOST || 'localhost';
-  process.env.PGPORT = process.env.TEST_POSTGRESQL_PORT ||
-    process.env.POSTGRESQL_PORT || process.env.PGPORT || 5432;
-  process.env.PGUSER = process.env.TEST_POSTGRESQL_USER ||
-    process.env.POSTGRESQL_USER || process.env.PGUSER || 'test';
-  process.env.PGPASSWORD = process.env.TEST_POSTGRESQL_PASSWORD ||
-    process.env.POSTGRESQL_PASSWORD || process.env.PGPASSWORD || '';
+  process.env.PGHOST = process.env.POSTGRESQL_HOST ||
+    process.env.PGHOST ||
+    'localhost';
+  process.env.PGPORT = process.env.POSTGRESQL_PORT ||
+    process.env.PGPORT ||
+    5432;
+  process.env.PGUSER = process.env.POSTGRESQL_USER ||
+    process.env.PGUSER ||
+    'test';
+  process.env.PGPASSWORD = process.env.POSTGRESQL_PASSWORD ||
+    process.env.PGPASSWORD ||
+    '';
   config = {
     host: process.env.PGHOST,
     port: process.env.PGPORT,
-    database: process.env.TEST_POSTGRESQL_DATABASE || 'emptytest',
+    database: process.env.POSTGRESQL_DATABASE || 'emptytest',
     username: process.env.PGUSER,
     password: process.env.PGPASSWORD,
   };
