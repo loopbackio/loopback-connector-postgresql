@@ -24,7 +24,9 @@ if (process.env.CI) {
   config = {
     host: process.env.PGHOST,
     port: process.env.PGPORT,
-    database: process.env.POSTGRESQL_DATABASE || 'emptytest',
+    database: process.env.POSTGRESQL_DATABASE ||
+      process.env.PGDATABASE ||
+      'emptytest',
     username: process.env.PGUSER,
     password: process.env.PGPASSWORD,
   };
