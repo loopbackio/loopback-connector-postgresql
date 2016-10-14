@@ -1,3 +1,47 @@
+2016-10-14, Version 2.7.0
+=========================
+
+ * Add connectorCapabilities global object (#179) (Nicholas Duffy)
+
+ * Accept PGDATABASE env var in test/init.js (#178) (Simon Ho)
+
+ * Remove unused prefix from test env vars (#176) (Simon Ho)
+
+ * Fix #123: Set default value during autoupdate. (#167) (Samuel Reed)
+
+ * Update translation files - round#2 (#170) (Candy)
+
+ * Add translated files (gunjpan)
+
+ * Update deps to loopback 3.0.0 RC (Miroslav Bajtoš)
+
+ * Use juggler@3 for running tests (Candy)
+
+ * Add eslint infrastructure (Loay)
+
+ * Revert "Add eslint infrastructure" (Loay)
+
+ * Fix CI Failure (Loay)
+
+ * test: accept more env vars on CI (Ryan Graham)
+
+ * test: use 'emptytest' database as default (Ryan Graham)
+
+ * test: seed DB with test schema before running (Ryan Graham)
+
+ * test: separate dbconfig from datasource (Ryan Graham)
+
+ * test: replace tables.sql with full schema dump (Ryan Graham)
+
+ * Refactor (jannyHou)
+
+ * Upgrade version (jannyHou)
+
+ * Globalize discover.js (jannyHou)
+
+ * Update URLs in CONTRIBUTING.md (#150) (Ryan Graham)
+
+
 2016-06-23, Version 2.6.3
 =========================
 
