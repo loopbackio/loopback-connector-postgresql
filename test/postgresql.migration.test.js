@@ -1,21 +1,24 @@
+// Copyright IBM Corp. 2015. All Rights Reserved.
+// Node module: loopback-connector-postgresql
+// This file is licensed under the Artistic License 2.0.
+// License text available at https://opensource.org/licenses/Artistic-2.0
+
+'use strict';
 var should = require('./init.js');
 var assert = require('assert');
 var Schema = require('loopback-datasource-juggler').Schema;
 
 var db;
 
-describe('migrations', function () {
-
+describe('migrations', function() {
   before(setup);
 
-  it('should run migration', function (done) {
-    db.automigrate('UserDataWithIndexes', function () {
-      done();
-    });
+  it('should run migration', function(done) {
+    db.automigrate('UserDataWithIndexes', done);
   });
 
-  it('UserDataWithIndexes should have correct indexes', function (done) {
-    getIndexes('UserDataWithIndexes', function (err, indexes) {
+  it('UserDataWithIndexes should have correct indexes', function(done) {
+    getIndexes('UserDataWithIndexes', function(err, indexes) {
       assert.deepEqual(indexes, {
 
         userdatawithindexes_pkey: {
@@ -23,49 +26,49 @@ describe('migrations', function () {
           primary: true,
           unique: true,
           keys: ['id'],
-          order: ['ASC'] },
+          order: ['ASC']},
 
         userdatawithindexes_email_idx: {
           type: 'btree',
           primary: false,
           unique: false,
           keys: ['email'],
-          order: ['ASC'] },
+          order: ['ASC']},
 
         udwi_index1: {
           type: 'btree',
           primary: false,
           unique: true,
           keys: ['email', 'createdbyadmin'],
-          order: ['DESC', 'ASC'] },
+          order: ['DESC', 'ASC']},
 
         udwi_index2: {
           type: 'hash',
           primary: false,
           unique: false,
           keys: ['email'],
-          order: ['ASC'] },
+          order: ['ASC']},
 
         udwi_index3: {
           type: 'btree',
           primary: false,
           unique: false,
           keys: ['bio', 'email', 'name'],
-          order: ['ASC', 'ASC', 'DESC'] },
+          order: ['ASC', 'ASC', 'DESC']},
 
         udwi_index4: {
           type: 'btree',
           primary: false,
           unique: false,
           keys: ['birthdate', 'bio'],
-          order: ['DESC', 'ASC'] },
+          order: ['DESC', 'ASC']},
 
         udwi_index5: {
           type: 'btree',
           primary: false,
           unique: true,
           keys: ['name', 'email'],
-          order: ['DESC', 'ASC'] }
+          order: ['DESC', 'ASC']},
       });
       done();
     });
@@ -77,42 +80,43 @@ function setup(done) {
 
   db = getSchema();
 
-  UserDataWithIndexes = db.define('UserDataWithIndexes', {
-    email: { type: String, null: false, index: true },
+  var UserDataWithIndexes = db.define('UserDataWithIndexes', {
+    email: {type: String, null: false, index: true},
     name: String,
     bio: Schema.Text,
     birthDate: Date,
     pendingPeriod: Number,
-    createdByAdmin: Boolean
+    createdByAdmin: Boolean,
+    deleted: {type: Boolean, required: true, default: false},
   }, {
     indexes: {
       udwi_index1: {
         keys: ['email DESC', 'createdByAdmin'],
         options: {
-          unique: true
-        }
+          unique: true,
+        },
       },
       udwi_index2: {
         keys: 'email',
-        type: 'hash'
+        type: 'hash',
       },
       udwi_index3: 'bio, email, name DESC',
       udwi_index4: {
         keys: {
-          "birthDate": -1,
-          "bio": 1
-        }
+          'birthDate': -1,
+          'bio': 1,
+        },
       },
       udwi_index5: {
         keys: {
-          "name": -1,
-          "email": 0
+          'name': -1,
+          'email': 0,
         },
         options: {
-          unique: true
-        }
-      }
-    }
+          unique: true,
+        },
+      },
+    },
   });
 
   done();
@@ -136,11 +140,11 @@ function getIndexes(model, cb) {
     'i.relam = am.oid AND ' +
     't.relkind=\'r\' AND t.relname=\'' +
     table(model) + '\'',
-    function (err, data) {
+    function(err, data) {
       var indexes = {};
       if (!err) {
         // group data by index name
-        data.forEach(function (index) {
+        data.forEach(function(index) {
           indexes[index.name] = index;
           delete index.name;
         });

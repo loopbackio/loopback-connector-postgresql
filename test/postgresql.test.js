@@ -1,4 +1,11 @@
+// Copyright IBM Corp. 2013,2016. All Rights Reserved.
+// Node module: loopback-connector-postgresql
+// This file is licensed under the Artistic License 2.0.
+// License text available at https://opensource.org/licenses/Artistic-2.0
+
+'use strict';
 var juggler = require('loopback-datasource-juggler');
+var CreateDS = juggler.DataSource;
 require('loopback-datasource-juggler/test/common.batch.js');
 require('loopback-datasource-juggler/test/include.test.js');
 
@@ -7,23 +14,62 @@ var should = require('should');
 
 var Post, db, created;
 
-describe('postgresql connector', function () {
+describe('lazyConnect', function() {
+  it('should skip connect phase (lazyConnect = true)', function(done) {
+    var dsConfig = {
+      host: '127.0.0.1',
+      port: 4,
+      lazyConnect: true,
+      debug: false,
+    };
+    var ds = getDS(dsConfig);
 
-  before(function () {
+    var errTimeout = setTimeout(function() {
+      done();
+    }, 2000);
+    ds.on('error', function(err) {
+      clearTimeout(errTimeout);
+      done(err);
+    });
+  });
+
+  it('should report connection error (lazyConnect = false)', function(done) {
+    var dsConfig = {
+      host: '127.0.0.1',
+      port: 4,
+      lazyConnect: false,
+      debug: false,
+    };
+    var ds = getDS(dsConfig);
+
+    ds.on('error', function(err) {
+      err.message.should.containEql('ECONNREFUSED');
+      done();
+    });
+  });
+});
+
+var getDS = function(config) {
+  var db = new CreateDS(require('../'), config);
+  return db;
+};
+
+describe('postgresql connector', function() {
+  before(function() {
     db = getDataSource();
 
     Post = db.define('PostWithBoolean', {
-      title: { type: String, length: 255, index: true },
-      content: { type: String },
+      title: {type: String, length: 255, index: true},
+      content: {type: String},
       loc: 'GeoPoint',
       created: Date,
-      approved: Boolean
+      approved: Boolean,
     });
     created = new Date();
   });
 
-  it('should run migration', function (done) {
-    db.automigrate('PostWithBoolean', function () {
+  it('should run migration', function(done) {
+    db.automigrate('PostWithBoolean', function() {
       done();
     });
   });
@@ -33,15 +79,15 @@ describe('postgresql connector', function () {
     Post.create(
       {title: 'T1', content: 'C1', approved: true, created: created},
       function(err, p) {
-      should.not.exists(err);
-      post = p;
-      Post.findById(p.id, function(err, p) {
         should.not.exists(err);
-        p.should.have.property('approved', true);
-        p.created.getTime().should.be.eql(created.getTime());
-        done();
+        post = p;
+        Post.findById(p.id, function(err, p) {
+          should.not.exists(err);
+          p.should.have.property('approved', true);
+          p.created.getTime().should.be.eql(created.getTime());
+          done();
+        });
       });
-    });
   });
 
   it('should support updating boolean types with false value', function(done) {
@@ -59,21 +105,21 @@ describe('postgresql connector', function () {
     Post.create(
       {title: 'T2', content: 'C2', approved: false, created: created},
       function(err, p) {
-      should.not.exists(err);
-      post = p;
-      Post.findById(p.id, function(err, p) {
         should.not.exists(err);
-        p.should.have.property('approved', false);
-        done();
+        post = p;
+        Post.findById(p.id, function(err, p) {
+          should.not.exists(err);
+          p.should.have.property('approved', false);
+          done();
+        });
       });
-    });
   });
 
   it('should support date types with eq', function(done) {
     Post.find({
-      where: {created: created}
+      where: {created: created},
     }, function(err, posts) {
-      if(err) return done(err);
+      if (err) return done(err);
       posts.length.should.eql(2);
       done();
     });
@@ -83,10 +129,10 @@ describe('postgresql connector', function () {
     Post.find({
       where: {
         created: {
-          between: [new Date(Date.now() - 5000), new Date(Date.now() + 5000)]
-        }}
+          between: [new Date(Date.now() - 5000), new Date(Date.now() + 5000)],
+        }},
     }, function(err, posts) {
-      if(err) return done(err);
+      if (err) return done(err);
       posts.length.should.eql(2);
       done();
     });
@@ -217,19 +263,19 @@ describe('postgresql connector', function () {
 
         it('should print a warning when the global flag is set',
             function(done) {
-          Post.find({where: {content: {regexp: '^a/g'}}}, function(err, posts) {
-            console.warn.calledOnce.should.be.ok;
-            done();
-          });
-        });
+              Post.find({where: {content: {regexp: '^a/g'}}}, function(err, posts) {
+                console.warn.calledOnce.should.be.ok;
+                done();
+              });
+            });
 
         it('should print a warning when the multiline flag is set',
             function(done) {
-          Post.find({where: {content: {regexp: '^a/m'}}}, function(err, posts) {
-            console.warn.calledOnce.should.be.ok;
-            done();
-          });
-        });
+              Post.find({where: {content: {regexp: '^a/m'}}}, function(err, posts) {
+                console.warn.calledOnce.should.be.ok;
+                done();
+              });
+            });
       });
     });
 
@@ -264,19 +310,19 @@ describe('postgresql connector', function () {
 
         it('should print a warning when the global flag is set',
             function(done) {
-          Post.find({where: {content: {regexp: /^a/g}}}, function(err, posts) {
-            console.warn.calledOnce.should.be.ok;
-            done();
-          });
-        });
+              Post.find({where: {content: {regexp: /^a/g}}}, function(err, posts) {
+                console.warn.calledOnce.should.be.ok;
+                done();
+              });
+            });
 
         it('should print a warning when the multiline flag is set',
             function(done) {
-          Post.find({where: {content: {regexp: /^a/m}}}, function(err, posts) {
-            console.warn.calledOnce.should.be.ok;
-            done();
-          });
-        });
+              Post.find({where: {content: {regexp: /^a/m}}}, function(err, posts) {
+                console.warn.calledOnce.should.be.ok;
+                done();
+              });
+            });
       });
     });
 
@@ -292,11 +338,11 @@ describe('postgresql connector', function () {
         it('should work', function(done) {
           Post.find({where: {content: {regexp: new RegExp(/^A/)}}},
               function(err, posts) {
-            should.not.exist(err);
-            posts.length.should.equal(1);
-            posts[0].content.should.equal('AAA');
-            done();
-          });
+                should.not.exist(err);
+                posts.length.should.equal(1);
+                posts[0].content.should.equal('AAA');
+                done();
+              });
         });
       });
 
@@ -304,30 +350,30 @@ describe('postgresql connector', function () {
         it('should work', function(done) {
           Post.find({where: {content: {regexp: new RegExp(/^a/i)}}},
               function(err, posts) {
-            should.not.exist(err);
-            posts.length.should.equal(1);
-            posts[0].content.should.equal('AAA');
-            done();
-          });
+                should.not.exist(err);
+                posts.length.should.equal(1);
+                posts[0].content.should.equal('AAA');
+                done();
+              });
         });
 
         it('should print a warning when the global flag is set',
             function(done) {
-          Post.find({where: {content: {regexp: new RegExp(/^a/g)}}},
+              Post.find({where: {content: {regexp: new RegExp(/^a/g)}}},
               function(err, posts) {
-            console.warn.calledOnce.should.be.ok;
-            done();
-          });
-        });
+                console.warn.calledOnce.should.be.ok;
+                done();
+              });
+            });
 
         it('should print a warning when the multiline flag is set',
             function(done) {
-          Post.find({where: {content: {regexp: new RegExp(/^a/m)}}},
+              Post.find({where: {content: {regexp: new RegExp(/^a/m)}}},
               function(err, posts) {
-            console.warn.calledOnce.should.be.ok;
-            done();
-          });
-        });
+                console.warn.calledOnce.should.be.ok;
+                done();
+              });
+            });
       });
     });
   });

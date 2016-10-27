@@ -1,3 +1,9 @@
+// Copyright IBM Corp. 2015. All Rights Reserved.
+// Node module: loopback-connector-postgresql
+// This file is licensed under the Artistic License 2.0.
+// License text available at https://opensource.org/licenses/Artistic-2.0
+
+'use strict';
 var should = require('should'),
   assert = require('assert');
 var Another, Post, db;
@@ -8,18 +14,18 @@ describe('Autocreate schema if not exists', function() {
 
     Post = db.define('PostInCustomSchema', {
       created: {
-        type: 'Date'
-      }
+        type: 'Date',
+      },
     }, {
       postgresql: {
-        schema: 'myschema'
-      }
+        schema: 'myschema',
+      },
     });
 
     Another = db.define('PostInDefaultSchema', {
       created: {
-        type: 'Date'
-      }
+        type: 'Date',
+      },
     });
   });
 
@@ -38,14 +44,14 @@ describe('Autocreate schema if not exists', function() {
   });
 
   it('should have new schema in place', function(done) {
-    var query = "select table_schema, column_name, data_type," +
-      " character_maximum_length, column_default " +
+    var query = 'select table_schema, column_name, data_type,' +
+      ' character_maximum_length, column_default ' +
       "from information_schema.columns where table_name = 'postincustomschema'" +
       " and column_name='created'";
 
     db.connector.execute(query, function(err, results) {
-      assert.equal(results[0].table_schema, "myschema");
+      assert.equal(results[0].table_schema, 'myschema');
       done(err);
     });
   });
-})
+});

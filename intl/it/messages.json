@@ -1,0 +1,10 @@
+{
+  "a0078d732b2dbabf98ed2efcdb55b402": "{{table}} è un argomento stringa obbligatorio: {0}",
+  "fc3b8fde2e08c74cafb55f25c4841a4b": "{{options}} deve essere un oggetto: {0}",
+  "16cbc6b164ad51e193938132d059ce3f": "La definizione {{Index keys}} sembra non essere valida: {0}",
+  "80a32e80cbed65eba2103201a7c94710": "Modello non trovato: {0}",
+  "1752695ee513f17d70e82753c0b6ef1a": "La sintassi regex {{PostgreSQL}} non rispetta l'indicatore {{`m`}}",
+  "b811d24a7d249e0aedff11523626fbfd": "{{Placeholder}} per gli identificativi non supportato",
+  "bfe8fb104f017b365e64da57ed975db6": "La sintassi regex {{PostgreSQL}} non rispetta l'indicatore {{`g`}}"
+}
+

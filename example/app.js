@@ -1,3 +1,9 @@
+// Copyright IBM Corp. 2013. All Rights Reserved.
+// Node module: loopback-connector-postgresql
+// This file is licensed under the Artistic License 2.0.
+// License text available at https://opensource.org/licenses/Artistic-2.0
+
+'use strict';
 var DataSource = require('loopback-datasource-juggler').DataSource;
 
 var config = require('rc')('loopback', {dev: {postgresql: {}}}).dev.postgresql;
@@ -5,15 +11,14 @@ var config = require('rc')('loopback', {dev: {postgresql: {}}}).dev.postgresql;
 var ds = new DataSource(require('../'), config);
 
 function show(err, models) {
-    if (err) {
-        console.error(err);
-    } else {
-        models.forEach(function(m) {
-            console.dir(m);
-        });
-    }
+  if (err) {
+    console.error(err);
+  } else {
+    models.forEach(function(m) {
+      console.dir(m);
+    });
+  }
 }
-
 
 ds.discoverModelDefinitions({views: true, limit: 20}, show);
 
@@ -55,6 +60,4 @@ ds.discoverAndBuildModels('INVENTORY', {owner: 'STRONGLOOP', visited: {}, associ
     });
 });
 
-
 */
-
