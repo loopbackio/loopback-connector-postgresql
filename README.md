@@ -22,7 +22,7 @@ If you create a PostgreSQL data source using the data source generator as descri
 
 ## Creating a data source
 
-Use the [Data source generator](http://loopback.io/doc/en/lb3/Data-source-generator.html) to add a PostgreSQL data source to your application.  
+Use the [Data source generator](http://loopback.io/doc/en/lb3/Data-source-generator.html) to add a PostgreSQL data source to your application.
 The generator will prompt for the database server hostname, port, and other settings
 required to connect to a PostgreSQL database.  It will also run the `npm install` command above for you.
 
@@ -55,7 +55,7 @@ Edit `datasources.json` to add other properties that enable you to connect the
       <th>Description</th>
     </tr>
   </thead>
-    <tbody>    
+    <tbody>
     <tr>
       <td>connector</td>
       <td>String</td>
@@ -139,7 +139,7 @@ The model definition consists of the following properties.
       <th>Description</th>
     </tr>
   </thead>
-  <tbody>    
+  <tbody>
     <tr>
       <td>name</td>
       <td>Camel-case of the database table name</td>
