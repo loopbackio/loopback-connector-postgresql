@@ -1,6 +1,9 @@
 {
   "name": "loopback-connector-postgresql",
   "version": "2.7.0",
+  "publishConfig": {
+    "tag": "lts"
+  },
   "description": "Loopback PostgreSQL Connector",
   "keywords": [
     "StrongLoop",
