@@ -3,7 +3,7 @@
 [PostgreSQL](https://www.postgresql.org/), is a popular open-source object-relational database.
 The `loopback-connector-postgresql` module is the PostgreSQL connector for the LoopBack framework.
 
-<div class="gh-only">For more information, see the [documentation](http://loopback.io/doc/en/lb2/PostgreSQL-connector.html).
+<div class="gh-only">For more information, see the <a href="http://loopback.io/doc/en/lb2/PostgreSQL-connector.html">documentation</a>.
 
 NOTE: The PostgreSQL connector requires PostgreSQL 8.x or 9.x.
 </div>
