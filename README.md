@@ -4,7 +4,7 @@
 The `loopback-connector-postgresql` module is the PostgreSQL connector for the LoopBack framework.
 
 <div class="gh-only">For more information, see the <a href="http://loopback.io/doc/en/lb2/PostgreSQL-connector.html">documentation</a>.
-
+<br/><br/>
 NOTE: The PostgreSQL connector requires PostgreSQL 8.x or 9.x.
 </div>
 
