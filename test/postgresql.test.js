@@ -90,6 +90,21 @@ describe('postgresql connector', function() {
       });
   });
 
+  it('should preserve property `count` after query execution', function(done) {
+    Post.create(
+      {title: 'T10', content: 'C10'},
+      function(err, p) {
+        if (err) return done(err);
+        post = p;
+        var query = "UPDATE PostWithBoolean SET title ='T20' WHERE id=" + post.id;
+        db.connector.execute(query, function(err, results) {
+          results.should.have.property('count', 1);
+          results.should.have.property('affectedRows', 1);
+          done(err);
+        });
+      });
+  });
+
   it('should support updating boolean types with false value', function(done) {
     Post.update({id: post.id}, {approved: false}, function(err) {
       should.not.exists(err);
