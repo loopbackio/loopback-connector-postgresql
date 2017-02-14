@@ -19,6 +19,17 @@ before(function() {
 });
 
 describe('discoverModels', function() {
+  describe('Discover database schemas', function() {
+    it('should return an array of db schemas', function(done) {
+      db.connector.discoverDatabaseSchemas(function(err, schemas) {
+        if (err) return done(err);
+        schemas.should.be.an.array;
+        schemas.length.should.be.above(0);
+        done();
+      });
+    });
+  });
+
   describe('Discover models including views', function() {
     it('should return an array of tables and views', function(done) {
       db.discoverModelDefinitions({
@@ -181,6 +192,8 @@ describe('Discover model foreign keys', function() {
 describe('Discover LDL schema from a table', function() {
   it('should return an LDL schema for inventory', function(done) {
     db.discoverSchema('inventory', {owner: 'strongloop'}, function(err, schema) {
+      console.log('This is our err: ', err);
+      console.log('This is our schema: ', schema);
       assert(schema.name === 'Inventory');
       assert(schema.options.postgresql.schema === 'strongloop');
       assert(schema.options.postgresql.table === 'inventory');
@@ -203,6 +216,7 @@ describe('Discover and build models', function() {
   it('should build a model from discovery', function(done) {
     db.discoverAndBuildModels('GeoPoint', {schema: 'strongloop'}, function(err, schema) {
       schema.Geopoint.find(function(err, data) {
+        console.log('This is our err: ', err);
         assert(!err);
         assert(Array.isArray(data));
         assert(data[0].location);
