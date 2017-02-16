@@ -8,6 +8,11 @@
 var connector = require('..');
 var DataSource = require('loopback-datasource-juggler').DataSource;
 var should = require('should');
+var db;
+
+before(function() {
+  db = getDBConfig();
+});
 
 describe('initialization', function() {
   it('honours user-defined pg-pool settings', function() {
@@ -22,7 +27,8 @@ describe('initialization', function() {
   });
 
   it('honours user-defined url settings', function() {
-    var settings = {url: 'postgres://'};
+    var settings = {url: 'postgres://' + db.username + ':' + db.password + '@' +
+    db.host + ':' + db.port + '/' + db.database};
 
     var dataSource = new DataSource(connector, {});
     var clientConfig = dataSource.connector.clientConfig;
@@ -34,7 +40,8 @@ describe('initialization', function() {
   });
 
   it('honours multiple user-defined settings', function() {
-    var settings = {url: 'postgres://', max: 999};
+    var settings = {url: 'postgres://' + db.username + ':' + db.password + '@' +
+    db.host + ':' + db.port + '/' + db.database, max: 999};
 
     var dataSource = new DataSource(connector, settings);
     var pool = dataSource.connector.pg.pool;
