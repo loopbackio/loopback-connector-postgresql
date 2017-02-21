@@ -58,6 +58,41 @@ describe('transactions', function() {
     };
   }
 
+  describe('bulk', function() {
+    it('should work with bulk transactions', function(done) {
+      var completed = 0;
+      var concurrent = 20;
+      for (var i = 0; i <= concurrent; i++) {
+        var post = {title: 'tb' + i, content: 'cb' + i};
+        var create = createPostInTx(post);
+        Transaction.begin(db.connector, Transaction.SERIALIZABLE,
+          function(err, tx) {
+            if (err) return done(err);
+            Post.create(post, {transaction: tx},
+              function(err, p) {
+                if (err) {
+                  done(err);
+                } else {
+                  tx.commit(function(err) {
+                    if (err) {
+                      done(err);
+                    }
+                    completed++;
+                    checkResults();
+                  });
+                }
+              });
+          });
+      }
+
+      function checkResults() {
+        if (completed === concurrent) {
+          done();
+        }
+      }
+    });
+  });
+
   describe('commit', function() {
     var post = {title: 't1', content: 'c1'};
     before(createPostInTx(post));
