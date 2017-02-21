@@ -247,98 +247,88 @@ describe('postgresql connector', function() {
       Post.destroyAll(done);
     });
 
-    it('should support case sensitive queries using like',
-      function(done) {
-        Post.find({where: {content: {like: '%TestCase%'}}},
-          function(err, posts) {
-            should.not.exists(err);
-            posts.length.should.equal(1);
-            posts[0].content.should.equal('T1_TestCase');
-            done();
-          });
+    it('supports case sensitive queries using like', function(done) {
+      Post.find({where: {content: {like: '%TestCase%'}}}, function(err, posts) {
+        if (err) return done(err);
+        posts.length.should.equal(1);
+        posts[0].content.should.equal('T1_TestCase');
+        done();
       });
-
-    it('should not support case insensitive queries using like',
-      function(done) {
-        Post.find({where: {content: {like: '%tesTcasE%'}}},
-          function(err, posts) {
-            should.not.exists(err);
-            posts.length.should.equal(0);
-            done();
-          });
-      });
-
-    it('should support like for no match', function(done) {
-      Post.find({where: {content: {like: '%TestXase%'}}},
-        function(err, posts) {
-          should.not.exists(err);
-          posts.length.should.equal(0);
-          done();
-        });
     });
 
-    it('should support negative case sensitive queries using nlike',
-      function(done) {
-        Post.find({where: {content: {nlike: '%Case%'}}},
-          function(err, posts) {
-            should.not.exists(err);
-            posts.length.should.equal(0);
-            done();
-          });
+    it('rejects case insensitive queries using like', function(done) {
+      Post.find({where: {content: {like: '%tesTcasE%'}}}, function(err, posts) {
+        if (err) return done(err);
+        posts.length.should.equal(0);
+        done();
       });
+    });
 
-    it('should not support negative case insensitive queries using nlike',
-      function(done) {
-        Post.find({where: {content: {nlike: '%casE%'}}},
-          function(err, posts) {
-            should.not.exists(err);
-            posts.length.should.equal(2);
-            done();
-          });
+    it('supports like for no match', function(done) {
+      Post.find({where: {content: {like: '%TestXase%'}}}, function(err, posts) {
+        if (err) return done(err);
+        posts.length.should.equal(0);
+        done();
       });
+    });
 
-    it('should support nlike for no match', function(done) {
+    it('supports negative case sensitive queries using nlike', function(done) {
+      Post.find({where: {content: {nlike: '%Case%'}}}, function(err, posts) {
+        if (err) return done(err);
+        posts.length.should.equal(0);
+        done();
+      });
+    });
+
+    it('rejects negative case insensitive queries using nlike', function(done) {
+      Post.find({where: {content: {nlike: '%casE%'}}}, function(err, posts) {
+        if (err) return done(err);
+        posts.length.should.equal(2);
+        done();
+      });
+    });
+
+    it('supports nlike for no match', function(done) {
       Post.find({where: {content: {nlike: '%TestXase%'}}},
         function(err, posts) {
-          should.not.exists(err);
+          if (err) return done(err);
           posts.length.should.equal(2);
           done();
         });
     });
 
-    it('should support case insensitive queries using ilike', function(done) {
+    it('supports case insensitive queries using ilike', function(done) {
       Post.find({where: {content: {ilike: '%tesTcasE%'}}},
         function(err, posts) {
-          should.not.exist(err);
+          if (err) return done(err);
           posts.length.should.equal(1);
           posts[0].content.should.equal('T1_TestCase');
           done();
         });
     });
 
-    it('should support ilike for no match', function(done) {
+    it('supports ilike for no match', function(done) {
       Post.find({where: {content: {ilike: '%tesTxasE%'}}},
         function(err, posts) {
-          should.not.exists(err);
+          if (err) return done(err);
           posts.length.should.equal(0);
           done();
         });
     });
 
-    it('should support negative case insensitive queries using nilike',
+    it('supports negative case insensitive queries using nilike',
       function(done) {
-        Post.find({where: {content: {nilike: '%casE%'}}},
-          function(err, posts) {
-            should.not.exist(err);
-            posts.length.should.equal(0);
-            done();
-          });
+        Post.find({where: {content: {nilike: '%casE%'}}}, function(err, posts) {
+          if (err) return done(err);
+          posts.length.should.equal(0);
+          done();
+        });
       });
 
-    it('should support nilike for no match', function(done) {
+    it('supports nilike for no match', function(done) {
       Post.find({where: {content: {nilike: '%tesTxasE%'}}},
         function(err, posts) {
-          should.not.exists(err);
+          if (err) return done(err);
           posts.length.should.equal(2);
           done();
         });
