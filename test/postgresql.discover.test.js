@@ -13,8 +13,14 @@ var DataSource = require('loopback-datasource-juggler').DataSource;
 var db;
 
 before(function() {
+  require('./init');
+
   var config = getDBConfig();
-  config.database = 'strongloop';
+
+  if (process.env.CI) {
+    config.database = 'strongloop';
+  }
+
   db = new DataSource(require('../'), config);
 });
 
@@ -120,11 +126,13 @@ describe('Discover model primary keys', function() {
         done(err);
       } else {
         models.forEach(function(m) {
-          assert.deepEqual(m, {owner: 'strongloop',
+          assert.deepEqual(m, {
+            owner: 'strongloop',
             tableName: 'product',
             columnName: 'id',
             keySeq: 1,
-            pkName: 'product_pkey'});
+            pkName: 'product_pkey',
+          });
         });
         done(null, models);
       }
@@ -132,7 +140,9 @@ describe('Discover model primary keys', function() {
   });
 
   it('should return an array of primary keys for strongloop.product', function(done) {
-    db.discoverPrimaryKeys('product', {owner: 'strongloop'}, function(err, models) {
+    db.discoverPrimaryKeys('product', {
+      owner: 'strongloop',
+    }, function(err, models) {
       if (err) {
         console.error(err);
         done(err);
@@ -163,7 +173,9 @@ describe('Discover model foreign keys', function() {
     });
   });
   it('should return an array of foreign keys for strongloop.inventory', function(done) {
-    db.discoverForeignKeys('inventory', {owner: 'strongloop'}, function(err, models) {
+    db.discoverForeignKeys('inventory', {
+      owner: 'strongloop',
+    }, function(err, models) {
       if (err) {
         console.error(err);
         done(err);
@@ -180,7 +192,9 @@ describe('Discover model foreign keys', function() {
 
 describe('Discover LDL schema from a table', function() {
   it('should return an LDL schema for inventory', function(done) {
-    db.discoverSchema('inventory', {owner: 'strongloop'}, function(err, schema) {
+    db.discoverSchema('inventory', {
+      owner: 'strongloop',
+    }, function(err, schema) {
       assert(schema.name === 'Inventory');
       assert(schema.options.postgresql.schema === 'strongloop');
       assert(schema.options.postgresql.table === 'inventory');
@@ -201,7 +215,9 @@ describe('Discover LDL schema from a table', function() {
 
 describe('Discover and build models', function() {
   it('should build a model from discovery', function(done) {
-    db.discoverAndBuildModels('GeoPoint', {schema: 'strongloop'}, function(err, schema) {
+    db.discoverAndBuildModels('GeoPoint', {
+      schema: 'strongloop',
+    }, function(err, schema) {
       schema.Geopoint.find(function(err, data) {
         assert(!err);
         assert(Array.isArray(data));
