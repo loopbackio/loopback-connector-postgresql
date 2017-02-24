@@ -1,3 +1,35 @@
+2017-02-24, Version 2.8.0
+=========================
+
+ * Add test for bulk transactions (Zak Barbuto)
+
+ * Use pg callback over connection.release (#109) (Zak Barbuto)
+
+ * Use pool.pool.release over pool.release (#109) (Zak Barbuto)
+
+ * Add test env information to README (Zak Barbuto)
+
+ * update README for local postgres setup (Diana Lau)
+
+ * Update postgresql.js (tmclouisluk)
+
+ * Fix bug when using postgresql 8.x (tmclouisluk)
+
+ * Use unique param for affectedRows (Loay)
+
+ * Move info from docs into README (#199) (Rand McKinney)
+
+ * Update paid support URL (Siddhi Pai)
+
+ * Revert loopback 2.x (siddhipai)
+
+ * Revert dev-dependency on loopback to 2.x (Siddhi Pai)
+
+ * Set publish tag to "lts" (Siddhi Pai)
+
+ * Update README with correct doc links, etc (Amir Jafarian)
+
+
 2016-10-14, Version 2.7.0
 =========================
 
