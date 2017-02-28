@@ -231,21 +231,8 @@ describe('postgresql connector', function() {
   });
 
   context('pattern matching operators', function() {
-    before(function deleteTestFixtures(done) {
-      Post.destroyAll(done);
-    });
-    before(function createTextFixtures(done) {
-      Post.create([{
-        title: 't1',
-        content: 'T1_TestCase',
-      }, {
-        title: 't2',
-        content: 'T2_TheOtherCase',
-      }], done);
-    });
-    after(function deleteTestFixtures(done) {
-      Post.destroyAll(done);
-    });
+    before(deleteTestFixtures);
+    before(createTestFixtures);
 
     it('supports case sensitive queries using like', function(done) {
       Post.find({where: {content: {like: '%TestCase%'}}}, function(err, posts) {
@@ -333,6 +320,20 @@ describe('postgresql connector', function() {
           done();
         });
     });
+
+    function deleteTestFixtures(done) {
+      Post.destroyAll(done);
+    }
+
+    function createTestFixtures(done) {
+      Post.create([{
+        title: 't1',
+        content: 'T1_TestCase',
+      }, {
+        title: 't2',
+        content: 'T2_TheOtherCase',
+      }], done);
+    }
   });
 
   context('regexp operator', function() {
