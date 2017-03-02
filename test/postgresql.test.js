@@ -230,6 +230,112 @@ describe('postgresql connector', function() {
     });
   });
 
+  context('pattern matching operators', function() {
+    before(deleteTestFixtures);
+    before(createTestFixtures);
+
+    it('supports case sensitive queries using like', function(done) {
+      Post.find({where: {content: {like: '%TestCase%'}}}, function(err, posts) {
+        if (err) return done(err);
+        posts.length.should.equal(1);
+        posts[0].content.should.equal('T1_TestCase');
+        done();
+      });
+    });
+
+    it('rejects case insensitive queries using like', function(done) {
+      Post.find({where: {content: {like: '%tesTcasE%'}}}, function(err, posts) {
+        if (err) return done(err);
+        posts.length.should.equal(0);
+        done();
+      });
+    });
+
+    it('supports like for no match', function(done) {
+      Post.find({where: {content: {like: '%TestXase%'}}}, function(err, posts) {
+        if (err) return done(err);
+        posts.length.should.equal(0);
+        done();
+      });
+    });
+
+    it('supports negative case sensitive queries using nlike', function(done) {
+      Post.find({where: {content: {nlike: '%Case%'}}}, function(err, posts) {
+        if (err) return done(err);
+        posts.length.should.equal(0);
+        done();
+      });
+    });
+
+    it('rejects negative case insensitive queries using nlike', function(done) {
+      Post.find({where: {content: {nlike: '%casE%'}}}, function(err, posts) {
+        if (err) return done(err);
+        posts.length.should.equal(2);
+        done();
+      });
+    });
+
+    it('supports nlike for no match', function(done) {
+      Post.find({where: {content: {nlike: '%TestXase%'}}},
+        function(err, posts) {
+          if (err) return done(err);
+          posts.length.should.equal(2);
+          done();
+        });
+    });
+
+    it('supports case insensitive queries using ilike', function(done) {
+      Post.find({where: {content: {ilike: '%tesTcasE%'}}},
+        function(err, posts) {
+          if (err) return done(err);
+          posts.length.should.equal(1);
+          posts[0].content.should.equal('T1_TestCase');
+          done();
+        });
+    });
+
+    it('supports ilike for no match', function(done) {
+      Post.find({where: {content: {ilike: '%tesTxasE%'}}},
+        function(err, posts) {
+          if (err) return done(err);
+          posts.length.should.equal(0);
+          done();
+        });
+    });
+
+    it('supports negative case insensitive queries using nilike',
+      function(done) {
+        Post.find({where: {content: {nilike: '%casE%'}}}, function(err, posts) {
+          if (err) return done(err);
+          posts.length.should.equal(0);
+          done();
+        });
+      });
+
+    it('supports nilike for no match', function(done) {
+      Post.find({where: {content: {nilike: '%tesTxasE%'}}},
+        function(err, posts) {
+          if (err) return done(err);
+          posts.length.should.equal(2);
+          done();
+        });
+    });
+
+    function deleteTestFixtures(done) {
+      Post.destroyAll(done);
+    }
+
+    function createTestFixtures(done) {
+      Post.create([{
+        title: 't1',
+        content: 'T1_TestCase',
+      }, {
+        title: 't2',
+        content: 'T2_TheOtherCase',
+      }], done);
+    }
+  });
+
   context('regexp operator', function() {
     before(function deleteTestFixtures(done) {
       Post.destroyAll(done);
