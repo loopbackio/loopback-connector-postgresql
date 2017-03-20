@@ -124,4 +124,29 @@ describe('transactions', function() {
 
     it('should not see the rolledback insert', expectToFindPosts(post, 0));
   });
+
+  describe('finished', function() {
+    var post = {title: 't2', content: 'c2'};
+    beforeEach(createPostInTx(post));
+
+    it('should throw an error when creating in a committed transaction', function(done) {
+      currentTx.commit(function(err) {
+        if(err) return done(err);
+        Post.create({title: 't4', content: 'c4'}, {transaction: currentTx}, function(err, post) {
+          if(!err) return done(new Error('should throw error'));
+          done();
+        });
+      });
+    });
+
+    it('should throw an error when creating in a rolled back transaction', function(done) {
+      currentTx.rollback(function(err) {
+        if(err) return done(err);
+        Post.create({title: 't4', content: 'c4'}, {transaction: currentTx}, function(err, post) {
+          if(!err) return done(new Error('should throw error'));
+          done();
+        });
+      });
+    });
+  });
 });
