@@ -29,6 +29,7 @@ if (process.env.CI) {
       'emptytest',
     username: process.env.PGUSER,
     password: process.env.PGPASSWORD,
+    poolSize: 100,
   };
 }
 
