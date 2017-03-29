@@ -5,7 +5,7 @@
 
 'use strict';
 require('./init');
-
+var Promise = require('bluebird');
 var connector = require('..');
 var DataSource = require('loopback-datasource-juggler').DataSource;
 var should = require('should');
@@ -50,5 +50,39 @@ describe('initialization', function() {
 
     var clientConfig = dataSource.connector.clientConfig;
     clientConfig.connectionString.should.equal(urlOnly.url);
+  });
+});
+
+describe('postgresql connector errors', function() {
+  it('Should complete these 4 queries without dying', function(done) {
+    var dataSource = getDataSource();
+    var db = dataSource.connector;
+    var pool = db.pg.pool;
+    pool._factory.max = 5;
+    pool._factory.min = null;
+    var errors = 0;
+    var shouldGet = 0;
+    function runErrorQuery() {
+      shouldGet++;
+      return new Promise(function(resolve, reject) {
+        db.executeSQL("SELECT 'asd'+1 ", [], {}, function(err, res) {
+          if (err) {
+            errors++;
+            console.log('got err', errors);
+            resolve(err);
+          } else {
+            reject(res); // this should always error
+          }
+        });
+      });
+    };
+    var ps = [];
+    for (var i = 0; i < 12; i++) {
+      ps.push(runErrorQuery());
+    }
+    Promise.all(ps).then(function() {
+      shouldGet.should.equal(errors);
+      done();
+    });
   });
 });
