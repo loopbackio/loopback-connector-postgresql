@@ -71,11 +71,11 @@ describe('transactions', function() {
             Post.create(post, {transaction: tx},
               function(err, p) {
                 if (err) {
-                  done(err);
+                  return done(err);
                 } else {
                   tx.commit(function(err) {
                     if (err) {
-                      done(err);
+                      return done(err);
                     }
                     completed++;
                     checkResults();
