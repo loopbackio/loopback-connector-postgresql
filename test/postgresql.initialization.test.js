@@ -68,7 +68,6 @@ describe('postgresql connector errors', function() {
         db.executeSQL("SELECT 'asd'+1 ", [], {}, function(err, res) {
           if (err) {
             errors++;
-            console.log('got err', errors);
             resolve(err);
           } else {
             reject(res); // this should always error
