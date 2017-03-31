@@ -1,3 +1,75 @@
+2017-03-31, Version 3.0.0
+=========================
+
+ * Remove console.log (Raymond Feng)
+
+ * Monkey patch generic-pool to work through errors (Russ Tyndall)
+
+ * Fix the escape char (Raymond Feng)
+
+ * Upgrade to loopback-connector@4.x (Loay)
+
+ * Add checkFieldAndIndex for table status (#228) (Sakib Hasan)
+
+ * Refactor migration methods (ssh24)
+
+ * Fix code style inconsistencies in ilike tests (Alireza Ahmadi)
+
+ * Improve tests for better code style consistency (Alireza Ahmadi)
+
+ * Add tests for pattern matching operators (Alireza Ahmadi)
+
+ * Add ILIKE functionality (Alireza Ahmadi)
+
+ * Refactor discovery models (Loay Gewily)
+
+ * merge in #216 (gregdingle)
+
+ * Fix unit tests (ssh24)
+
+ * Fix linting errors and unnesssary changes. (Diana Lau)
+
+ * remove done() calls in test (gregdingle)
+
+ * Added test. Ran run-tests. (gregdingle)
+
+ * Fix bug where settings for pg-pool were dropped (Greg Dingle)
+
+ * Update README with correct doc links, etc (Amir Jafarian)
+
+ * Add test for bulk transactions (Zak Barbuto)
+
+ * Use pg callback over connection.release (#109) (Zak Barbuto)
+
+ * Use pool.pool.release over pool.release (#109) (Zak Barbuto)
+
+ * Add test env information to README (Zak Barbuto)
+
+ * update README for local postgres setup (Diana Lau)
+
+ * Update postgresql.js (tmclouisluk)
+
+ * Fix bug when using postgresql 8.x (tmclouisluk)
+
+ * Replicate new issue_template from loopback (Siddhi Pai)
+
+ * Replicate issue_template from loopback repo (Siddhi Pai)
+
+ * Update LB connector version (Loay)
+
+ * Use unique param for affectedRows (Loay)
+
+ * Move info from docs into README (#199) (Rand McKinney)
+
+ * Update paid support URL (Siddhi Pai)
+
+ * Start 3.x + drop support for Node v0.10/v0.12 (siddhipai)
+
+ * Drop support for Node v0.10 and v0.12 (Siddhi Pai)
+
+ * Start the development of the next major version (Siddhi Pai)
+
+
 2016-10-14, Version 2.7.0
 =========================
 
