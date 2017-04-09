@@ -11,7 +11,7 @@ var Transaction = require('loopback-connector').Transaction;
 
 var db, Post;
 
-describe('transactions', function() {
+describe.only('transactions', function() {
   before(function(done) {
     db = getDataSource(true);
     Post = db.define('PostTX', {
@@ -59,7 +59,7 @@ describe('transactions', function() {
   }
 
   describe('bulk', function() {
-    it.only('should work with bulk transactions', function(done) {
+    it('should work with bulk transactions', function(done) {
       var completed = 0;
       var concurrent = 20;
       for (var i = 0; i <= concurrent; i++) {
