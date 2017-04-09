@@ -59,7 +59,7 @@ describe('transactions', function() {
   }
 
   describe('bulk', function() {
-    it('should work with bulk transactions', function(done) {
+    it.only('should work with bulk transactions', function(done) {
       var completed = 0;
       var concurrent = 20;
       for (var i = 0; i <= concurrent; i++) {
@@ -67,14 +67,19 @@ describe('transactions', function() {
         var create = createPostInTx(post);
         Transaction.begin(db.connector, Transaction.SERIALIZABLE,
           function(err, tx) {
-            if (err) return done(err);
+            if (err) {
+              console.log('beginTransaction ' + tx);
+              return done(err);
+            }
             Post.create(post, {transaction: tx},
               function(err, p) {
                 if (err) {
+                  console.log('create ' + post + ' tx ' + tx);
                   return done(err);
                 } else {
                   tx.commit(function(err) {
                     if (err) {
+                      console.log('commit tx ' + tx);
                       return done(err);
                     }
                     completed++;
