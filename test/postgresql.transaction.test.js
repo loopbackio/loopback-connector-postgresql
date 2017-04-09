@@ -11,7 +11,7 @@ var Transaction = require('loopback-connector').Transaction;
 
 var db, Post;
 
-describe.only('transactions', function() {
+describe('transactions', function() {
   before(function(done) {
     db = getDataSource(true);
     Post = db.define('PostTX', {
