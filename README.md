@@ -1,4 +1,4 @@
-# loopback-connector-postgresql
+# TEST loopback-connector-postgresql
 
 [PostgreSQL](https://www.postgresql.org/), is a popular open-source object-relational database.
 The `loopback-connector-postgresql` module is the PostgreSQL connector for the LoopBack framework.
