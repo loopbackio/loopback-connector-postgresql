@@ -11,11 +11,11 @@ var async = require('async');
 
 var db;
 
-before(function() {
-  db = getSchema();
-});
-
 describe('Mapping models', function() {
+  before(function() {
+    db = getSchema();
+  });
+
   it('should honor the postgresql settings for table/column', function(done) {
     var schema =
       {
