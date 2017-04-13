@@ -34,7 +34,7 @@ describe('database default field values', function() {
       created: {
         type: 'Date',
         postgresql: {
-          dbDefault: "'5'",
+          dbDefault: '\'5\'',
         },
       },
     });
@@ -49,6 +49,9 @@ describe('database default field values', function() {
   it('should report inconsistent default values used', function(done) {
     db.automigrate('PostWithInvalidDbDefaultValue', function(err) {
       should.exists(err);
+      // XXX(kjdelisle): The InvalidDefaults test is polluting the default date
+      // types of the other tests!
+      delete db.connector._models.PostWithInvalidDbDefaultValue;
       done();
     });
   });
