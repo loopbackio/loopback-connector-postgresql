@@ -528,7 +528,6 @@ describe('Serial properties', function() {
         },
       };
     var models = db.modelBuilder.buildModels(schema);
-    // console.log(models);
     var Model = models['TestInventory'];
     var count = 0;
     Model.attachTo(db);
