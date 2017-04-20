@@ -10,6 +10,7 @@ require('loopback-datasource-juggler/test/common.batch.js');
 require('loopback-datasource-juggler/test/include.test.js');
 
 require('./init');
+var async = require('async');
 var should = require('should');
 
 var Post, db, created;
@@ -496,6 +497,67 @@ describe('postgresql connector', function() {
               });
             });
       });
+    });
+  });
+});
+
+describe('Serial properties', function() {
+  var db;
+
+  before(function() {
+    db = getSchema();
+  });
+
+  it('should allow serial properties', function(done) {
+    var schema =
+      {
+        'name': 'TestInventory',
+        'options': {
+          'idInjection': false,
+          'postgresql': {
+            'schema': 'public', 'table': 'inventorytest',
+          },
+        },
+        'properties': {
+          'productId': {
+            'type': 'String', 'required': true, 'id': true,
+          },
+          'productCode': {
+            'type': 'number', 'generated': true,
+          },
+        },
+      };
+    var models = db.modelBuilder.buildModels(schema);
+    var Model = models['TestInventory'];
+    var count = 0;
+    Model.attachTo(db);
+
+    db.automigrate(function(err, data) {
+      async.series([
+        function(callback) {
+          Model.destroyAll(callback);
+        },
+        function(callback) {
+          Model.create({productId: 'p001'}, callback);
+        },
+        function(callback) {
+          Model.create({productId: 'p002'}, callback);
+        },
+        function(callback) {
+          Model.findOne({where: {productId: 'p001'}}, function(err, r) {
+            r.should.have.property('productId');
+            r.should.have.property('productCode', 1);
+            callback(null, r);
+          });
+        },
+        function(callback) {
+          Model.findOne({where: {productId: 'p002'}}, function(err, r) {
+            r.should.have.property('productId');
+            r.should.have.property('productCode', 2);
+            callback(null, r);
+          });
+        },
+      ], done);
     });
   });
 });
