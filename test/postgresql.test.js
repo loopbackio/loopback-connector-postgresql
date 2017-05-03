@@ -13,7 +13,7 @@ require('./init');
 var async = require('async');
 var should = require('should');
 
-var Post, db, created;
+var Post, Expense, db, created;
 
 describe('lazyConnect', function() {
   it('should skip connect phase (lazyConnect = true)', function(done) {
@@ -59,6 +59,26 @@ describe('postgresql connector', function() {
   before(function() {
     db = getDataSource();
 
+    Expense = db.define('Expense', {
+      id: {
+        type: Number,
+        id: true,
+        required: true,
+        postgresql: {
+          dataType: 'NUMERIC(10,2)',
+        },
+      },
+      description: {
+        type: String,
+      },
+      amount: {
+        type: Number,
+        required: true,
+        postgresql: {
+          dataType: 'DECIMAL(10,2)',
+        },
+      },
+    });
     Post = db.define('PostWithBoolean', {
       title: {type: String, length: 255, index: true},
       content: {type: String},
@@ -70,7 +90,36 @@ describe('postgresql connector', function() {
   });
 
   it('should run migration', function(done) {
-    db.automigrate('PostWithBoolean', function() {
+    db.automigrate(['PostWithBoolean', 'Expense'], function() {
+      done();
+    });
+  });
+
+  it('should allow explicit numeric `datatype`', function(done) {
+    var data = [
+      {
+        id: 1,
+        description: 'Expense 1',
+        amount: 159.99,
+      },
+      {
+        id: 2,
+        description: 'Expense 2',
+        amount: 10,
+      },
+      {
+        id: 3,
+        description: 'Expense 3',
+        amount: 12.49,
+      },
+    ];
+    Expense.create(data, function(err, result) {
+      should.not.exist(err);
+      should.exist(result);
+      should.equal(result.length, data.length);
+      should.deepEqual(result[0].__data, data[0]);
+      should.deepEqual(result[1].__data, data[1]);
+      should.deepEqual(result[2].__data, data[2]);
       done();
     });
   });
