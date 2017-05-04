@@ -64,9 +64,6 @@ describe('postgresql connector', function() {
         type: Number,
         id: true,
         required: true,
-        postgresql: {
-          dataType: 'NUMERIC(10,2)',
-        },
       },
       description: {
         type: String,
@@ -75,7 +72,9 @@ describe('postgresql connector', function() {
         type: Number,
         required: true,
         postgresql: {
-          dataType: 'DECIMAL(10,2)',
+          dataType: 'DECIMAL',
+          dataPrecision: 10,
+          dataScale: 2,
         },
       },
     });
@@ -95,24 +94,7 @@ describe('postgresql connector', function() {
     });
   });
 
-  it('should allow explicit numeric `datatype`', function(done) {
-    var data = [
-      {
-        id: 1,
-        description: 'Expense 1',
-        amount: 159.99,
-      },
-      {
-        id: 2,
-        description: 'Expense 2',
-        amount: 10,
-      },
-      {
-        id: 3,
-        description: 'Expense 3',
-        amount: 12.49,
-      },
-    ];
+  it('create instance with explicit `datatype` (DECIMAL)', function(done) {
     Expense.create(data, function(err, result) {
       should.not.exist(err);
       should.exist(result);
@@ -120,6 +102,18 @@ describe('postgresql connector', function() {
       should.deepEqual(result[0].__data, data[0]);
       should.deepEqual(result[1].__data, data[1]);
       should.deepEqual(result[2].__data, data[2]);
+      done();
+    });
+  });
+
+  it('find instance with a decimal datatype', function(done) {
+    Expense.find({where: {amount: 159.99}}, function(err, result) {
+      should.not.exist(err);
+      should.exist(result);
+      should.equal(result.length, 1);
+      // need to parseFloat the amount value since it is returned as a string
+      // because loopback does not have a known "decimal" datatype
+      should.deepEqual(parseFloat(result[0].__data.amount), data[0].amount);
       done();
     });
   });
@@ -610,6 +604,24 @@ describe('Serial properties', function() {
     });
   });
 });
+
+var data = [
+  {
+    id: 1,
+    description: 'Expense 1',
+    amount: 159.99,
+  },
+  {
+    id: 2,
+    description: 'Expense 2',
+    amount: 10,
+  },
+  {
+    id: 3,
+    description: 'Expense 3',
+    amount: 12.49,
+  },
+];
 
 // FIXME: The following test cases are to be reactivated for PostgreSQL
 /*
