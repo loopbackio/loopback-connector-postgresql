@@ -13,7 +13,7 @@ require('./init');
 var async = require('async');
 var should = require('should');
 
-var Post, db, created;
+var Post, Expense, db, created;
 
 describe('lazyConnect', function() {
   it('should skip connect phase (lazyConnect = true)', function(done) {
@@ -67,6 +67,68 @@ describe('postgresql connector', function() {
       approved: Boolean,
     });
     created = new Date();
+  });
+
+  describe('Explicit datatype', function() {
+    before(function(done) {
+      db = getDataSource();
+
+      Expense = db.define('Expense', {
+        id: {
+          type: Number,
+          id: true,
+          required: true,
+          postgresql: {
+            dataType: 'NUMERIC',
+            dataPrecision: 3,
+          },
+        },
+        description: {
+          type: String,
+        },
+        amount: {
+          type: Number,
+          required: true,
+          postgresql: {
+            dataType: 'DECIMAL',
+            dataPrecision: 10,
+            dataScale: 2,
+          },
+        },
+      });
+      db.automigrate(done);
+    });
+
+    it('create instance with explicit datatype', function(done) {
+      Expense.create(data, function(err, result) {
+        should.not.exist(err);
+        should.exist(result);
+        should.equal(result.length, data.length);
+        done();
+      });
+    });
+
+    it('find instance with a decimal datatype', function(done) {
+      Expense.find({where: {amount: 159.99}}, function(err, result) {
+        should.not.exist(err);
+        should.exist(result);
+        should.equal(result.length, 1);
+        // need to parseFloat the amount value since it is returned as a string
+        // because loopback does not have a known "decimal" datatype
+        should.deepEqual(parseFloat(result[0].__data.amount), data[0].amount);
+        done();
+      });
+    });
+
+    it('find instance with a numeric datatype', function(done) {
+      Expense.find({where: {id: 258}}, function(err, result) {
+        should.not.exist(err);
+        should.exist(result);
+        should.equal(result.length, 1);
+        should.deepEqual(parseInt(result[0].__data.id), data[2].id);
+        done();
+      });
+    });
   });
 
   it('should run migration', function(done) {
@@ -561,6 +623,24 @@ describe('Serial properties', function() {
     });
   });
 });
+
+var data = [
+  {
+    id: 1,
+    description: 'Expense 1',
+    amount: 159.99,
+  },
+  {
+    id: 200,
+    description: 'Expense 2',
+    amount: 10,
+  },
+  {
+    id: 258,
+    description: 'Expense 3',
+    amount: 12.49,
+  },
+];
 
 // FIXME: The following test cases are to be reactivated for PostgreSQL
 /*
