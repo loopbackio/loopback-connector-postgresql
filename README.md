@@ -331,6 +331,8 @@ See [LoopBack types](http://loopback.io/doc/en/lb3/LoopBack-types.html) for de
 The PostgreSQL connector supports _model discovery_ that enables you to create LoopBack models
 based on an existing database schema using the unified [database discovery API](http://apidocs.strongloop.com/loopback-datasource-juggler/#datasource-prototype-discoverandbuildmodels).  For more information on discovery, see [Discovering models from relational databases](https://loopback.io/doc/en/lb3/Discovering-models-from-relational-databases.html).
 
+**Note:** Since PostgreSQL will create tables with all lowercase names (unless quoted at creation time), you might need to provide a custom mapper function in the options for the discovery API to change the casing of your table names.
+
 ### Auto-migratiion
 
 The PostgreSQL connector also supports _auto-migration_ that enables you to create a database schema
