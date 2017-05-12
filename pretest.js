@@ -1,7 +1,6 @@
 'use strict';
-if (!process.env.TEST_POSTGRESQL_USER && !process.env.CI) {
-  console.log('not seeding DB with test db');
-  return;
+if (!process.env.CI) {
+  return console.log('not seeding DB with test db');
 }
 
 var fs = require('fs');
