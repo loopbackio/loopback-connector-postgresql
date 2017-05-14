@@ -367,7 +367,7 @@ If you do not have a local PostgreSQL instance, you can also run the test suite 
 ```bash
 source setup.sh <HOST> <USER> <PASSWORD> <PORT> <DATABASE>
 ```
-where `<HOST>`, `<USER>`, `<PASSWORD>`, `<PORT>` and `<DATABASE>` are optional parameters. The default values are `localhost`, `root`, `pass`, `5432` and `emptytest` respectively.
+where `<HOST>`, `<USER>`, `<PASSWORD>`, `<PORT>` and `<DATABASE>` are optional parameters. The default values are `localhost`, `root`, `pass`, `5432` and `testdb` respectively.
 - Run the test:
 ```bash
 npm test

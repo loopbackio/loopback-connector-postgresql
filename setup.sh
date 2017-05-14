@@ -11,11 +11,11 @@ PLAIN='\033[0m'
 
 ## variables
 POSTGRESQL_CONTAINER="postgresql_c"
-HOST=localhost
+HOST="localhost"
 USER="root"
 PASSWORD="pass"
 PORT=5432
-DATABASE="emptytest"
+DATABASE="testdb"
 if [ "$1" ]; then
     HOST=$1
 fi
@@ -37,11 +37,10 @@ printf "\n${RED}>> Checking for docker${PLAIN} ${GREEN}...${PLAIN}"
 docker -v > /dev/null 2>&1
 DOCKER_EXISTS=$?
 if [ "$DOCKER_EXISTS" -ne 0 ]; then
-    printf "\n${CYAN}Status: ${PLAIN}${RED}Docker not found. Terminating setup.${PLAIN}\n"
+    printf "\n\n${CYAN}Status: ${PLAIN}${RED}Docker not found. Terminating setup.${PLAIN}\n\n"
     exit 1
 fi
 printf "\n${CYAN}Found docker. Moving on with the setup.${PLAIN}\n"
-
 
 ## cleaning up previous builds
 printf "\n${RED}>> Finding old builds and cleaning up${PLAIN} ${GREEN}...${PLAIN}"
@@ -57,7 +56,7 @@ printf "\n${CYAN}Image successfully built.${PLAIN}\n"
 printf "\n${RED}>> Starting the postgresql container${PLAIN} ${GREEN}...${PLAIN}"
 CONTAINER_STATUS=$(docker run --name $POSTGRESQL_CONTAINER -e POSTGRES_USER=$USER -e POSTGRES_PASSWORD=$PASSWORD -p $PORT:5432 -d postgres:latest 2>&1)
 if [[ "$CONTAINER_STATUS" == *"Error"* ]]; then
-    printf "\n${CYAN}Status: ${PLAIN}${RED}Error starting container. Terminating setup.${PLAIN}\n"
+    printf "\n\n${CYAN}Status: ${PLAIN}${RED}Error starting container. Terminating setup.${PLAIN}\n\n"
     exit 1
 fi
 docker cp ./test/schema.sql $POSTGRESQL_CONTAINER:/home/ > /dev/null 2>&1
@@ -91,10 +90,21 @@ while [ "$OUTPUT" -ne 0 ] && [ "$TIMEOUT" -gt 0 ]
     done
 
 if [ "$TIMEOUT" -le 0 ]; then
-    printf "\n\n${CYAN}Status: ${PLAIN}${RED}Failed to export schema. Terminating setup.${PLAIN}\n"
+    printf "\n\n${CYAN}Status: ${PLAIN}${RED}Failed to export schema. Terminating setup.${PLAIN}\n\n"
     exit 1
 fi
 printf "\n${CYAN}Successfully exported schema to database.${PLAIN}\n"
+
+## create the database
+printf "\n${RED}>> Create the database${PLAIN} ${GREEN}...${PLAIN}"
+export PGPASSWORD=$PASSWORD
+docker exec -it $POSTGRESQL_CONTAINER /bin/sh -c "psql -U $USER -c 'CREATE DATABASE $DATABASE'" > /dev/null 2>&1
+CREATE_DATABASE=$?
+if [ "$CREATE_DATABASE" -ne 0 ]; then
+    printf "\n\n${CYAN}Status: ${PLAIN}${RED}Error creating database: $DATABASE. Terminating setup.${PLAIN}\n\n"
+    exit 1
+fi
+printf "\n${CYAN}Database created.${PLAIN}\n"
 
 ## set env variables for running test
 printf "\n${RED}>> Setting env variables to run test${PLAIN} ${GREEN}...${PLAIN}"
