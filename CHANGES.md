@@ -1,3 +1,23 @@
+2017-05-15, Version 3.0.1
+=========================
+
+ * Add docker setup (#256) (Sakib Hasan)
+
+ * Allow explicit numeric datatype (#254) (Sakib Hasan)
+
+ * Allow non-id serial properties (#198) (zbarbuto)
+
+ * Revert PR #246 (#248) (Sakib Hasan)
+
+ * Add loopback-connector as peer dependencies (#246) (Russ Tyndall)
+
+ * Fix operations on ended transactions (zbarbuto)
+
+ * dbdefaults: Cleanup InvalidDefault def after test (Kevin Delisle)
+
+ * Reuse the data source to avoid too many clients (Raymond Feng)
+
+
 2017-03-31, Version 3.0.0
 =========================
 
