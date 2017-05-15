@@ -20,13 +20,13 @@ if [ "$1" ]; then
     HOST=$1
 fi
 if [ "$2" ]; then
-    USER=$2
+    PORT=$2
 fi
 if [ "$3" ]; then
-    PASSWORD=$3
+    USER=$3
 fi
 if [ "$4" ]; then
-    PORT=$4
+    PASSWORD=$4
 fi
 if [ "$5" ]; then
     DATABASE=$5
