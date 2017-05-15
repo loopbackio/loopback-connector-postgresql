@@ -350,26 +350,24 @@ Destroying models may result in errors due to foreign key integrity. First delet
 
 ## Running tests
 
-## Running tests
-
 ### Own instance
 If you have a local or remote PostgreSQL instance and would like to use that to run the test suite, use the following command:
 - Linux
 ```bash
-POSTGRESQL_HOST=<HOST> POSTGRESQL_USER=<USER> POSTGRESQL_PASSWORD=<PASSWORD> POSTGRESQL_PORT=<PORT> CI=true npm test
+POSTGRESQL_HOST=<HOST> POSTGRESQL_PORT=<PORT> POSTGRESQL_USER=<USER> POSTGRESQL_PASSWORD=<PASSWORD> POSTGRESQL_DATABASE=<DATABASE> CI=true npm test
 ```
 - Windows
 ```bash
-SET POSTGRESQL_HOST=<HOST> SET POSTGRESQL_USER=<USER> SET POSTGRESQL_PASSWORD=<PASSWORD> SET POSTGRESQL_PORT=<PORT> SET CI=true npm test
+SET POSTGRESQL_HOST=<HOST> SET POSTGRESQL_PORT=<PORT> SET POSTGRESQL_USER=<USER> SET POSTGRESQL_PASSWORD=<PASSWORD> SET POSTGRESQL_DATABASE=<DATABASE> SET CI=true npm test
 ```
 
 ### Docker
 If you do not have a local PostgreSQL instance, you can also run the test suite with very minimal requirements.
 - Assuming you have [Docker](https://docs.docker.com/engine/installation/) installed, run the following script which would spawn a PostgreSQL instance on your local:
 ```bash
-source setup.sh <USER> <PASSWORD> <PORT>
+source setup.sh <HOST> <PORT> <USER> <PASSWORD> <DATABASE>
 ```
-where `<USER>`, `<PASSWORD>` and `<PORT>` are optional parameters. The default values are `root`, `pass` and `5432`.
+where `<HOST>`, `<PORT>`, `<USER>`, `<PASSWORD>` and `<DATABASE>` are optional parameters. The default values are `localhost`, `5432`, `root`, `pass` and `testdb` respectively.
 - Run the test:
 ```bash
 npm test
