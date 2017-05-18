@@ -425,15 +425,15 @@ describe('postgresql connector', function() {
       db.automigrate(function(err, result) {
         if (err) throw err;
         PostWithDate = db.define('PostWithDate', {
-              title: {type: String, length: 255, index: true},
-              content: {type: String},
-              created: {
-                type: String,
-                postgresql: {
-                  dataType: 'timestamp with time zone'
-                }
-              }
-            });
+          title: {type: String, length: 255, index: true},
+          content: {type: String},
+          created: {
+            type: String,
+            postgresql: {
+              dataType: 'timestamp with time zone',
+            },
+          },
+        });
         Post.create([{
           title: 't1',
           content: 'T1_TestCase',
@@ -445,12 +445,12 @@ describe('postgresql connector', function() {
           {
             title: 'Title 1',
             content: 'Content 1',
-            created: '2017-05-17 12:00:01'
+            created: '2017-05-17 12:00:01',
           },
           {
             title: 'Title 2',
             content: 'Content 2',
-            created: '2017-04-17 12:00:01'
+            created: '2017-04-17 12:00:01',
           },
         ], done);
       });
