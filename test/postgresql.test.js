@@ -403,7 +403,7 @@ describe('postgresql connector', function() {
     it('supports nlike for no match for date types (with explicit typecast)', function(done) {
       PostWithDate.find({where: {content: {nlike: '%07%'}}},
         function(err, posts) {
-          if (err) return done(err);
+          should.not.exists(err);
           posts.length.should.equal(2);
           done();
         });
