@@ -418,41 +418,47 @@ describe('postgresql connector', function() {
     });
 
     function deleteTestFixtures(done) {
-      Post.destroyAll(done);
+      Post.destroyAll(function(err) {
+        should.not.exist(err);
+        if (PostWithDate) PostWithDate.destroyAll(done);
+        done();
+      });
     }
 
     function createTestFixtures(done) {
+      PostWithDate = db.define('PostWithDate', {
+        title: {type: String, length: 255, index: true},
+        content: {type: String},
+        created: {
+          type: String,
+          postgresql: {
+            dataType: 'timestamp with time zone',
+          },
+        },
+      });
       db.automigrate(function(err, result) {
         if (err) throw err;
-        PostWithDate = db.define('PostWithDate', {
-          title: {type: String, length: 255, index: true},
-          content: {type: String},
-          created: {
-            type: String,
-            postgresql: {
-              dataType: 'timestamp with time zone',
-            },
-          },
-        });
         Post.create([{
           title: 't1',
           content: 'T1_TestCase',
         }, {
           title: 't2',
           content: 'T2_TheOtherCase',
-        }]);
-        PostWithDate.create([
-          {
-            title: 'Title 1',
-            content: 'Content 1',
-            created: '2017-05-17 12:00:01',
-          },
-          {
-            title: 'Title 2',
-            content: 'Content 2',
-            created: '2017-04-17 12:00:01',
-          },
-        ], done);
+        }], function(err, result) {
+          should.not.exist(err);
+          PostWithDate.create([
+            {
+              title: 'Title 1',
+              content: 'Content 1',
+              created: '2017-05-17 12:00:01',
+            },
+            {
+              title: 'Title 2',
+              content: 'Content 2',
+              created: '2017-04-17 12:00:01',
+            },
+          ], done);
+        });
       });
     }
   });
