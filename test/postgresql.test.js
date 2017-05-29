@@ -13,7 +13,7 @@ require('./init');
 var async = require('async');
 var should = require('should');
 
-var Post, Expense, db, created;
+var Post, Expense, db, created, PostWithDate;
 
 describe('lazyConnect', function() {
   it('should skip connect phase (lazyConnect = true)', function(done) {
@@ -384,18 +384,82 @@ describe('postgresql connector', function() {
         });
     });
 
+    it('supports like for date types (with explicit typecast)', function(done) {
+      PostWithDate.find({where: {created: {like: '%05%'}}}, function(err, result) {
+        should.not.exists(err);
+        result.length.should.equal(1);
+        done();
+      });
+    });
+
+    it('supports case insensitive queries using ilike for date types (with explicit typecast)', function(done) {
+      PostWithDate.find({where: {created: {ilike: '%05%'}}}, function(err, result) {
+        should.not.exists(err);
+        result.length.should.equal(1);
+        done();
+      });
+    });
+
+    it('supports nlike for no match for date types (with explicit typecast)', function(done) {
+      PostWithDate.find({where: {content: {nlike: '%07%'}}},
+        function(err, posts) {
+          should.not.exists(err);
+          posts.length.should.equal(2);
+          done();
+        });
+    });
+
+    it('supports case insensitive queries using nilike for date types (with explicit typecast)', function(done) {
+      PostWithDate.find({where: {created: {nilike: '%07%'}}}, function(err, result) {
+        should.not.exists(err);
+        result.length.should.equal(2);
+        done();
+      });
+    });
+
     function deleteTestFixtures(done) {
-      Post.destroyAll(done);
+      Post.destroyAll(function(err) {
+        should.not.exist(err);
+        if (PostWithDate) PostWithDate.destroyAll(done);
+        done();
+      });
     }
 
     function createTestFixtures(done) {
-      Post.create([{
-        title: 't1',
-        content: 'T1_TestCase',
-      }, {
-        title: 't2',
-        content: 'T2_TheOtherCase',
-      }], done);
+      PostWithDate = db.define('PostWithDate', {
+        title: {type: String, length: 255, index: true},
+        content: {type: String},
+        created: {
+          type: String,
+          postgresql: {
+            dataType: 'timestamp with time zone',
+          },
+        },
+      });
+      db.automigrate(function(err, result) {
+        if (err) throw err;
+        Post.create([{
+          title: 't1',
+          content: 'T1_TestCase',
+        }, {
+          title: 't2',
+          content: 'T2_TheOtherCase',
+        }], function(err, result) {
+          should.not.exist(err);
+          PostWithDate.create([
+            {
+              title: 'Title 1',
+              content: 'Content 1',
+              created: '2017-05-17 12:00:01',
+            },
+            {
+              title: 'Title 2',
+              content: 'Content 2',
+              created: '2017-04-17 12:00:01',
+            },
+          ], done);
+        });
+      });
     }
   });
 
