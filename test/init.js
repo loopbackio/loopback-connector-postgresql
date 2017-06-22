@@ -55,9 +55,6 @@ global.getDataSource = global.getSchema = function(useUrl) {
   return db;
 };
 
-global.connectorCapabilities = {
-  ilike: false,
-  nilike: false,
-};
+global.connectorCapabilities = {};
 
 global.sinon = require('sinon');
