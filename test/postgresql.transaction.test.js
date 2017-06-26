@@ -121,6 +121,7 @@ describe('transactions', function() {
       });
     });
 
+<<<<<<< HEAD
     it('should work when operating directly on the model', function(done) {
       Post.beginTransaction(Transaction.READ_COMMITTED, function(err, tx) {
         Post.updateAll({content: 'post-a'}, {content: 'post-b'}, {transaction: tx},
@@ -135,7 +136,7 @@ describe('transactions', function() {
       });
     });
   });
-  
+
   describe('rollback', function() {
     var post = {title: 't2', content: 'c2'};
     before(createPostInTx(post));
