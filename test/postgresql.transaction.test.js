@@ -109,7 +109,7 @@ describe('transactions', function() {
     it('should see the committed insert', expectToFindPosts(post, 1));
   });
 
-  describe('update all', function() {
+  describe('on the model', function() {
     var p1Content = {title: 'p1', content: 'post-a'};
     var p2Content = {title: 'p2', content: 'post-a'};
 
@@ -121,8 +121,8 @@ describe('transactions', function() {
       });
     });
 
-    it('should work with update all', function(done) {
-      Transaction.begin(db.connector, Transaction.READ_COMMITTED, function(err, tx) {
+    it('should work when operating directly on the model', function(done) {
+      Post.beginTransaction(Transaction.READ_COMMITTED, function(err, tx) {
         Post.updateAll({content: 'post-a'}, {content: 'post-b'}, {transaction: tx},
           function(err, changes) {
             tx.commit(function(err) {
