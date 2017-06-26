@@ -127,7 +127,7 @@ describe('transactions', function() {
           function(err, changes) {
             tx.commit(function(err) {
               if (err) {
-                done(err);
+                return done(err);
               }
               done();
             });
