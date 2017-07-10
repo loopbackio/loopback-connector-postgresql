@@ -109,6 +109,34 @@ describe('transactions', function() {
     it('should see the committed insert', expectToFindPosts(post, 1));
   });
 
+  describe('on the model', function() {
+    var p1Content = {title: 'p1', content: 'post-a'};
+    var p2Content = {title: 'p2', content: 'post-a'};
+
+    before(function(done) {
+      Post.create(p1Content, function(err, p1) {
+        Post.create(p1Content, function(err, p2) {
+          done();
+        });
+      });
+    });
+
+<<<<<<< HEAD
+    it('should work when operating directly on the model', function(done) {
+      Post.beginTransaction(Transaction.READ_COMMITTED, function(err, tx) {
+        Post.updateAll({content: 'post-a'}, {content: 'post-b'}, {transaction: tx},
+          function(err, changes) {
+            tx.commit(function(err) {
+              if (err) {
+                return done(err);
+              }
+              done();
+            });
+          });
+      });
+    });
+  });
+
   describe('rollback', function() {
     var post = {title: 't2', content: 'c2'};
     before(createPostInTx(post));
