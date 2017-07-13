@@ -69,6 +69,10 @@ describe('postgresql connector', function() {
     created = new Date();
   });
 
+  after(function(done) {
+    Post.destroyAll(done);
+  });
+
   describe('Explicit datatype', function() {
     before(function(done) {
       db = getDataSource();
@@ -279,15 +283,44 @@ describe('postgresql connector', function() {
       });
     });
 
-  it('should support GeoPoint types', function(done) {
+  context('GeoPoint types', function() {
     var GeoPoint = juggler.ModelBuilder.schemaTypes.geopoint;
-    var loc = new GeoPoint({lng: 10, lat: 20});
-    Post.create({title: 'T1', content: 'C1', loc: loc}, function(err, p) {
-      should.not.exists(err);
-      Post.findById(p.id, function(err, p) {
+    var loc;
+
+    it('should support GeoPoint types', function(done) {
+      loc = new GeoPoint({lng: 10, lat: 20});
+      Post.create({title: 'T1', content: 'C1', loc: loc}, function(err, p) {
         should.not.exists(err);
-        p.loc.lng.should.be.eql(10);
-        p.loc.lat.should.be.eql(20);
+        Post.findById(p.id, function(err, p) {
+          should.not.exists(err);
+          p.loc.lng.should.be.eql(10);
+          p.loc.lat.should.be.eql(20);
+          done();
+        });
+      });
+    });
+
+    it('should support simple where filter', function(done) {
+      loc = new GeoPoint({lng: 5, lat: -10});
+      Post.create({title: 'T2', content: 'C2', loc: loc}, function(err, p) {
+        should.not.exists(err);
+        Post.find({where: {loc: loc}}, function(err, post) {
+          should.not.exist(err);
+          should.exist(post);
+          post.length.should.equal(1);
+          should.exist(post[0].loc);
+          post[0].loc.lng.should.equal(loc.lng);
+          post[0].loc.lat.should.equal(loc.lat);
+          done();
+        });
+      });
+    });
+
+    it('should support complicated where filter', function(done) {
+      Post.find({where: {and: [{loc: loc}, {title: {like: '%t%'}}]}}, function(err, post) {
+        should.not.exist(err);
+        should.exist(post);
+        post.length.should.equal(0);
         done();
       });
     });
