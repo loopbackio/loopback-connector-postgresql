@@ -115,7 +115,7 @@ describe('transactions', function() {
 
     before(function(done) {
       Post.create(p1Content, function(err, p1) {
-        Post.create(p1Content, function(err, p2) {
+        Post.create(p2Content, function(err, p2) {
           done();
         });
       });
