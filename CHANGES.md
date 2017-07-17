@@ -1,3 +1,31 @@
+2017-07-17, Version 3.0.2
+=========================
+
+ * Use loopback-connector@^4.2.2 (Kevin Delisle)
+
+ * Allow to debug queries only (ssh24)
+
+ * Fix geo operator (ssh24)
+
+ * Add docs on numeric data type (ssh24)
+
+ * Add execute permission to setup.sh (Raymond Feng)
+
+ * Correct a <td> to </td> closing tag (Marco Galassi)
+
+ * Add connection pool settings doc to README.md (Marco Galassi)
+
+ * clean up postwithdate (ptrblgh)
+
+ * add tests for future regression (ptrblgh)
+
+ * add missing assertion (ptrblgh)
+
+ * add explicit typecasts to pattern matching (ptrblgh)
+
+ * Fix docker setup (#257) (Sakib Hasan)
+
+
 2017-05-15, Version 3.0.1
 =========================
 
