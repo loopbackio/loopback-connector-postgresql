@@ -8,9 +8,10 @@ process.env.NODE_ENV = 'test';
 require('should');
 
 var assert = require('assert');
+var _ = require('lodash');
 
 var DataSource = require('loopback-datasource-juggler').DataSource;
-var db;
+var db, City;
 
 before(function() {
   var config = getDBConfig();
@@ -105,6 +106,68 @@ describe('Discover models including other users', function() {
 });
 
 describe('Discover model properties', function() {
+  before(function(done) {
+    City = db.define('City', {
+      name: {type: String},
+      code: {type: String},
+      lng: {type: Number, postgresql: {
+        dataType: 'double precision',
+      }},
+      lat: {type: Number, postgresql: {
+        dataType: 'real',
+      }},
+    });
+    db.automigrate(done);
+  });
+
+  after(function(done) {
+    City.destroyAll(done);
+  });
+
+  it('coerces `real` and `data precision` types to float on model prop ' +
+    'discovery', function(done) {
+    db.discoverModelProperties('city', function(err, properties) {
+      assert(!err);
+      assert(properties);
+      var dataTypes = _.map(properties, function(prop) {
+        return prop.dataType;
+      });
+      assert(dataTypes);
+      assert.equal(dataTypes[2], 'float');
+      assert.equal(dataTypes[3], 'float');
+      done();
+    });
+  });
+
+  it('discover model definition and autoupdate', function(done) {
+    db.discoverSchemas('city', function(err, schema) {
+      assert(!err);
+      assert(schema);
+      schema = schema['public.city'];
+      schema.properties.country = {
+        type: String,
+      };
+      db.createModel(schema.name, schema.properties, schema.options);
+      db.autoupdate(function(err) {
+        assert(!err);
+        var sql = db.connector.buildQueryColumns('public', 'city');
+        db.connector.execute(sql, function(err, columns) {
+          assert(!err);
+          assert(columns);
+          var cols = _.filter(columns, function(col) {
+            return col.dataType === 'real' || col.dataType === 'double precision';
+          });
+          assert(cols);
+          assert.equal(cols[0].columnName, 'lng');
+          assert.equal(cols[0].dataType, 'double precision');
+          assert.equal(cols[1].columnName, 'lat');
+          assert.equal(cols[1].dataType, 'real');
+          done();
+        });
+      });
+    });
+  });
+
   describe('Discover a named model', function() {
     it('should return an array of columns for product', function(done) {
       db.discoverModelProperties('product', function(err, models) {
