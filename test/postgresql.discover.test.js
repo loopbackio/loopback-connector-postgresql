@@ -124,7 +124,8 @@ describe('Discover model properties', function() {
     City.destroyAll(done);
   });
 
-  it('discover model properties', function(done) {
+  it('coerces `real` and `data precision` types to float on model prop ' +
+    'discovery', function(done) {
     db.discoverModelProperties('city', function(err, properties) {
       assert(!err);
       assert(properties);
