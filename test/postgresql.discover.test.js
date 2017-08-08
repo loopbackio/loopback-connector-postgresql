@@ -109,13 +109,15 @@ describe('Discover model properties', function() {
   before(function(done) {
     City = db.define('City', {
       name: {type: String},
-      code: {type: String},
       lng: {type: Number, postgresql: {
         dataType: 'double precision',
       }},
       lat: {type: Number, postgresql: {
         dataType: 'real',
       }},
+      code: {type: Number},
+      population: {type: Number, postgresql: {dataType: 'bigint'}},
+      currency: {type: Number, postgresql: {dataType: 'smallint'}},
     });
     db.automigrate(done);
   });
@@ -133,8 +135,50 @@ describe('Discover model properties', function() {
         return prop.dataType;
       });
       assert(dataTypes);
+      assert.equal(dataTypes[1], 'float');
       assert.equal(dataTypes[2], 'float');
-      assert.equal(dataTypes[3], 'float');
+      done();
+    });
+  });
+
+  it('drops precision from a field which is `integer`', function(done) {
+    db.discoverModelProperties('city', function(err, properties) {
+      assert(!err);
+      assert(properties);
+      var prop = _.find(properties, function(prop) {
+        return prop.columnName === 'code';
+      });
+      assert(prop);
+      assert.equal(prop.dataType, 'integer');
+      assert(!prop.dataPrecision);
+      done();
+    });
+  });
+
+  it('drops precision from a field which is `bigint`', function(done) {
+    db.discoverModelProperties('city', function(err, properties) {
+      assert(!err);
+      assert(properties);
+      var prop = _.find(properties, function(prop) {
+        return prop.columnName === 'population';
+      });
+      assert(prop);
+      assert.equal(prop.dataType, 'bigint');
+      assert(!prop.dataPrecision);
+      done();
+    });
+  });
+
+  it('drops precision from a field which is `smallint`', function(done) {
+    db.discoverModelProperties('city', function(err, properties) {
+      assert(!err);
+      assert(properties);
+      var prop = _.find(properties, function(prop) {
+        return prop.columnName === 'currency';
+      });
+      assert(prop);
+      assert.equal(prop.dataType, 'smallint');
+      assert(!prop.dataPrecision);
       done();
     });
   });
@@ -155,13 +199,21 @@ describe('Discover model properties', function() {
           assert(!err);
           assert(columns);
           var cols = _.filter(columns, function(col) {
-            return col.dataType === 'real' || col.dataType === 'double precision';
+            return col.dataType === 'real' ||
+            col.dataType === 'double precision' || col.dataType === 'integer'
+            || col.dataType === 'bigint' || col.dataType === 'smallint';
           });
           assert(cols);
           assert.equal(cols[0].columnName, 'lng');
           assert.equal(cols[0].dataType, 'double precision');
           assert.equal(cols[1].columnName, 'lat');
           assert.equal(cols[1].dataType, 'real');
+          assert.equal(cols[2].columnName, 'code');
+          assert.equal(cols[2].dataType, 'integer');
+          assert.equal(cols[3].columnName, 'population');
+          assert.equal(cols[3].dataType, 'bigint');
+          assert.equal(cols[4].columnName, 'currency');
+          assert.equal(cols[4].dataType, 'smallint');
           done();
         });
       });
