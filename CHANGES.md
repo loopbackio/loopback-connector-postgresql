@@ -1,3 +1,43 @@
+2017-08-21, Version 3.0.3
+=========================
+
+ * Create Issue and PR Templates (#291) (Sakib Hasan)
+
+ * Allow migration on schema (ssh24)
+
+ * Update translated strings Q3 2017 (Allen Boone)
+
+ * Fix integer data type (ssh24)
+
+ * update translation file (Diana Lau)
+
+ * Override discover model props (ssh24)
+
+ * Add test cases (ssh24)
+
+ * Add CODEOWNER file (Diana Lau)
+
+ * Allow typecasting upon altering prop (ssh24)
+
+ * Add missing require (Zak Barbuto)
+
+ * Revert change to commit and rollback (Zak Barbuto)
+
+ * Revert transaction tracking (Zak Barbuto)
+
+ * Update transaction test (Zak Barbuto)
+
+ * Remove require of Transaction (Zak Barbuto)
+
+ * Avoid connector for transaction tracking (Zak Barbuto)
+
+ * Fix operations directly on model #258 (Zak Barbuto)
+
+ * Add missing return (Zak Barbuto)
+
+ * Add test for #258 (Zak Barbuto)
+
+
 2017-07-17, Version 3.0.2
 =========================
 
