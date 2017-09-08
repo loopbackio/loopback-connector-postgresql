@@ -53,7 +53,13 @@ describe('transactions', function() {
         function(err, posts) {
           if (err) return done(err);
           posts.length.should.be.eql(count);
-          done();
+          // Make sure both find() and count() behave the same way
+          Post.count(where, options,
+            function(err, result) {
+              if (err) return done(err);
+              result.should.be.eql(count);
+              done();
+            });
         });
     };
   }
