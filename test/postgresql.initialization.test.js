@@ -18,14 +18,14 @@ function newConfig(withURL) {
 describe('initialization', function() {
   it('honours user-defined pg-pool settings', function() {
     var dataSource = new DataSource(connector, newConfig());
-    var pool = dataSource.connector.pg.pool;
-    pool._factory.max.should.not.equal(999);
+    var pool = dataSource.connector.pg;
+    pool.options.max.should.not.equal(999);
 
     var settings = newConfig();
     settings.max = 999; // non-default value
     var dataSource = new DataSource(connector, settings);
-    var pool = dataSource.connector.pg.pool;
-    pool._factory.max.should.equal(999);
+    var pool = dataSource.connector.pg;
+    pool.options.max.should.equal(999);
   });
 
   it('honours user-defined url settings', function() {
@@ -45,8 +45,8 @@ describe('initialization', function() {
     var urlOnly = {url: newConfig(true).url, max: 999};
 
     var dataSource = new DataSource(connector, urlOnly);
-    var pool = dataSource.connector.pg.pool;
-    pool._factory.max.should.equal(999);
+    var pool = dataSource.connector.pg;
+    pool.options.max.should.equal(999);
 
     var clientConfig = dataSource.connector.clientConfig;
     clientConfig.connectionString.should.equal(urlOnly.url);
@@ -57,9 +57,8 @@ describe('postgresql connector errors', function() {
   it('Should complete these 4 queries without dying', function(done) {
     var dataSource = getDataSource();
     var db = dataSource.connector;
-    var pool = db.pg.pool;
-    pool._factory.max = 5;
-    pool._factory.min = null;
+    var pool = db.pg;
+    pool.options.max = 5;
     var errors = 0;
     var shouldGet = 0;
     function runErrorQuery() {
