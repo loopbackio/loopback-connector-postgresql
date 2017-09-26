@@ -1,3 +1,13 @@
+2017-09-26, Version 3.1.0
+=========================
+
+ * Upgrade to pg@7. (Samuel Reed)
+
+ * Add test for transaction support in count() (Jürg Lehni)
+
+ * Add stalebot configuration (Kevin Delisle)
+
+
 2017-08-21, Version 3.0.3
 =========================
 
