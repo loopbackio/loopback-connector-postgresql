@@ -26,6 +26,7 @@
     "loopback-connector": "^4.2.2",
     "pg": "^7.0.0",
     "strong-globalize": "^2.6.2",
+    "loopback-context": "^3.0.0",
     "uuid": "^3.0.1"
   },
   "devDependencies": {
