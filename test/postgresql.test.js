@@ -658,6 +658,86 @@ describe('postgresql connector', function() {
       });
     });
   });
+
+  context('json data type', function() {
+    var Customer;
+
+    before(function(done) {
+      db = getDataSource();
+
+      Customer = db.define('Customer', {
+        address: {
+          type: 'object',
+          postgresql: {
+            dataType: 'json',
+          },
+        },
+      });
+
+      db.automigrate(function(err) {
+        if (err) return done(err);
+        Customer.create([{
+          address: {
+            city: 'Springfield',
+            street: {
+              number: 42,
+            },
+          },
+        }, {
+          address: {
+            city: 'Hill Valley',
+            street: {
+              number: 56,
+            },
+          },
+        }], function(err, customers) {
+          return done(err);
+        });
+      });
+    });
+
+    it('allows querying for nested json properties', function(done) {
+      Customer.find({
+        where: {
+          'address.city': 'Hill Valley',
+        },
+      }, function(err, results) {
+        if (err) return done(err);
+        results.length.should.eql(1);
+        results[0].address.city.should.eql('Hill Valley');
+        done();
+      });
+    });
+
+    it('queries multiple levels of nesting', function(done) {
+      Customer.find({
+        where: {
+          'address.street.number': 56,
+        },
+      }, function(err, results) {
+        if (err) return done(err);
+        results.length.should.eql(1);
+        results[0].address.city.should.eql('Hill Valley');
+        done();
+      });
+    });
+
+    it('allows ordering by nested json properties', function(done) {
+      Customer.find({
+        order: ['address.city DESC'],
+      }, function(err, results1) {
+        if (err) return done(err);
+        results1[0].address.city.should.eql('Springfield');
+        Customer.find({
+          order: ['address.city ASC'],
+        }, function(err, results2) {
+          if (err) return done(err);
+          results2[0].address.city.should.eql('Hill Valley');
+          done();
+        });
+      });
+    });
+  });
 });
 
 describe('Serial properties', function() {
