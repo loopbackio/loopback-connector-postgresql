@@ -1,3 +1,15 @@
+2017-11-13, Version 3.2.0
+=========================
+
+ * chore:update license (Diana Lau)
+
+ * Add basic json query support (Zak Barbuto)
+
+ * update dependencies (Diana Lau)
+
+ * CODEOWNERS: add zbarbuto (Miroslav Bajtoš)
+
+
 2017-09-26, Version 3.1.0
 =========================
 
