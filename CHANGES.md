@@ -1,3 +1,13 @@
+2018-01-12, Version 2.9.0
+=========================
+
+ * Use pg@7 (Robin Biondi)
+
+ * drop node 0.10 and 0.12 support (Diana Lau)
+
+ * fix 2.x CI (Diana Lau)
+
+
 2017-02-24, Version 2.8.0
 =========================
 
