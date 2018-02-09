@@ -172,6 +172,22 @@ describe('postgresql connector', function() {
       });
   });
 
+  it('should support `rows` if RETURNING used after UPDATE', function(done) {
+    Post.create(
+      {title: 'rows returned from update', content: 'Content'},
+      function(err, p) {
+        if (err) return done(err);
+        post = p;
+        var query = "UPDATE PostWithBoolean SET title ='something else' WHERE id=" + post.id + " RETURNING id";
+        db.connector.execute(query, function(err, results) {
+          results.should.have.property('count', 1);
+          results.should.have.property('affectedRows', 1);
+          results.rows[0].id.should.eql(post.id);
+          done(err);
+        });
+      });
+  });
+
   it('should support updating boolean types with false value', function(done) {
     Post.update({id: post.id}, {approved: false}, function(err) {
       should.not.exists(err);
