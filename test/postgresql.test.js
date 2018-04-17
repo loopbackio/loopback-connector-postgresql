@@ -178,7 +178,7 @@ describe('postgresql connector', function() {
       function(err, p) {
         if (err) return done(err);
         post = p;
-        var query = "UPDATE PostWithBoolean SET title ='something else' WHERE id=" + post.id + " RETURNING id";
+        var query = 'UPDATE PostWithBoolean SET title =\'something else\' WHERE id=' + post.id + ' RETURNING id';
         db.connector.execute(query, function(err, results) {
           results.should.have.property('count', 1);
           results.should.have.property('affectedRows', 1);
