@@ -1,3 +1,13 @@
+2018-04-26, Version 3.3.1
+=========================
+
+ * update CODEOWNERS (Diana Lau)
+
+ * linting updates (Tim Jones)
+
+ * add support for UPDATE RETURNING (Tim Jones)
+
+
 2018-01-12, Version 3.3.0
 =========================
 
