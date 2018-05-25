@@ -1,3 +1,11 @@
+2018-05-25, Version 3.3.2
+=========================
+
+ * rebase the code to latest master (sahil)
+
+ * typo (Lambdac0re)
+
+
 2018-04-26, Version 3.3.1
 =========================
 
