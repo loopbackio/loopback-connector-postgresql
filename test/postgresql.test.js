@@ -188,6 +188,21 @@ describe('postgresql connector', function() {
       });
   });
 
+  it('should support `rows` if RETURNING used after INSERT', function(done) {
+    var query = 'INSERT PostWithBoolean (title) VALUES(\'fresh\') RETURNING id';
+    db.connector.execute(query, function(err, results) {
+      results.should.have.property('count', 1);
+      results.should.have.property('affectedRows', 1);
+
+      var postId = results.rows[0].id;
+
+      Post.findById(postId, function(err, p) {
+        p.should.have.property('id', postId);
+        done(err);
+      });
+    });
+  });
+
   it('should support updating boolean types with false value', function(done) {
     Post.update({id: post.id}, {approved: false}, function(err) {
       should.not.exists(err);
