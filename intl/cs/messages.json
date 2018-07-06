@@ -1,0 +1,11 @@
+{
+  "16cbc6b164ad51e193938132d059ce3f": "Definice {{Index keys}} se zdá být neplatná: {0}",
+  "1752695ee513f17d70e82753c0b6ef1a": "Syntaxe regulárního výrazu {{PostgreSQL}} nerespektuje příznak {{`m`}}",
+  "57f16aa91bedf97b1ced3172a1f6a677": "Transakce není aktivní",
+  "a0078d732b2dbabf98ed2efcdb55b402": "{{table}} je povinný řetězcový argument: {0}",
+  "b811d24a7d249e0aedff11523626fbfd": "{{Placeholder}} pro identifikátory není podporován",
+  "bfe8fb104f017b365e64da57ed975db6": "Syntaxe regulárního výrazu {{PostgreSQL}} nerespektuje příznak {{`g`}}",
+  "e9e7184802c69872b38aefad624b0769": "Připojení neexistuje",
+  "fc3b8fde2e08c74cafb55f25c4841a4b": "{{options}} musí být objekt: {0}"
+}
+

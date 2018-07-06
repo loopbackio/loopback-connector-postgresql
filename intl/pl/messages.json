@@ -1,0 +1,11 @@
+{
+  "16cbc6b164ad51e193938132d059ce3f": "Element {{Index keys}} ma definicję, która wydaje się być niepoprawna: {0}",
+  "1752695ee513f17d70e82753c0b6ef1a": "Składnia wyrażenia regularnego bazy danych {{PostgreSQL}} nie respektuje flagi {{`m`}}",
+  "57f16aa91bedf97b1ced3172a1f6a677": "Transakcja jest nieaktywna",
+  "a0078d732b2dbabf98ed2efcdb55b402": "{{table}} jest wymaganym argumentem łańcuchowym: {0}",
+  "b811d24a7d249e0aedff11523626fbfd": "{{Placeholder}} dla identyfikatorów nie jest obsługiwany",
+  "bfe8fb104f017b365e64da57ed975db6": "Składnia wyrażenia regularnego bazy danych {{PostgreSQL}} nie respektuje flagi {{`g`}}",
+  "e9e7184802c69872b38aefad624b0769": "Połączenie nie istnieje",
+  "fc3b8fde2e08c74cafb55f25c4841a4b": "Właściwość {{options}} musi być obiektem: {0}"
+}
+
