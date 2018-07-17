@@ -1,3 +1,11 @@
+2018-07-17, Version 3.4.0
+=========================
+
+ * Drop Node 4 in CI (Diana Lau)
+
+ * [WebFM] cs/pl/ru translation (candytangnb)
+
+
 2018-05-25, Version 3.3.2
 =========================
 
