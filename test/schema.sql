@@ -56,6 +56,9 @@ CREATE TABLE "TestGeo" (
     id integer NOT NULL
 );
 
+COMMENT ON TABLE "TestGeo" IS 'The TestGeo table';
+COMMENT ON COLUMN "TestGeo".loc IS 'The location of property of TestGeo';
+
 
 --
 -- Name: TestGeo_id_seq; Type: SEQUENCE; Schema: public; Owner: strongloop

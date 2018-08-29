@@ -339,4 +339,14 @@ describe('Discover and build models', function() {
       });
     });
   });
+
+  it('should build a model from discovery with comments', function(done) {
+    db.discoverAndBuildModels('TestGeo', {schema: 'public'}, function(err, schema) {
+      var prop = schema.Testgeo.definition.properties.loc.postgresql;
+      assert(prop);
+      assert.equal(prop.description, 'The location of property of TestGeo');
+      done();
+    });
+  });
 });
+
