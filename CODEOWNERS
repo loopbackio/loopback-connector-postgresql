@@ -1,9 +1,9 @@
 # Lines starting with '#' are comments.
 # Each line is a file pattern followed by one or more owners,
-# the last matching pattern has the most precendence.
+# the last matching pattern has the most precedence.
 
 # Core team members from IBM
-* @jannyHou @b-admike @virkt25 @dhmlau @zbarbuto
+* @jannyHou @b-admike @dhmlau @zbarbuto
 
 # Alumni members
-# @kjdelisle @loay @ssh24
+# @kjdelisle @loay @ssh24 @virkt25 
