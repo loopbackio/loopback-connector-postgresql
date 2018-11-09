@@ -1,4 +1,14 @@
-2018-07-17, Version 3.4.0
+2018-11-09, Version 3.5.0
+=========================
+
+ * Fixed line length to pass lint (ataft)
+
+ * Fix hard-coded "pkName" column in queries (ataft)
+
+ * Modify type 'double precision' to map to float (ataft)
+
+
+2018-07-16, Version 3.4.0
 =========================
 
  * Drop Node 4 in CI (Diana Lau)
