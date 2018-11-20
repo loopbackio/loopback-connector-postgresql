@@ -688,6 +688,19 @@ describe('postgresql connector', function() {
             dataType: 'json',
           },
         },
+      }, {
+        // NOTE:
+        // Doesn't work with `false` because it turns into 'throw' at
+        //  loopback-datasource-juggler/lib/datasource.js#809
+        // which gets used as excludeUnknown at
+        //  loopback-datasource-juggler/lib/model-utils.js#172
+        // which evaluate to true at
+        //  loopback-datasource-juggler/lib/utils.js#278
+        // Setting 0 here as a workaround gets it to
+        //  evaluate to false as anticipated and not
+        //  filter our `.`-denoted columns before it
+        //  makes it to columnNames.
+        strict: 0,
       });
 
       db.automigrate(function(err) {
@@ -751,6 +764,22 @@ describe('postgresql connector', function() {
           results2[0].address.city.should.eql('Hill Valley');
           done();
         });
+      });
+    });
+
+    it('allows filtering fields by nested json properties', function(done) {
+      Customer.find({
+        where: {
+          'address.city': 'Hill Valley',
+        },
+        fields: ['address.street.number'],
+      }, function(err, results) {
+        if (err) return done(err);
+        console.log(results[0]);
+        results.length.should.eql(1);
+        // NOTE: Currently, JSON fields get converted to strings
+        results[0].address.should.eql({street: {number: '56'}});
+        done();
       });
     });
   });
