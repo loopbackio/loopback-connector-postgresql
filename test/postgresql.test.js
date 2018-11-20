@@ -753,6 +753,20 @@ describe('postgresql connector', function() {
         });
       });
     });
+
+    it('allows full text search of nested json properties', function(done) {
+      Customer.find({
+        where: {
+          'address': {
+            fullTextSearch: 'Springfield'
+          }
+        },
+      }, function(err, results1) {
+        if (err) return done(err);
+        results1[0].address.city.should.eql('Springfield');
+        done();
+      });
+    });
   });
 });
 
