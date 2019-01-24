@@ -1,6 +1,7 @@
 node_modules
 .project
 .idea
+.vscode
 coverage
 lib-cov
 *.seed
