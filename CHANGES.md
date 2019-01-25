@@ -1,3 +1,11 @@
+2019-01-25, Version 3.5.1
+=========================
+
+ * Update CODEOWNERS to reflect the current status (Diana Lau)
+
+ * add support for create and delete foreign key (elv1s)
+
+
 2018-11-09, Version 3.5.0
 =========================
 
