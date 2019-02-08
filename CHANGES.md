@@ -1,3 +1,13 @@
+2019-02-08, Version 3.6.0
+=========================
+
+ * add code comment (elv1s)
+
+ * bug fix for multiple fk (elv1s)
+
+ * Fix timestamp precision force isActual to false (Rafael D. Fito)
+
+
 2019-01-25, Version 3.5.1
 =========================
 
