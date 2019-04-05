@@ -689,4 +689,53 @@ describe('autoupdate', function() {
       });
     });
   });
+
+  describe('indexes on table in schema', function() {
+    var schema = {
+      options: {
+        postgresql: {
+          schema: 'aschema',
+        },
+      },
+      properties: {
+        something: {
+          type: 'string',
+          index: true,
+        },
+      },
+    };
+
+    var changedSchema = Object.assign({}, schema, {
+      properties: {
+        something: {
+          type: 'string',
+          index: false,
+        },
+      },
+    });
+
+    afterEach(function(done) {
+      ds.adapter.dropTable('ATable', done);
+    });
+
+    it('should update without errors', function(done) {
+      ds.define('ATable', schema.properties, schema.options);
+      ds.autoupdate(['ATable'], function(err) {
+        assert(!err, err);
+        done();
+      });
+    });
+
+    it('should be removed successfully', function(done) {
+      ds.define('ATable', schema.properties, schema.options);
+      ds.autoupdate(['ATable'], function(err) {
+        assert(!err, err);
+        ds.define('ATable', changedSchema.properties, changedSchema.options);
+        ds.autoupdate(['ATable'], function(err) {
+          assert(!err, err);
+          done();
+        });
+      });
+    });
+  });
 });
