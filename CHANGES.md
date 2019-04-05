@@ -1,3 +1,15 @@
+2019-04-05, Version 3.6.1
+=========================
+
+ * Fix cannot create foreignkey (#371) (Hung)
+
+ * Add regression test (jlawrencecfm)
+
+ * Use canonical index name when dropping (jlawrencecfm)
+
+ * add @elv1s as CODEOWNERS (Diana Lau)
+
+
 2019-02-08, Version 3.6.0
 =========================
 
