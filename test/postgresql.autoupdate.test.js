@@ -477,6 +477,9 @@ describe('autoupdate', function() {
           'customerId': {
             'type': 'String',
             'length': 20,
+            'postgresql': {
+              'columnName': 'customerId',
+            },
           },
           'description': {
             'type': 'String',
@@ -512,6 +515,9 @@ describe('autoupdate', function() {
           'customerId': {
             'type': 'String',
             'length': 20,
+            'postgresql': {
+              'columnName': 'customerId',
+            },
           },
           'description': {
             'type': 'String',
@@ -521,6 +527,9 @@ describe('autoupdate', function() {
           'productId': {
             'type': 'String',
             'length': 20,
+            'postgresql': {
+              'columnName': 'productId',
+            },
           },
         },
       };
@@ -557,6 +566,9 @@ describe('autoupdate', function() {
           'customerId': {
             'type': 'String',
             'length': 20,
+            'postgresql': {
+              'columnName': 'customerId',
+            },
           },
           'description': {
             'type': 'String',
@@ -566,6 +578,9 @@ describe('autoupdate', function() {
           'productId': {
             'type': 'String',
             'length': 20,
+            'postgresql': {
+              'columnName': 'productId',
+            },
           },
         },
       };
@@ -588,10 +603,16 @@ describe('autoupdate', function() {
           'customerId': {
             'type': 'String',
             'length': 20,
+            'postgresql': {
+              'columnName': 'customerId',
+            },
           },
           'productId': {
             'type': 'String',
             'length': 20,
+            'postgresql': {
+              'columnName': 'productId',
+            },
           },
           'description': {
             'type': 'String',
@@ -626,8 +647,7 @@ describe('autoupdate', function() {
               assert.equal(foreignKeys.length, 1);
               assert.equal(foreignKeys[0].pkColumnName, 'id');
               assert.equal(foreignKeys[0].pkTableName, 'customer_test3');
-              // note: column names are converted to lowercase by postgres
-              assert.equal(foreignKeys[0].fkColumnName, 'customerid');
+              assert.equal(foreignKeys[0].fkColumnName, 'customerId');
               assert.equal(foreignKeys[0].fkName, 'fk_ordertest_customerId');
 
               // update and add another fk
@@ -646,8 +666,7 @@ describe('autoupdate', function() {
                     assert.equal(foreignKeysUpdated.length, 1);
                     assert.equal(foreignKeysUpdated[0].pkColumnName, 'id');
                     assert.equal(foreignKeysUpdated[0].pkTableName, 'customer_test2');
-                    // note: column names are converted to lowercase by postgres
-                    assert.equal(foreignKeysUpdated[0].fkColumnName, 'customerid');
+                    assert.equal(foreignKeysUpdated[0].fkColumnName, 'customerId');
                     assert.equal(foreignKeysUpdated[0].fkName, 'fk_ordertest_customerId');
 
                     // create multiple fks on object
