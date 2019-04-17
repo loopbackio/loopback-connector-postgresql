@@ -58,6 +58,9 @@ global.getDataSource = global.getSchema = function(useUrl) {
 global.connectorCapabilities = {
   ilike: false,
   nilike: false,
+  // TODO: [b-admike] we do not support arrays at the moment
+  // see https://github.com/strongloop/loopback-connector-postgresql/issues/342
+  supportsArrays: false,
 };
 
 global.sinon = require('sinon');
