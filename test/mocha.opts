@@ -1,0 +1,4 @@
+--reporter spec
+--timeout 10000
+--require test/init.js
+--exit

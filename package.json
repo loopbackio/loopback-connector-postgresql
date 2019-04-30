@@ -15,7 +15,7 @@
   "main": "index.js",
   "scripts": {
     "pretest": "node pretest.js",
-    "test": "mocha -R spec --timeout 10000 --require test/init.js test/*.test.js",
+    "test": "mocha test/*.test.js",
     "lint": "eslint .",
     "posttest": "npm run lint"
   },
