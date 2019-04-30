@@ -6,8 +6,6 @@
 'use strict';
 var juggler = require('loopback-datasource-juggler');
 var CreateDS = juggler.DataSource;
-require('loopback-datasource-juggler/test/common.batch.js');
-require('loopback-datasource-juggler/test/include.test.js');
 
 require('./init');
 var async = require('async');
