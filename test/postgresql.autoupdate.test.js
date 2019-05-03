@@ -629,19 +629,27 @@ describe('autoupdate', function() {
       // Table create order is important. Referenced tables must exist before creating a reference.
       // do initial update/creation of referenced tables
       ds.autoupdate(function(err) {
-        assert(!err, err);
+        if (err) {
+          err.message += ' (while running initial autoupdate)';
+          return done(err);
+        }
 
         // do initial update/creation of table with fk
         ds.createModel(orderTest_schema_v1.name, orderTest_schema_v1.properties, orderTest_schema_v1.options);
         ds.autoupdate(function(err) {
-          assert(!err, err);
+          if (err) {
+            err.message += ' (while updating OrderTest schema v1)';
+            return done(err);
+          }
           ds.discoverModelProperties('order_test', function(err, props) {
+            if (err) return done(err);
             // validate that we have the correct number of properties
             assert.equal(props.length, 3);
 
             // get the foreign keys for order_test
             ds.connector.discoverForeignKeys('order_test', {}, function(err, foreignKeys) {
-              assert(!err, err);
+              if (err) return done(err);
+
               // validate that the foreign key exists and points to the right column
               assert(foreignKeys);
               assert.equal(foreignKeys.length, 1);
@@ -653,14 +661,18 @@ describe('autoupdate', function() {
               // update and add another fk
               ds.createModel(orderTest_schema_v2.name, orderTest_schema_v2.properties, orderTest_schema_v2.options);
               ds.autoupdate(function(err) {
-                assert(!err, err);
+                if (err) {
+                  err.message += ' (while updating OrderTest schema v2)';
+                  return done(err);
+                }
                 ds.discoverModelProperties('order_test', function(err, props) {
+                  if (err) return done(err);
                   // validate that we have the correct number of properties
                   assert.equal(props.length, 4);
 
                   // get the foreign keys for order_test
                   ds.connector.discoverForeignKeys('order_test', {}, function(err, foreignKeysUpdated) {
-                    assert(!err, err);
+                    if (err) return done(err);
                     // validate that the foreign keys exist and point to the new column
                     assert(foreignKeysUpdated);
                     assert.equal(foreignKeysUpdated.length, 1);
@@ -673,9 +685,13 @@ describe('autoupdate', function() {
                     ds.createModel(orderTest_schema_v3.name, orderTest_schema_v3.properties,
                       orderTest_schema_v3.options);
                     ds.autoupdate(function(err) {
+                      if (err) {
+                        err.message += ' (while updating OrderTest schema v3)';
+                        return done(err);
+                      }
                       // get the foreign keys for order_test
                       ds.connector.discoverForeignKeys('order_test', {}, function(err, foreignKeysMulti) {
-                        assert(!err, err);
+                        if (err) return done(err);
                         assert(foreignKeysMulti);
                         assert.equal(foreignKeysMulti.length, 2);
 
@@ -683,8 +699,13 @@ describe('autoupdate', function() {
                         ds.createModel(orderTest_schema_v4.name, orderTest_schema_v4.properties,
                           orderTest_schema_v4.options);
                         ds.autoupdate(function(err) {
-                          assert(!err, err);
+                          if (err) {
+                            err.message += ' (while updating OrderTest schema v4)';
+                            return done(err);
+                          }
                           ds.discoverModelProperties('order_test', function(err, props) {
+                            if (err) return done(err);
+
                             // validate that we have the correct number of properties
                             assert.equal(props.length, 4);
 
