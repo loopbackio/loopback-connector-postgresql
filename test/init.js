@@ -4,7 +4,8 @@
 // License text available at https://opensource.org/licenses/Artistic-2.0
 
 'use strict';
-var DataSource = require('loopback-datasource-juggler').DataSource;
+var juggler = require('loopback-datasource-juggler');
+var DataSource = juggler.DataSource;
 
 var config = require('rc')('loopback', {test: {postgresql: {}}}).test.postgresql;
 
@@ -53,6 +54,13 @@ global.getDataSource = global.getSchema = function(useUrl) {
     // console.log(a);
   };
   return db;
+};
+
+global.resetDataSourceClass = function(ctor) {
+  DataSource = ctor || juggler.DataSource;
+  var promise = db ? db.disconnect() : Promise.resolve();
+  db = undefined;
+  return promise;
 };
 
 global.connectorCapabilities = {
