@@ -5,13 +5,6 @@
 
 'use strict';
 
-// Skip the tests on Node.js versions not supported by juggler v4
-// TODO(bajtos): remove this check when we drop Node.js 6 from our CI matrix
-var nodeMajor = +process.versions.node.split('.')[0];
-if (nodeMajor < 8) {
-  return;
-}
-
 var should = require('../../test/init');
 var juggler = require('loopback-datasource-juggler');
 var name = require('./package.json').name;
