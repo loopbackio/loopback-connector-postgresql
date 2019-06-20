@@ -29,8 +29,8 @@
     "uuid": "^3.0.1"
   },
   "devDependencies": {
-    "eslint": "^2.13.1",
-    "eslint-config-loopback": "^4.0.0",
+    "eslint": "^5.16.0",
+    "eslint-config-loopback": "^13.1.0",
     "juggler-v3": "file:./deps/juggler-v3",
     "juggler-v4": "file:./deps/juggler-v4",
     "lodash": "^4.17.4",
