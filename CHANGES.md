@@ -1,3 +1,23 @@
+2019-06-26, Version 3.7.0
+=========================
+
+ * chore: update dependencies (Diana Lau)
+
+ * Updated dependency module `debug` (noctifer)
+
+ * Drop support for Node.js 6 (Miroslav Bajtoš)
+
+ * chore: update copyrights years (Agnes Lin)
+
+ * Run shared tests from both v3 and v4 of juggler (Miroslav Bajtoš)
+
+ * Move mocha config to test/mocha.opts (Miroslav Bajtoš)
+
+ * Improve error messages in autoupdate test (Miroslav Bajtoš)
+
+ * chore: connector flag for no array type support (biniam)
+
+
 2019-04-05, Version 3.6.1
 =========================
 
