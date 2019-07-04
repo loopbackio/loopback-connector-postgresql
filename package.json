@@ -35,10 +35,10 @@
     "juggler-v4": "file:./deps/juggler-v4",
     "lodash": "^4.17.4",
     "loopback-datasource-juggler": "^3.0.0 || ^4.0.0",
-    "mocha": "^5.0.0",
+    "mocha": "^6.1.4",
     "rc": "^1.0.0",
-    "should": "^8.0.2",
-    "sinon": "^1.15.4"
+    "should": "^13.2.3",
+    "sinon": "^7.3.2"
   },
   "repository": {
     "type": "git",
