@@ -48,7 +48,7 @@ global.getDataSource = global.getSchema = function(useUrl) {
   // Return cached data source if possible to avoid too many client error
   // due to multiple instances of connection pools
   if (!useUrl && db) return db;
-  const settings = getDBConfig(useUrl);
+  const settings = global.getDBConfig(useUrl);
   db = new DataSource(require('../'), settings);
   db.log = function(a) {
     // console.log(a);
@@ -70,5 +70,3 @@ global.connectorCapabilities = {
   // see https://github.com/strongloop/loopback-connector-postgresql/issues/342
   supportsArrays: false,
 };
-
-global.sinon = require('sinon');

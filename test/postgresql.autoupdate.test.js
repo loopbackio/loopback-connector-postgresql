@@ -9,7 +9,7 @@ const _ = require('lodash');
 let ds, properties, SimpleEmployee, Emp1, Emp2;
 
 before(function() {
-  ds = getDataSource();
+  ds = global.getDataSource();
 });
 
 describe('autoupdate', function() {

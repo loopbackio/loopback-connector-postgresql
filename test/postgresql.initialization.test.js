@@ -12,32 +12,32 @@ const should = require('should');
 
 // simple wrapper that uses JSON.parse(JSON.stringify()) as cheap clone
 function newConfig(withURL) {
-  return JSON.parse(JSON.stringify(getDBConfig(withURL)));
+  return JSON.parse(JSON.stringify(global.getDBConfig(withURL)));
 }
 
 describe('initialization', function() {
   it('honours user-defined pg-pool settings', function() {
-    var dataSource = new DataSource(connector, newConfig());
-    var pool = dataSource.connector.pg;
+    let dataSource = new DataSource(connector, newConfig());
+    let pool = dataSource.connector.pg;
     pool.options.max.should.not.equal(999);
 
     const settings = newConfig();
     settings.max = 999; // non-default value
-    var dataSource = new DataSource(connector, settings);
-    var pool = dataSource.connector.pg;
+    dataSource = new DataSource(connector, settings);
+    pool = dataSource.connector.pg;
     pool.options.max.should.equal(999);
   });
 
   it('honours user-defined url settings', function() {
     let settings = newConfig();
 
-    var dataSource = new DataSource(connector, settings);
-    var clientConfig = dataSource.connector.clientConfig;
+    let dataSource = new DataSource(connector, settings);
+    let clientConfig = dataSource.connector.clientConfig;
     should.not.exist(clientConfig.connectionString);
 
     settings = newConfig(true);
-    var dataSource = new DataSource(connector, settings);
-    var clientConfig = dataSource.connector.clientConfig;
+    dataSource = new DataSource(connector, settings);
+    clientConfig = dataSource.connector.clientConfig;
     clientConfig.connectionString.should.equal(settings.url);
   });
 
@@ -55,7 +55,7 @@ describe('initialization', function() {
 
 describe('postgresql connector errors', function() {
   it('Should complete these 4 queries without dying', function(done) {
-    const dataSource = getDataSource();
+    const dataSource = global.getDataSource();
     const db = dataSource.connector;
     const pool = db.pg;
     pool.options.max = 5;

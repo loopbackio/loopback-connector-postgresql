@@ -13,7 +13,7 @@ let db, Post;
 
 describe('transactions', function() {
   before(function(done) {
-    db = getDataSource(true);
+    db = global.getDataSource(true);
     Post = db.define('PostTX', {
       title: {type: String, length: 255, index: true},
       content: {type: String},
@@ -69,7 +69,7 @@ describe('transactions', function() {
       let completed = 0;
       const concurrent = 20;
       for (let i = 0; i <= concurrent; i++) {
-        var post = {title: 'tb' + i, content: 'cb' + i};
+        const post = {title: 'tb' + i, content: 'cb' + i};
         const create = createPostInTx(post);
         Transaction.begin(db.connector, Transaction.SERIALIZABLE,
           function(err, tx) {

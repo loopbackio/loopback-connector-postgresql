@@ -78,7 +78,7 @@ describe('migrations', function() {
 function setup(done) {
   require('./init.js');
 
-  db = getSchema();
+  db = global.getSchema();
 
   const UserDataWithIndexes = db.define('UserDataWithIndexes', {
     email: {type: String, null: false, index: true},

@@ -10,7 +10,7 @@ let db, PostWithTimestamps;
 describe('Timestamps', function() {
   describe('type and precision', function() {
     before(function() {
-      db = getDataSource();
+      db = global.getDataSource();
 
       PostWithTimestamps = db.define('PostWithTimestamps', {
         timestampDefault: {

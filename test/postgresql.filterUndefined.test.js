@@ -10,7 +10,7 @@ let Post, db;
 
 describe('filter undefined fields', function() {
   before(function() {
-    db = getDataSource();
+    db = global.getDataSource();
 
     Post = db.define('FilterUndefined', {
       defaultInt: {

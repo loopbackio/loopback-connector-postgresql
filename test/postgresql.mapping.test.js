@@ -12,7 +12,7 @@ const async = require('async');
 let db;
 
 before(function() {
-  db = getSchema();
+  db = global.getSchema();
 });
 
 describe('Mapping models', function() {

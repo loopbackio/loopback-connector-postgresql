@@ -14,7 +14,7 @@ const DataSource = require('loopback-datasource-juggler').DataSource;
 let db, City;
 
 before(function() {
-  const config = getDBConfig();
+  const config = global.getDBConfig();
   config.database = 'strongloop';
   db = new DataSource(require('../'), config);
 });

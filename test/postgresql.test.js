@@ -6,6 +6,7 @@
 'use strict';
 const juggler = require('loopback-datasource-juggler');
 const CreateDS = juggler.DataSource;
+const sinon = require('sinon');
 
 require('./init');
 const async = require('async');
@@ -48,14 +49,14 @@ describe('lazyConnect', function() {
   });
 });
 
-var getDS = function(config) {
+function getDS(config) {
   const db = new CreateDS(require('../'), config);
   return db;
-};
+}
 
 describe('postgresql connector', function() {
   before(function() {
-    db = getDataSource();
+    db = global.getDataSource();
 
     Post = db.define('PostWithBoolean', {
       title: {type: String, length: 255, index: true},
@@ -73,7 +74,7 @@ describe('postgresql connector', function() {
 
   describe('Explicit datatype', function() {
     before(function(done) {
-      db = getDataSource();
+      db = global.getDataSource();
 
       Expense = db.define('Expense', {
         id: {
@@ -269,7 +270,7 @@ describe('postgresql connector', function() {
       });
     });
 
-  it('should escape number values to defect SQL injection in find',
+  it('should escape number values to defect SQL injection in find (where)',
     function(done) {
       Post.find({where: {id: '(SELECT 1+1)'}}, function(err, p) {
         should.exists(err);
@@ -285,7 +286,7 @@ describe('postgresql connector', function() {
       });
     });
 
-  it('should escape number values to defect SQL injection in find',
+  it('should escape number values to defect SQL injection in find (limit)',
     function(done) {
       Post.find({limit: '(SELECT 1+1)'}, function(err, p) {
         should.exists(err);
@@ -681,7 +682,7 @@ describe('postgresql connector', function() {
     let Customer;
 
     before(function(done) {
-      db = getDataSource();
+      db = global.getDataSource();
 
       Customer = db.define('Customer', {
         address: {
@@ -762,7 +763,7 @@ describe('Serial properties', function() {
   let db;
 
   before(function() {
-    db = getSchema();
+    db = global.getSchema();
   });
 
   it('should allow serial properties', function(done) {
@@ -819,7 +820,7 @@ describe('Serial properties', function() {
   });
 });
 
-var data = [
+const data = [
   {
     id: 1,
     description: 'Expense 1',

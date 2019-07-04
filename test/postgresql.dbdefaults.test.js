@@ -10,7 +10,7 @@ let InvalidDefault, Post, db;
 
 describe('database default field values', function() {
   before(function() {
-    db = getDataSource();
+    db = global.getDataSource();
 
     Post = db.define('PostWithDbDefaultValue', {
       created: {

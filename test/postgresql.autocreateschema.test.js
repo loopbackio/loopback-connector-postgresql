@@ -10,7 +10,7 @@ let Another, Post, db;
 
 describe('Autocreate schema if not exists', function() {
   before(function() {
-    db = getDataSource();
+    db = global.getDataSource();
 
     Post = db.define('PostInCustomSchema', {
       created: {
