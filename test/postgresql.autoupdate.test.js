@@ -4,9 +4,9 @@
 // License text available at https://opensource.org/licenses/Artistic-2.0
 
 'use strict';
-var assert = require('assert');
-var _ = require('lodash');
-var ds, properties, SimpleEmployee, Emp1, Emp2;
+const assert = require('assert');
+const _ = require('lodash');
+let ds, properties, SimpleEmployee, Emp1, Emp2;
 
 before(function() {
   ds = getDataSource();
@@ -131,7 +131,7 @@ describe('autoupdate', function() {
   });
 
   it('should auto migrate/update tables', function(done) {
-    var schema_v1 =
+    const schema_v1 =
       {
         'name': 'CustomerTest',
         'options': {
@@ -168,7 +168,7 @@ describe('autoupdate', function() {
         },
       };
 
-    var schema_v2 =
+    const schema_v2 =
       {
         'name': 'CustomerTest',
         'options': {
@@ -216,7 +216,7 @@ describe('autoupdate', function() {
     ds.automigrate(function() {
       ds.discoverModelProperties('customer_test', function(err, props) {
         assert.equal(props.length, 4);
-        var names = props.map(function(p) {
+        const names = props.map(function(p) {
           return p.columnName;
         });
         assert.equal(props[0].nullable, 'NO');
@@ -253,7 +253,7 @@ describe('autoupdate', function() {
           ds.autoupdate(function(err, result) {
             ds.discoverModelProperties('customer_test', function(err, props) {
               assert.equal(props.length, 4);
-              var names = props.map(function(p) {
+              const names = props.map(function(p) {
                 return p.columnName;
               });
               assert.equal(names[0], 'id');
@@ -321,7 +321,7 @@ describe('autoupdate', function() {
 
   it('should produce valid sql for setting column nullability', function(done) {
     // Initial schema
-    var schema_v1 =
+    const schema_v1 =
       {
         'name': 'NamePersonTest',
         'options': {
@@ -346,7 +346,7 @@ describe('autoupdate', function() {
       };
 
     // Change nullability
-    var schema_v2 = JSON.parse(JSON.stringify(schema_v1));
+    const schema_v2 = JSON.parse(JSON.stringify(schema_v1));
     schema_v2.properties.name.required = true;
 
     // Create initial schema
@@ -355,7 +355,7 @@ describe('autoupdate', function() {
       // Create updated schema
       ds.createModel(schema_v2.name, schema_v2.properties, schema_v2.options);
       ds.connector.getTableStatus(schema_v2.name, function(err, actualFields) {
-        var sql = ds.connector.getPropertiesToModify(schema_v2.name, actualFields)[0];
+        const sql = ds.connector.getPropertiesToModify(schema_v2.name, actualFields)[0];
         assert.equal(sql, 'ALTER COLUMN "name" SET NOT NULL', 'Check that the SQL is correctly spaced.');
         done();
       });
@@ -364,7 +364,7 @@ describe('autoupdate', function() {
 
   describe('foreign key constraint', function() {
     it('should create, update, and delete foreign keys', function(done) {
-      var product_schema = {
+      const product_schema = {
         'name': 'Product',
         'options': {
           'idInjection': false,
@@ -387,7 +387,7 @@ describe('autoupdate', function() {
         },
       };
 
-      var customer2_schema = {
+      const customer2_schema = {
         'name': 'CustomerTest2',
         'options': {
           'idInjection': false,
@@ -419,7 +419,7 @@ describe('autoupdate', function() {
         },
       };
 
-      var customer3_schema = {
+      const customer3_schema = {
         'name': 'CustomerTest3',
         'options': {
           'idInjection': false,
@@ -451,7 +451,7 @@ describe('autoupdate', function() {
         },
       };
 
-      var orderTest_schema_v1 = {
+      const orderTest_schema_v1 = {
         'name': 'OrderTest',
         'options': {
           'idInjection': false,
@@ -489,7 +489,7 @@ describe('autoupdate', function() {
         },
       };
 
-      var orderTest_schema_v2 = {
+      const orderTest_schema_v2 = {
         'name': 'OrderTest',
         'options': {
           'idInjection': false,
@@ -534,7 +534,7 @@ describe('autoupdate', function() {
         },
       };
 
-      var orderTest_schema_v3 = {
+      const orderTest_schema_v3 = {
         'name': 'OrderTest',
         'options': {
           'idInjection': false,
@@ -585,7 +585,7 @@ describe('autoupdate', function() {
         },
       };
 
-      var orderTest_schema_v4 = {
+      const orderTest_schema_v4 = {
         'name': 'OrderTest',
         'options': {
           'idInjection': false,
@@ -731,7 +731,7 @@ describe('autoupdate', function() {
   });
 
   describe('indexes on table in schema', function() {
-    var schema = {
+    const schema = {
       options: {
         postgresql: {
           schema: 'aschema',
@@ -745,7 +745,7 @@ describe('autoupdate', function() {
       },
     };
 
-    var changedSchema = Object.assign({}, schema, {
+    const changedSchema = Object.assign({}, schema, {
       properties: {
         something: {
           type: 'string',

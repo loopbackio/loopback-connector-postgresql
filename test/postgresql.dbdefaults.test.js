@@ -4,9 +4,9 @@
 // License text available at https://opensource.org/licenses/Artistic-2.0
 
 'use strict';
-var should = require('should'),
+const should = require('should'),
   assert = require('assert');
-var InvalidDefault, Post, db;
+let InvalidDefault, Post, db;
 
 describe('database default field values', function() {
   before(function() {
@@ -58,7 +58,7 @@ describe('database default field values', function() {
 
   it('should have \'now()\' default value in SQL column definition',
     function(done) {
-      var query = 'select column_name, data_type, character_maximum_length,' +
+      const query = 'select column_name, data_type, character_maximum_length,' +
         ' column_default' +
         ' from information_schema.columns' +
         " where table_name = 'postwithdbdefaultvalue'" +

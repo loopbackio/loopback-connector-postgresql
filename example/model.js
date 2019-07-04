@@ -4,21 +4,21 @@
 // License text available at https://opensource.org/licenses/Artistic-2.0
 
 'use strict';
-var SG = require('strong-globalize');
-var g = SG();
+const SG = require('strong-globalize');
+const g = SG();
 
-var DataSource = require('loopback-datasource-juggler').DataSource;
+const DataSource = require('loopback-datasource-juggler').DataSource;
 
-var config = require('rc')('loopback', {dev: {postgresql: {}}}).dev.postgresql;
+const config = require('rc')('loopback', {dev: {postgresql: {}}}).dev.postgresql;
 
-var ds = new DataSource(require('../'), config);
+const ds = new DataSource(require('../'), config);
 
 // Define a account model
-var Account = ds.createModel('account', {
+const Account = ds.createModel('account', {
   name: String,
   emails: [String],
   age: Number},
-    {strict: true});
+{strict: true});
 
 ds.automigrate('account', function(err) {
 // Create two instances

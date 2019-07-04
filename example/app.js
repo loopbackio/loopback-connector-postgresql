@@ -4,11 +4,11 @@
 // License text available at https://opensource.org/licenses/Artistic-2.0
 
 'use strict';
-var DataSource = require('loopback-datasource-juggler').DataSource;
+const DataSource = require('loopback-datasource-juggler').DataSource;
 
-var config = require('rc')('loopback', {dev: {postgresql: {}}}).dev.postgresql;
+const config = require('rc')('loopback', {dev: {postgresql: {}}}).dev.postgresql;
 
-var ds = new DataSource(require('../'), config);
+const ds = new DataSource(require('../'), config);
 
 function show(err, models) {
   if (err) {
@@ -26,10 +26,10 @@ ds.discoverModelProperties('product', show);
 
 // ds.discoverModelProperties('INVENTORY_VIEW', {owner: 'STRONGLOOP'}, show);
 
-ds.discoverPrimaryKeys('inventory',  show);
-ds.discoverForeignKeys('inventory',  show);
+ds.discoverPrimaryKeys('inventory', show);
+ds.discoverForeignKeys('inventory', show);
 
-ds.discoverExportedForeignKeys('product',  show);
+ds.discoverExportedForeignKeys('product', show);
 
 /*
 

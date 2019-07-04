@@ -4,9 +4,9 @@
 // License text available at https://opensource.org/licenses/Artistic-2.0
 
 'use strict';
-var should = require('should'),
+const should = require('should'),
   assert = require('assert');
-var Post, db;
+let Post, db;
 
 describe('filter undefined fields', function() {
   before(function() {
@@ -38,7 +38,7 @@ describe('filter undefined fields', function() {
   });
 
   it('should insert only default value', function(done) {
-    var dflPost = new Post();
+    const dflPost = new Post();
     dflPost.save(function(err, p) {
       should.not.exist(err);
       Post.findOne({where: {id: p.id}}, function(err, p) {
@@ -53,7 +53,7 @@ describe('filter undefined fields', function() {
   });
 
   it('should insert default value and \'third\' field', function(done) {
-    var dflPost = new Post();
+    const dflPost = new Post();
     dflPost.third = 3;
     dflPost.save(function(err, p) {
       should.not.exist(err);
@@ -106,7 +106,7 @@ describe('filter undefined fields', function() {
   });
 
   it('should insert a value into \'defaultInt\' and \'second\'', function(done) {
-    var dflPost = new Post();
+    const dflPost = new Post();
     dflPost.second = 2;
     dflPost.defaultInt = 11;
     dflPost.save(function(err, p) {
@@ -116,7 +116,7 @@ describe('filter undefined fields', function() {
         p.defaultInt.should.be.equal(11);
         should.not.exist(p.first);
         should.not.exist(p.third);
-                //should.exist(p.third);
+        // should.exist(p.third);
         p.second.should.be.equal(2);
         done();
       });

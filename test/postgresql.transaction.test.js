@@ -7,9 +7,9 @@
 require('./init.js');
 require('should');
 
-var Transaction = require('loopback-connector').Transaction;
+const Transaction = require('loopback-connector').Transaction;
 
-var db, Post;
+let db, Post;
 
 describe('transactions', function() {
   before(function(done) {
@@ -21,7 +21,7 @@ describe('transactions', function() {
     db.automigrate('PostTX', done);
   });
 
-  var currentTx;
+  let currentTx;
   // Return an async function to start a transaction and create a post
   function createPostInTx(post) {
     return function(done) {
@@ -45,7 +45,7 @@ describe('transactions', function() {
   // records to equal to the count
   function expectToFindPosts(where, count, inTx) {
     return function(done) {
-      var options = {};
+      const options = {};
       if (inTx) {
         options.transaction = currentTx;
       }
@@ -66,11 +66,11 @@ describe('transactions', function() {
 
   describe('bulk', function() {
     it('should work with bulk transactions', function(done) {
-      var completed = 0;
-      var concurrent = 20;
-      for (var i = 0; i <= concurrent; i++) {
+      let completed = 0;
+      const concurrent = 20;
+      for (let i = 0; i <= concurrent; i++) {
         var post = {title: 'tb' + i, content: 'cb' + i};
-        var create = createPostInTx(post);
+        const create = createPostInTx(post);
         Transaction.begin(db.connector, Transaction.SERIALIZABLE,
           function(err, tx) {
             if (err) return done(err);
@@ -100,7 +100,7 @@ describe('transactions', function() {
   });
 
   describe('commit', function() {
-    var post = {title: 't1', content: 'c1'};
+    const post = {title: 't1', content: 'c1'};
     before(createPostInTx(post));
 
     it('should not see the uncommitted insert', expectToFindPosts(post, 0));
@@ -116,8 +116,8 @@ describe('transactions', function() {
   });
 
   describe('on the model', function() {
-    var p1Content = {title: 'p1', content: 'post-a'};
-    var p2Content = {title: 'p2', content: 'post-a'};
+    const p1Content = {title: 'p1', content: 'post-a'};
+    const p2Content = {title: 'p2', content: 'post-a'};
 
     before(function(done) {
       Post.create(p1Content, function(err, p1) {
@@ -143,7 +143,7 @@ describe('transactions', function() {
   });
 
   describe('rollback', function() {
-    var post = {title: 't2', content: 'c2'};
+    const post = {title: 't2', content: 'c2'};
     before(createPostInTx(post));
 
     it('should not see the uncommitted insert', expectToFindPosts(post, 0));
@@ -159,7 +159,7 @@ describe('transactions', function() {
   });
 
   describe('finished', function() {
-    var post = {title: 't2', content: 'c2'};
+    const post = {title: 't2', content: 'c2'};
     beforeEach(createPostInTx(post));
 
     it('should throw an error when creating in a committed transaction', function(done) {
