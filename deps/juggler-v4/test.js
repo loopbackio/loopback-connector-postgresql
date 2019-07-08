@@ -5,9 +5,9 @@
 
 'use strict';
 
-var should = require('../../test/init');
-var juggler = require('loopback-datasource-juggler');
-var name = require('./package.json').name;
+const should = require('../../test/init');
+const juggler = require('loopback-datasource-juggler');
+const name = require('./package.json').name;
 
 describe(name, function() {
   before(function() {

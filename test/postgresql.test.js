@@ -4,26 +4,27 @@
 // License text available at https://opensource.org/licenses/Artistic-2.0
 
 'use strict';
-var juggler = require('loopback-datasource-juggler');
-var CreateDS = juggler.DataSource;
+const juggler = require('loopback-datasource-juggler');
+const CreateDS = juggler.DataSource;
+const sinon = require('sinon');
 
 require('./init');
-var async = require('async');
-var should = require('should');
+const async = require('async');
+const should = require('should');
 
-var Post, Expense, db, created, PostWithDate;
+let Post, Expense, db, created, PostWithDate;
 
 describe('lazyConnect', function() {
   it('should skip connect phase (lazyConnect = true)', function(done) {
-    var dsConfig = {
+    const dsConfig = {
       host: '127.0.0.1',
       port: 4,
       lazyConnect: true,
       debug: false,
     };
-    var ds = getDS(dsConfig);
+    const ds = getDS(dsConfig);
 
-    var errTimeout = setTimeout(function() {
+    const errTimeout = setTimeout(function() {
       done();
     }, 2000);
     ds.on('error', function(err) {
@@ -33,13 +34,13 @@ describe('lazyConnect', function() {
   });
 
   it('should report connection error (lazyConnect = false)', function(done) {
-    var dsConfig = {
+    const dsConfig = {
       host: '127.0.0.1',
       port: 4,
       lazyConnect: false,
       debug: false,
     };
-    var ds = getDS(dsConfig);
+    const ds = getDS(dsConfig);
 
     ds.on('error', function(err) {
       err.message.should.containEql('ECONNREFUSED');
@@ -48,14 +49,14 @@ describe('lazyConnect', function() {
   });
 });
 
-var getDS = function(config) {
-  var db = new CreateDS(require('../'), config);
+function getDS(config) {
+  const db = new CreateDS(require('../'), config);
   return db;
-};
+}
 
 describe('postgresql connector', function() {
   before(function() {
-    db = getDataSource();
+    db = global.getDataSource();
 
     Post = db.define('PostWithBoolean', {
       title: {type: String, length: 255, index: true},
@@ -73,7 +74,7 @@ describe('postgresql connector', function() {
 
   describe('Explicit datatype', function() {
     before(function(done) {
-      db = getDataSource();
+      db = global.getDataSource();
 
       Expense = db.define('Expense', {
         id: {
@@ -139,7 +140,7 @@ describe('postgresql connector', function() {
     });
   });
 
-  var post;
+  let post;
   it('should support boolean types with true value', function(done) {
     Post.create(
       {title: 'T1', content: 'C1', approved: true, created: created},
@@ -152,7 +153,8 @@ describe('postgresql connector', function() {
           p.created.getTime().should.be.eql(created.getTime());
           done();
         });
-      });
+      }
+    );
   });
 
   it('should preserve property `count` after query execution', function(done) {
@@ -161,13 +163,14 @@ describe('postgresql connector', function() {
       function(err, p) {
         if (err) return done(err);
         post = p;
-        var query = "UPDATE PostWithBoolean SET title ='T20' WHERE id=" + post.id;
+        const query = "UPDATE PostWithBoolean SET title ='T20' WHERE id=" + post.id;
         db.connector.execute(query, function(err, results) {
           results.should.have.property('count', 1);
           results.should.have.property('affectedRows', 1);
           done(err);
         });
-      });
+      }
+    );
   });
 
   it('should support `rows` if RETURNING used after UPDATE', function(done) {
@@ -176,14 +179,15 @@ describe('postgresql connector', function() {
       function(err, p) {
         if (err) return done(err);
         post = p;
-        var query = 'UPDATE PostWithBoolean SET title =\'something else\' WHERE id=' + post.id + ' RETURNING id';
+        const query = 'UPDATE PostWithBoolean SET title =\'something else\' WHERE id=' + post.id + ' RETURNING id';
         db.connector.execute(query, function(err, results) {
           results.should.have.property('count', 1);
           results.should.have.property('affectedRows', 1);
           results.rows[0].id.should.eql(post.id);
           done(err);
         });
-      });
+      }
+    );
   });
 
   it('should support updating boolean types with false value', function(done) {
@@ -208,7 +212,8 @@ describe('postgresql connector', function() {
           p.should.have.property('approved', false);
           done();
         });
-      });
+      }
+    );
   });
 
   it('should support date types with eq', function(done) {
@@ -265,7 +270,7 @@ describe('postgresql connector', function() {
       });
     });
 
-  it('should escape number values to defect SQL injection in find',
+  it('should escape number values to defect SQL injection in find (where)',
     function(done) {
       Post.find({where: {id: '(SELECT 1+1)'}}, function(err, p) {
         should.exists(err);
@@ -281,7 +286,7 @@ describe('postgresql connector', function() {
       });
     });
 
-  it('should escape number values to defect SQL injection in find',
+  it('should escape number values to defect SQL injection in find (limit)',
     function(done) {
       Post.find({limit: '(SELECT 1+1)'}, function(err, p) {
         should.exists(err);
@@ -298,8 +303,8 @@ describe('postgresql connector', function() {
     });
 
   context('GeoPoint types', function() {
-    var GeoPoint = juggler.ModelBuilder.schemaTypes.geopoint;
-    var loc;
+    const GeoPoint = juggler.ModelBuilder.schemaTypes.geopoint;
+    let loc;
 
     it('should support GeoPoint types', function(done) {
       loc = new GeoPoint({lng: 10, lat: 20});
@@ -543,7 +548,7 @@ describe('postgresql connector', function() {
         beforeEach(function addSpy() {
           sinon.stub(console, 'warn');
         });
-        afterEach(function removeSpy()  {
+        afterEach(function removeSpy() {
           console.warn.restore();
         });
 
@@ -557,20 +562,20 @@ describe('postgresql connector', function() {
         });
 
         it('should print a warning when the global flag is set',
-            function(done) {
-              Post.find({where: {content: {regexp: '^a/g'}}}, function(err, posts) {
-                console.warn.calledOnce.should.be.ok;
-                done();
-              });
+          function(done) {
+            Post.find({where: {content: {regexp: '^a/g'}}}, function(err, posts) {
+              console.warn.calledOnce.should.be.ok;
+              done();
             });
+          });
 
         it('should print a warning when the multiline flag is set',
-            function(done) {
-              Post.find({where: {content: {regexp: '^a/m'}}}, function(err, posts) {
-                console.warn.calledOnce.should.be.ok;
-                done();
-              });
+          function(done) {
+            Post.find({where: {content: {regexp: '^a/m'}}}, function(err, posts) {
+              console.warn.calledOnce.should.be.ok;
+              done();
             });
+          });
       });
     });
 
@@ -590,7 +595,7 @@ describe('postgresql connector', function() {
         beforeEach(function addSpy() {
           sinon.stub(console, 'warn');
         });
-        afterEach(function removeSpy()  {
+        afterEach(function removeSpy() {
           console.warn.restore();
         });
 
@@ -604,20 +609,20 @@ describe('postgresql connector', function() {
         });
 
         it('should print a warning when the global flag is set',
-            function(done) {
-              Post.find({where: {content: {regexp: /^a/g}}}, function(err, posts) {
-                console.warn.calledOnce.should.be.ok;
-                done();
-              });
+          function(done) {
+            Post.find({where: {content: {regexp: /^a/g}}}, function(err, posts) {
+              console.warn.calledOnce.should.be.ok;
+              done();
             });
+          });
 
         it('should print a warning when the multiline flag is set',
-            function(done) {
-              Post.find({where: {content: {regexp: /^a/m}}}, function(err, posts) {
-                console.warn.calledOnce.should.be.ok;
-                done();
-              });
+          function(done) {
+            Post.find({where: {content: {regexp: /^a/m}}}, function(err, posts) {
+              console.warn.calledOnce.should.be.ok;
+              done();
             });
+          });
       });
     });
 
@@ -625,59 +630,59 @@ describe('postgresql connector', function() {
       beforeEach(function addSpy() {
         sinon.stub(console, 'warn');
       });
-      afterEach(function removeSpy()  {
+      afterEach(function removeSpy() {
         console.warn.restore();
       });
 
       context('using no flags', function() {
         it('should work', function(done) {
           Post.find({where: {content: {regexp: new RegExp(/^A/)}}},
-              function(err, posts) {
-                should.not.exist(err);
-                posts.length.should.equal(1);
-                posts[0].content.should.equal('AAA');
-                done();
-              });
+            function(err, posts) {
+              should.not.exist(err);
+              posts.length.should.equal(1);
+              posts[0].content.should.equal('AAA');
+              done();
+            });
         });
       });
 
       context('using flags', function() {
         it('should work', function(done) {
           Post.find({where: {content: {regexp: new RegExp(/^a/i)}}},
-              function(err, posts) {
-                should.not.exist(err);
-                posts.length.should.equal(1);
-                posts[0].content.should.equal('AAA');
-                done();
-              });
+            function(err, posts) {
+              should.not.exist(err);
+              posts.length.should.equal(1);
+              posts[0].content.should.equal('AAA');
+              done();
+            });
         });
 
         it('should print a warning when the global flag is set',
-            function(done) {
-              Post.find({where: {content: {regexp: new RegExp(/^a/g)}}},
+          function(done) {
+            Post.find({where: {content: {regexp: new RegExp(/^a/g)}}},
               function(err, posts) {
                 console.warn.calledOnce.should.be.ok;
                 done();
               });
-            });
+          });
 
         it('should print a warning when the multiline flag is set',
-            function(done) {
-              Post.find({where: {content: {regexp: new RegExp(/^a/m)}}},
+          function(done) {
+            Post.find({where: {content: {regexp: new RegExp(/^a/m)}}},
               function(err, posts) {
                 console.warn.calledOnce.should.be.ok;
                 done();
               });
-            });
+          });
       });
     });
   });
 
   context('json data type', function() {
-    var Customer;
+    let Customer;
 
     before(function(done) {
-      db = getDataSource();
+      db = global.getDataSource();
 
       Customer = db.define('Customer', {
         address: {
@@ -755,14 +760,14 @@ describe('postgresql connector', function() {
 });
 
 describe('Serial properties', function() {
-  var db;
+  let db;
 
   before(function() {
-    db = getSchema();
+    db = global.getSchema();
   });
 
   it('should allow serial properties', function(done) {
-    var schema =
+    const schema =
       {
         'name': 'TestInventory',
         'options': {
@@ -780,9 +785,9 @@ describe('Serial properties', function() {
           },
         },
       };
-    var models = db.modelBuilder.buildModels(schema);
-    var Model = models['TestInventory'];
-    var count = 0;
+    const models = db.modelBuilder.buildModels(schema);
+    const Model = models['TestInventory'];
+    const count = 0;
     Model.attachTo(db);
 
     db.automigrate(function(err, data) {
@@ -815,7 +820,7 @@ describe('Serial properties', function() {
   });
 });
 
-var data = [
+const data = [
   {
     id: 1,
     description: 'Expense 1',

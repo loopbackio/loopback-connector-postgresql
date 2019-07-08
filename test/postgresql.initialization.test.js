@@ -5,62 +5,62 @@
 
 'use strict';
 require('./init');
-var Promise = require('bluebird');
-var connector = require('..');
-var DataSource = require('loopback-datasource-juggler').DataSource;
-var should = require('should');
+const Promise = require('bluebird');
+const connector = require('..');
+const DataSource = require('loopback-datasource-juggler').DataSource;
+const should = require('should');
 
 // simple wrapper that uses JSON.parse(JSON.stringify()) as cheap clone
 function newConfig(withURL) {
-  return JSON.parse(JSON.stringify(getDBConfig(withURL)));
+  return JSON.parse(JSON.stringify(global.getDBConfig(withURL)));
 }
 
 describe('initialization', function() {
   it('honours user-defined pg-pool settings', function() {
-    var dataSource = new DataSource(connector, newConfig());
-    var pool = dataSource.connector.pg;
+    let dataSource = new DataSource(connector, newConfig());
+    let pool = dataSource.connector.pg;
     pool.options.max.should.not.equal(999);
 
-    var settings = newConfig();
+    const settings = newConfig();
     settings.max = 999; // non-default value
-    var dataSource = new DataSource(connector, settings);
-    var pool = dataSource.connector.pg;
+    dataSource = new DataSource(connector, settings);
+    pool = dataSource.connector.pg;
     pool.options.max.should.equal(999);
   });
 
   it('honours user-defined url settings', function() {
-    var settings = newConfig();
+    let settings = newConfig();
 
-    var dataSource = new DataSource(connector, settings);
-    var clientConfig = dataSource.connector.clientConfig;
+    let dataSource = new DataSource(connector, settings);
+    let clientConfig = dataSource.connector.clientConfig;
     should.not.exist(clientConfig.connectionString);
 
     settings = newConfig(true);
-    var dataSource = new DataSource(connector, settings);
-    var clientConfig = dataSource.connector.clientConfig;
+    dataSource = new DataSource(connector, settings);
+    clientConfig = dataSource.connector.clientConfig;
     clientConfig.connectionString.should.equal(settings.url);
   });
 
   it('honours multiple user-defined settings', function() {
-    var urlOnly = {url: newConfig(true).url, max: 999};
+    const urlOnly = {url: newConfig(true).url, max: 999};
 
-    var dataSource = new DataSource(connector, urlOnly);
-    var pool = dataSource.connector.pg;
+    const dataSource = new DataSource(connector, urlOnly);
+    const pool = dataSource.connector.pg;
     pool.options.max.should.equal(999);
 
-    var clientConfig = dataSource.connector.clientConfig;
+    const clientConfig = dataSource.connector.clientConfig;
     clientConfig.connectionString.should.equal(urlOnly.url);
   });
 });
 
 describe('postgresql connector errors', function() {
   it('Should complete these 4 queries without dying', function(done) {
-    var dataSource = getDataSource();
-    var db = dataSource.connector;
-    var pool = db.pg;
+    const dataSource = global.getDataSource();
+    const db = dataSource.connector;
+    const pool = db.pg;
     pool.options.max = 5;
-    var errors = 0;
-    var shouldGet = 0;
+    let errors = 0;
+    let shouldGet = 0;
     function runErrorQuery() {
       shouldGet++;
       return new Promise(function(resolve, reject) {
@@ -73,9 +73,9 @@ describe('postgresql connector errors', function() {
           }
         });
       });
-    };
-    var ps = [];
-    for (var i = 0; i < 12; i++) {
+    }
+    const ps = [];
+    for (let i = 0; i < 12; i++) {
       ps.push(runErrorQuery());
     }
     Promise.all(ps).then(function() {

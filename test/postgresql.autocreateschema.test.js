@@ -4,13 +4,13 @@
 // License text available at https://opensource.org/licenses/Artistic-2.0
 
 'use strict';
-var should = require('should'),
+const should = require('should'),
   assert = require('assert');
-var Another, Post, db;
+let Another, Post, db;
 
 describe('Autocreate schema if not exists', function() {
   before(function() {
-    db = getDataSource();
+    db = global.getDataSource();
 
     Post = db.define('PostInCustomSchema', {
       created: {
@@ -44,7 +44,7 @@ describe('Autocreate schema if not exists', function() {
   });
 
   it('should have new schema in place', function(done) {
-    var query = 'select table_schema, column_name, data_type,' +
+    const query = 'select table_schema, column_name, data_type,' +
       ' character_maximum_length, column_default ' +
       "from information_schema.columns where table_name = 'postincustomschema'" +
       " and column_name='created'";

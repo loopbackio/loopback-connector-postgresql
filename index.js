@@ -4,7 +4,7 @@
 // License text available at https://opensource.org/licenses/Artistic-2.0
 
 'use strict';
-var SG = require('strong-globalize');
+const SG = require('strong-globalize');
 SG.SetRootDir(__dirname);
 
 module.exports = require('./lib/postgresql.js');

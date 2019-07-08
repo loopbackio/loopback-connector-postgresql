@@ -4,13 +4,13 @@
 // License text available at https://opensource.org/licenses/Artistic-2.0
 
 'use strict';
-var should = require('should');
-var db, PostWithTimestamps;
+const should = require('should');
+let db, PostWithTimestamps;
 
 describe('Timestamps', function() {
   describe('type and precision', function() {
     before(function() {
-      db = getDataSource();
+      db = global.getDataSource();
 
       PostWithTimestamps = db.define('PostWithTimestamps', {
         timestampDefault: {
@@ -56,7 +56,8 @@ describe('Timestamps', function() {
           should.not.exist(err);
           should.exist(p);
           done();
-        });
+        }
+      );
     });
 
     it('isActual() should return true', function(done) {
