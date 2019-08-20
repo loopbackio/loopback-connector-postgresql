@@ -512,6 +512,10 @@ describe('autoupdate', function() {
             'length': 20,
             'id': 1,
           },
+          'subid': {
+            'type': 'int',
+            'id': 1,
+          },
           'customerId': {
             'type': 'String',
             'length': 20,
@@ -598,6 +602,10 @@ describe('autoupdate', function() {
           'id': {
             'type': 'String',
             'length': 20,
+            'id': 1,
+          },
+          'subid': {
+            'type': 'int',
             'id': 1,
           },
           'customerId': {
