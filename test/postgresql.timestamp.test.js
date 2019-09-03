@@ -26,6 +26,13 @@ describe('Timestamps', function() {
             dbDefault: 'now()',
           },
         },
+        timestampWithTypeNoZone: {
+          type: 'Date',
+          postgresql: {
+            dataType: 'TIMESTAMP WITHOUT TIME ZONE',
+            dbDefault: 'now()',
+          },
+        },
         timestampWithPrecision: {
           type: 'Date',
           postgresql: {
@@ -52,7 +59,24 @@ describe('Timestamps', function() {
 
     it('create instance', function(done) {
       PostWithTimestamps.create(
-        {timestampFromJs: new Date()}, function(err, p) {
+        {
+          timestampDefault: new Date,
+          timestampWithType: new Date,
+          timestampWithTypeNoZone: new Date,
+          timestampWithPrecision: new Date,
+          timestampFromJs: new Date,
+
+        }, function(err, p) {
+          should.not.exist(err);
+          should.exist(p);
+          done();
+        }
+      );
+    });
+
+    it('should handle default value on creation', function(done) {
+      PostWithTimestamps.create(
+        {timestampWithTypeNoZone: new Date()}, function(err, p) {
           should.not.exist(err);
           should.exist(p);
           done();
