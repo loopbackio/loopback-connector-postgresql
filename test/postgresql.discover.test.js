@@ -327,6 +327,30 @@ describe('Discover LDL schema from a table', function() {
   });
 });
 
+describe('Discover and map correctly database types', function() {
+  it('should handle character varying, date, timestamp with time zone, timestamp without time zone', function(done) {
+    db.discoverSchema('customer', {owner: 'strongloop'}, function(err, schema) {
+      if (err) {
+        console.error(err);
+        done(err);
+      } else {
+        assert(schema.properties.username);
+        assert(schema.properties.username.type === 'String');
+        assert(schema.properties.dateofbirth);
+        assert(schema.properties.dateofbirth.type === 'Date');
+        assert(schema.properties.dateofbirth.postgresql.dataType === 'date');
+        assert(schema.properties.lastlogin);
+        assert(schema.properties.lastlogin.type === 'Date');
+        assert(schema.properties.lastlogin.postgresql.dataType === 'timestamp with time zone');
+        assert(schema.properties.created);
+        assert(schema.properties.created.type === 'Date');
+        assert(schema.properties.created.postgresql.dataType === 'timestamp without time zone');
+        done();
+      }
+    });
+  });
+});
+
 describe('Discover and build models', function() {
   it('should build a model from discovery', function(done) {
     db.discoverAndBuildModels('GeoPoint', {schema: 'strongloop'}, function(err, schema) {
