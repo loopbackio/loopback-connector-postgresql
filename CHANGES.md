@@ -1,3 +1,25 @@
+2019-09-19, Version 3.8.0
+=========================
+
+ * chore: set package-lock=false in .npmrc (Aidan Harbison)
+
+ * Extends test structure to cover fix (Viktor Shanin)
+
+ * Fix Index upgrade (Viktor Shanin)
+
+ * fix: jsdoc (#385) (Janny)
+
+ * Enable Travis CI integration (Miroslav Bajtoš)
+
+ * Manually fix remaining linting violations (Miroslav Bajtoš)
+
+ * Auto-fix linting violations (Miroslav Bajtoš)
+
+ * Update eslint to ^6.0.1 (Miroslav Bajtoš)
+
+ * Update dev-dependencies (Miroslav Bajtoš)
+
+
 2019-06-26, Version 3.7.0
 =========================
 
