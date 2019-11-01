@@ -153,7 +153,7 @@ describe('postgresql connector', function() {
           p.created.getTime().should.be.eql(created.getTime());
           done();
         });
-      }
+      },
     );
   });
 
@@ -169,7 +169,7 @@ describe('postgresql connector', function() {
           results.should.have.property('affectedRows', 1);
           done(err);
         });
-      }
+      },
     );
   });
 
@@ -186,7 +186,7 @@ describe('postgresql connector', function() {
           results.rows[0].id.should.eql(post.id);
           done(err);
         });
-      }
+      },
     );
   });
 
@@ -212,7 +212,7 @@ describe('postgresql connector', function() {
           p.should.have.property('approved', false);
           done();
         });
-      }
+      },
     );
   });
 

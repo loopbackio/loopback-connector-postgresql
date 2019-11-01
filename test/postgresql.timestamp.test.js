@@ -56,7 +56,7 @@ describe('Timestamps', function() {
           should.not.exist(err);
           should.exist(p);
           done();
-        }
+        },
       );
     });
 
