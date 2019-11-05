@@ -150,7 +150,7 @@ function getIndexes(model, cb) {
         });
       }
       cb(err, indexes);
-    }
+    },
   );
 }
 
