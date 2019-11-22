@@ -303,8 +303,10 @@ CREATE TABLE customer (
     credentials character varying(1024),
     challenges character varying(1024),
     status character varying(1024),
-    created date,
-    lastupdated date
+    dateofbirth date,
+    lastlogin timestamp with time zone,
+    created timestamp without time zone,
+    lastupdated timestamp without time zone
 );
 
 
@@ -574,10 +576,10 @@ SELECT pg_catalog.setval('"GeoPoint_id_seq"', 2, true);
 -- Data for Name: customer; Type: TABLE DATA; Schema: strongloop; Owner: strongloop
 --
 
-INSERT INTO customer VALUES ('612', 'bat', 'bat@bar.com', '$2a$10$BEG18wcYQn7TRkFIc59EB.vmnsEwqJWMlYM4DNG73iZb.MKA1rjAC', NULL, NULL, NULL, NULL, NULL, '[]', '[]', NULL, NULL, NULL);
-INSERT INTO customer VALUES ('613', 'baz', 'baz@bar.com', '$2a$10$jkSYF2gLMdI4CwVQh8AStOs0b24lDu9p8jccnmri/0rvhtwsicm9C', NULL, NULL, NULL, NULL, NULL, '[]', '[]', NULL, NULL, NULL);
-INSERT INTO customer VALUES ('610', 'foo', 'foo@bar.com', '$2a$10$tn1hN7Xv6x74cCB7tVfwkeaaJTd4/6q4RbCMzgmAJeWe40xqrRSui', NULL, NULL, NULL, NULL, NULL, '[]', '[]', NULL, NULL, NULL);
-INSERT INTO customer VALUES ('611', 'bar', 'bar@bar.com', '$2a$10$a8mCol6d5vQXm6vubqXl8e5V66StEg6E8vzjQqPpoyk95Vm3smpiK', NULL, NULL, NULL, NULL, NULL, '[]', '[]', NULL, NULL, NULL);
+INSERT INTO customer VALUES ('612', 'bat', 'bat@bar.com', '$2a$10$BEG18wcYQn7TRkFIc59EB.vmnsEwqJWMlYM4DNG73iZb.MKA1rjAC', NULL, NULL, NULL, NULL, NULL, '[]', '[]', NULL, '1970-01-01', NULL, NULL, NULL);
+INSERT INTO customer VALUES ('613', 'baz', 'baz@bar.com', '$2a$10$jkSYF2gLMdI4CwVQh8AStOs0b24lDu9p8jccnmri/0rvhtwsicm9C', NULL, NULL, NULL, NULL, NULL, '[]', '[]', NULL, '1980-02-02', NULL, NULL, NULL);
+INSERT INTO customer VALUES ('610', 'foo', 'foo@bar.com', '$2a$10$tn1hN7Xv6x74cCB7tVfwkeaaJTd4/6q4RbCMzgmAJeWe40xqrRSui', NULL, NULL, NULL, NULL, NULL, '[]', '[]', NULL, '1990-10-20', NULL, NULL, NULL);
+INSERT INTO customer VALUES ('611', 'bar', 'bar@bar.com', '$2a$10$a8mCol6d5vQXm6vubqXl8e5V66StEg6E8vzjQqPpoyk95Vm3smpiK', NULL, NULL, NULL, NULL, NULL, '[]', '[]', NULL, '2000-12-31', NULL, NULL, NULL);
 
 
 --
