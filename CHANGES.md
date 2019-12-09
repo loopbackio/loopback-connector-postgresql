@@ -1,3 +1,17 @@
+2019-12-09, Version 3.8.1
+=========================
+
+ * fix(pool): synchronously release pool connection (Samuel Reed)
+
+ * Handler for with(out) time zone time(stamp) types (Stefano Pirra)
+
+ * chore: improve issue and PR templates (Nora)
+
+ * chore: exclude "good first issues" from stalebot (Miroslav Bajtoš)
+
+ * Fix eslint violations (Miroslav Bajtoš)
+
+
 2019-09-19, Version 3.8.0
 =========================
 
