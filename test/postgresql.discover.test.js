@@ -354,7 +354,7 @@ describe('Discover and map correctly database types', function() {
 describe('Discover and build models', function() {
   it('should build a model from discovery', function(done) {
     db.discoverAndBuildModels('GeoPoint', {schema: 'strongloop'}, function(err, schema) {
-      schema.Geopoint.find(function(err, data) {
+      schema.GeoPoint.find(function(err, data) {
         console.log('This is our err: ', err);
         assert(!err);
         assert(Array.isArray(data));
