@@ -1,3 +1,13 @@
+2020-01-31, Version 3.8.2
+=========================
+
+ * fix schema name with pascal case (Agnes Lin)
+
+ * chore: update CODEOWNERS file (Agnes Lin)
+
+ * fix: allow string type id to be auto-generated (Agnes Lin)
+
+
 2019-12-09, Version 3.8.1
 =========================
 
