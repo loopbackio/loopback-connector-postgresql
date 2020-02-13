@@ -296,8 +296,6 @@ describe('autoupdate', function() {
                     keys: ['firstname'],
                     order: ['ASC']},
                 });
-
-                // console.log(err, result);
                 done(err, result);
               });
             });
@@ -419,38 +417,6 @@ describe('autoupdate', function() {
         },
       };
 
-      const customer3_schema = {
-        'name': 'CustomerTest3',
-        'options': {
-          'idInjection': false,
-          'postgresql': {
-            'schema': 'myapp_test',
-            'table': 'customer_test3',
-          },
-        },
-        'properties': {
-          'id': {
-            'type': 'String',
-            'length': 20,
-            'id': 1,
-          },
-          'name': {
-            'type': 'String',
-            'required': false,
-            'length': 40,
-          },
-          'email': {
-            'type': 'String',
-            'required': true,
-            'length': 40,
-          },
-          'age': {
-            'type': 'Number',
-            'required': false,
-          },
-        },
-      };
-
       const orderTest_schema_v1 = {
         'name': 'OrderTest',
         'options': {
@@ -462,7 +428,7 @@ describe('autoupdate', function() {
           'foreignKeys': {
             'fk_ordertest_customerId': {
               'name': 'fk_ordertest_customerId',
-              'entity': 'CustomerTest3',
+              'entity': 'CustomerTest2',
               'entityKey': 'id',
               'foreignKey': 'customerId',
             },
@@ -498,61 +464,6 @@ describe('autoupdate', function() {
             'table': 'order_test',
           },
           'foreignKeys': {
-            'fk_ordertest_customerId': {
-              'name': 'fk_ordertest_customerId',
-              'entity': 'CustomerTest2',
-              'entityKey': 'id',
-              'foreignKey': 'customerId',
-            },
-          },
-        },
-        'properties': {
-          'id': {
-            'type': 'String',
-            'length': 20,
-            'id': 1,
-          },
-          'subid': {
-            'type': 'int',
-            'id': 1,
-          },
-          'customerId': {
-            'type': 'String',
-            'length': 20,
-            'postgresql': {
-              'columnName': 'customerId',
-            },
-          },
-          'description': {
-            'type': 'String',
-            'required': false,
-            'length': 40,
-          },
-          'productId': {
-            'type': 'String',
-            'length': 20,
-            'postgresql': {
-              'columnName': 'productId',
-            },
-          },
-        },
-      };
-
-      const orderTest_schema_v3 = {
-        'name': 'OrderTest',
-        'options': {
-          'idInjection': false,
-          'postgresql': {
-            'schema': 'myapp_test',
-            'table': 'order_test',
-          },
-          'foreignKeys': {
-            'fk_ordertest_customerId': {
-              'name': 'fk_ordertest_customerId',
-              'entity': 'CustomerTest2',
-              'entityKey': 'id',
-              'foreignKey': 'customerId',
-            },
             'fk_ordertest_productId': {
               'name': 'fk_ordertest_productId',
               'entity': 'Product',
@@ -589,7 +500,7 @@ describe('autoupdate', function() {
         },
       };
 
-      const orderTest_schema_v4 = {
+      const orderTest_schema_v3 = {
         'name': 'OrderTest',
         'options': {
           'idInjection': false,
@@ -630,9 +541,7 @@ describe('autoupdate', function() {
         },
       };
 
-      ds.createModel(product_schema.name, product_schema.properties, product_schema.options);
       ds.createModel(customer2_schema.name, customer2_schema.properties, customer2_schema.options);
-      ds.createModel(customer3_schema.name, customer3_schema.properties, customer3_schema.options);
 
       // Table create order is important. Referenced tables must exist before creating a reference.
       // do initial update/creation of referenced tables
@@ -642,7 +551,11 @@ describe('autoupdate', function() {
           return done(err);
         }
 
+        // do initial update/creation of of referenced tables for the next step
+        // model OrderTest has a fk refers to model CustomerTest2
+        ds.createModel(product_schema.name, product_schema.properties, product_schema.options);
         // do initial update/creation of table with fk
+        // model OrderTest has a fk refers to model CustomerTest2
         ds.createModel(orderTest_schema_v1.name, orderTest_schema_v1.properties, orderTest_schema_v1.options);
         ds.autoupdate(function(err) {
           if (err) {
@@ -662,70 +575,48 @@ describe('autoupdate', function() {
               assert(foreignKeys);
               assert.equal(foreignKeys.length, 1);
               assert.equal(foreignKeys[0].pkColumnName, 'id');
-              assert.equal(foreignKeys[0].pkTableName, 'customer_test3');
+              assert.equal(foreignKeys[0].pkTableName, 'customer_test2');
               assert.equal(foreignKeys[0].fkColumnName, 'customerId');
               assert.equal(foreignKeys[0].fkName, 'fk_ordertest_customerId');
 
-              // update and add another fk
-              ds.createModel(orderTest_schema_v2.name, orderTest_schema_v2.properties, orderTest_schema_v2.options);
+              // update the fk of model OrderTest from customerId to productId
+              // productId refers to model Product
+              ds.createModel(orderTest_schema_v2.name, orderTest_schema_v2.properties,
+                orderTest_schema_v2.options);
               ds.autoupdate(function(err) {
                 if (err) {
                   err.message += ' (while updating OrderTest schema v2)';
                   return done(err);
                 }
-                ds.discoverModelProperties('order_test', function(err, props) {
+                // get the foreign keys for order_test
+                ds.connector.discoverForeignKeys('order_test', {}, function(err, foreignKeys) {
                   if (err) return done(err);
-                  // validate that we have the correct number of properties
-                  assert.equal(props.length, 4);
+                  assert(foreignKeys);
+                  assert.equal(foreignKeys.length, 1);
+                  assert.equal(foreignKeys[0].pkTableName, 'product_test');
+                  assert.equal(foreignKeys[0].fkColumnName, 'productId');
+                  assert.equal(foreignKeys[0].fkName, 'fk_ordertest_productId');
 
-                  // get the foreign keys for order_test
-                  ds.connector.discoverForeignKeys('order_test', {}, function(err, foreignKeysUpdated) {
-                    if (err) return done(err);
-                    // validate that the foreign keys exist and point to the new column
-                    assert(foreignKeysUpdated);
-                    assert.equal(foreignKeysUpdated.length, 1);
-                    assert.equal(foreignKeysUpdated[0].pkColumnName, 'id');
-                    assert.equal(foreignKeysUpdated[0].pkTableName, 'customer_test2');
-                    assert.equal(foreignKeysUpdated[0].fkColumnName, 'customerId');
-                    assert.equal(foreignKeysUpdated[0].fkName, 'fk_ordertest_customerId');
+                  // remove fk from model OrderTest
+                  ds.createModel(orderTest_schema_v3.name, orderTest_schema_v3.properties,
+                    orderTest_schema_v3.options);
+                  ds.autoupdate(function(err) {
+                    if (err) {
+                      err.message += ' (while updating OrderTest schema v3)';
+                      return done(err);
+                    }
+                    ds.discoverModelProperties('order_test', function(err, props) {
+                      if (err) return done(err);
 
-                    // create multiple fks on object
-                    ds.createModel(orderTest_schema_v3.name, orderTest_schema_v3.properties,
-                      orderTest_schema_v3.options);
-                    ds.autoupdate(function(err) {
-                      if (err) {
-                        err.message += ' (while updating OrderTest schema v3)';
-                        return done(err);
-                      }
+                      // validate that we have the correct number of properties
+                      assert.equal(props.length, 4);
+
                       // get the foreign keys for order_test
-                      ds.connector.discoverForeignKeys('order_test', {}, function(err, foreignKeysMulti) {
+                      ds.connector.discoverForeignKeys('order_test', {}, function(err, foreignKeysEmpty) {
                         if (err) return done(err);
-                        assert(foreignKeysMulti);
-                        assert.equal(foreignKeysMulti.length, 2);
-
-                        // remove fk
-                        ds.createModel(orderTest_schema_v4.name, orderTest_schema_v4.properties,
-                          orderTest_schema_v4.options);
-                        ds.autoupdate(function(err) {
-                          if (err) {
-                            err.message += ' (while updating OrderTest schema v4)';
-                            return done(err);
-                          }
-                          ds.discoverModelProperties('order_test', function(err, props) {
-                            if (err) return done(err);
-
-                            // validate that we have the correct number of properties
-                            assert.equal(props.length, 4);
-
-                            // get the foreign keys for order_test
-                            ds.connector.discoverForeignKeys('order_test', {}, function(err, foreignKeysEmpty) {
-                              if (err) return done(err);
-                              assert(foreignKeysEmpty);
-                              assert.equal(foreignKeysEmpty.length, 0);
-                              done();
-                            });
-                          });
-                        });
+                        assert(foreignKeysEmpty);
+                        assert.equal(foreignKeysEmpty.length, 0);
+                        done();
                       });
                     });
                   });
