@@ -14,7 +14,7 @@ describe('migrations', function() {
   before(setup);
 
   it('should run migration', function(done) {
-    db.automigrate(['UserDataWithIndexes', 'OrderData', 'DefaultUuid'], done);
+    db.automigrate(['UserDataWithIndexes', 'OrderData', 'DefaultUuid', 'DefaultValueAfterColumnAdd'], done);
   });
 
   it('UserDataWithIndexes should have correct indexes', function(done) {
@@ -109,6 +109,32 @@ describe('migrations', function() {
       done();
     });
   });
+
+  it('should add default value for new required columns', async function() {
+    const DefaultValueAfterColumnAdd = await db.getModel('DefaultValueAfterColumnAdd');
+    await DefaultValueAfterColumnAdd.create({
+      name: 'name1',
+    });
+    await db.defineProperty('DefaultValueAfterColumnAdd', 'createdByAdmin', {
+      type: Boolean, required: true, default: true,
+    });
+    await db.defineProperty('DefaultValueAfterColumnAdd', 'birthDate', {
+      type: Date, required: true, default: '2020-02-18T16:50:24.746Z',
+    });
+    await db.defineProperty('DefaultValueAfterColumnAdd', 'pendingPeriod', {
+      type: Number, required: true, default: 10,
+    });
+    await db.autoupdate(['DefaultValueAfterColumnAdd']);
+    const res = await DefaultValueAfterColumnAdd.findOne();
+
+    assert.deepEqual(res.toJSON(), {
+      id: 1,
+      name: 'name1',
+      createdByAdmin: true,
+      birthDate: new Date('2020-02-18T16:50:24.746Z'),
+      pendingPeriod: 10,
+    });
+  });
 });
 
 function setup(done) {
@@ -172,6 +198,10 @@ function setup(done) {
       }},
   });
 
+  const DefaultValueAfterColumnAdd = db.define('DefaultValueAfterColumnAdd', {
+    name: String,
+  });
+
   done();
 }
 
@@ -230,3 +260,4 @@ function checkColumns(table, cb) {
     cb(err, cols);
   });
 }
+
