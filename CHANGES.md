@@ -1,3 +1,13 @@
+2020-02-25, Version 3.9.0
+=========================
+
+ * doc: added readme info on defaultIdSort (Erik de Groot)
+
+ * feat: Added defaultIdSort setting for find method (Erik de Groot)
+
+ * chore: update copyright year (Diana Lau)
+
+
 2020-01-31, Version 3.8.3
 =========================
 
