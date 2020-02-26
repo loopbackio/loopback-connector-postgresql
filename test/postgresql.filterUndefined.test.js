@@ -6,7 +6,7 @@
 'use strict';
 const should = require('should'),
   assert = require('assert');
-let Post, db;
+let Post, db, Charge, Currency;
 
 describe('filter undefined fields', function() {
   before(function() {
@@ -132,6 +132,57 @@ describe('filter undefined fields', function() {
         should.not.exist(p.first);
         should.not.exist(p.second);
         should.not.exist(p.third);
+        done();
+      });
+    });
+  });
+
+  describe('able to handle null foreign keys', function() {
+    before(function(done) {
+      Charge = db.define('Charge', {amount: Number});
+      Currency = db.define('Currency', {code: String, country: String});
+      Charge.belongsTo('Currency', {as: 'currency'});
+      db.automigrate(['Charge', 'Currency'], done);
+    });
+
+    it('able to create entity with null foreign key', function(done) {
+      Currency.create({code: 'USD', country: 'USA'}, function(err, currency) {
+        if (err) return done(err);
+        Charge.create({amount: 10, currencyId: currency.id}, function(err) {
+          if (err) return done(err);
+          Charge.create({amount: 10, currencyId: null}, function(err, charge) {
+            if (err) return done(err);
+            should.not.exist(charge.currencyId);
+            done();
+          });
+        });
+      });
+    });
+
+    it('able to query entities with null foreign key', function(done) {
+      Charge.find({
+        where: {currency: {
+          inq: [null, 1],
+        }},
+        include: {relation: 'currency'},
+      }, function(err, charges) {
+        if (err) return done(err);
+        charges.should.have.lengthOf(2);
+        done();
+      });
+    });
+
+    it('able to filter entities with null id condition', function(done) {
+      Currency.find({
+        where: {
+          id: {
+            inq: [null, 1],
+          },
+        },
+      },
+      function(err, currencies) {
+        if (err) return done(err);
+        currencies.should.have.lengthOf(1);
         done();
       });
     });
