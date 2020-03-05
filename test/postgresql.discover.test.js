@@ -8,6 +8,7 @@ process.env.NODE_ENV = 'test';
 require('should');
 
 const assert = require('assert');
+const should = require('should');
 const _ = require('lodash');
 
 const DataSource = require('loopback-datasource-juggler').DataSource;
@@ -239,6 +240,36 @@ describe('Discover model properties', function() {
 });
 
 describe('Discover model primary keys', function() {
+  let Demo;
+  before(function(done) {
+    const demo_schema = {
+      'name': 'Demo',
+      'options': {
+        'idInjection': false,
+        'postgresql': {
+          'schema': 'public',
+          'table': 'demo',
+        },
+      },
+      'properties': {
+        'id': {
+          'type': 'Number',
+          'required': true,
+          'id': 1,
+          'postgresql': {
+            'columnName': 'demoId',
+          },
+        },
+        'name': {
+          'type': 'String',
+          'required': true,
+        },
+      },
+    };
+    Demo = db.createModel(demo_schema.name, demo_schema.properties, demo_schema.options);
+    Demo.destroyAll(done);
+  });
+
   it('should return an array of primary keys for product', function(done) {
     db.discoverPrimaryKeys('product', function(err, models) {
       if (err) {
@@ -254,6 +285,33 @@ describe('Discover model primary keys', function() {
         });
         done(null, models);
       }
+    });
+  });
+
+  it('primary key should be discovered, and db generates instances properly', function(done) {
+    db.discoverPrimaryKeys('demo', function(err, models) {
+      if (err) {
+        console.error(err);
+        done(err);
+      } else {
+        models.forEach(function(m) {
+          assert.deepEqual(m, {owner: 'public',
+            tableName: 'demo',
+            columnName: 'demoId',
+            keySeq: 1,
+            pkName: 'demo_pkey'});
+        });
+      }
+    });
+    Demo.create({id: 1, name: 'checkCase'}, function(err) {
+      should.not.exists(err);
+      Demo.findOne({}, function(err, d) {
+        should.not.exists(err);
+        should.exists(d);
+        d.should.have.property('id', 1);
+        d.should.have.property('name', 'checkCase');
+        done();
+      });
     });
   });
 

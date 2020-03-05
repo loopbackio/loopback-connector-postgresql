@@ -113,7 +113,7 @@ ALTER SEQUENCE account_id_seq OWNED BY account.id;
 
 CREATE TABLE demo (
     name text NOT NULL,
-    id integer NOT NULL
+    "demoId" integer NOT NULL
 );
 
 
@@ -133,7 +133,7 @@ CREATE SEQUENCE demo_id_seq
 -- Name: demo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: strongloop
 --
 
-ALTER SEQUENCE demo_id_seq OWNED BY demo.id;
+ALTER SEQUENCE demo_id_seq OWNED BY demo."demoId";
 
 
 --
@@ -1243,7 +1243,7 @@ ALTER TABLE ONLY account
 --
 
 ALTER TABLE ONLY demo
-    ADD CONSTRAINT demo_pkey PRIMARY KEY (id);
+    ADD CONSTRAINT demo_pkey PRIMARY KEY ("demoId");
 
 
 --

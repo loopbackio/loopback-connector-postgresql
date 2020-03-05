@@ -24,7 +24,7 @@
     "bluebird": "^3.4.6",
     "chalk": "^3.0.0",
     "debug": "^4.1.1",
-    "loopback-connector": "^4.2.2",
+    "loopback-connector": "^4.10.2",
     "pg": "^7.0.0",
     "strong-globalize": "^4.0.0",
     "uuid": "^3.0.1"
