@@ -288,26 +288,25 @@ describe('Discover model primary keys', function() {
     });
   });
 
-  it('primary key should be discovered, and db generates instances properly', function(done) {
+  it('should discover primary key and db generates instances properly', function(done) {
     db.discoverPrimaryKeys('demo', function(err, models) {
       if (err) {
         console.error(err);
         done(err);
       } else {
-        models.forEach(function(m) {
-          assert.deepEqual(m, {owner: 'public',
-            tableName: 'demo',
-            columnName: 'demoId',
-            keySeq: 1,
-            pkName: 'demo_pkey'});
-        });
+        models.length.should.be.equal(1);
+        assert.deepEqual(models[0], {owner: 'public',
+          tableName: 'demo',
+          columnName: 'demoId',
+          keySeq: 1,
+          pkName: 'demo_pkey'});
       }
     });
     Demo.create({id: 1, name: 'checkCase'}, function(err) {
-      should.not.exists(err);
+      should.not.exist(err);
       Demo.findOne({}, function(err, d) {
-        should.not.exists(err);
-        should.exists(d);
+        should.not.exist(err);
+        should.exist(d);
         d.should.have.property('id', 1);
         d.should.have.property('name', 'checkCase');
         done();
