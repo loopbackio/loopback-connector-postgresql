@@ -820,6 +820,53 @@ describe('Serial properties', function() {
   });
 });
 
+describe('Updating of array properties', function() {
+  let db;
+
+  before(function() {
+    db = global.getSchema();
+  });
+
+  it('should return a valid array', function(done) {
+    const schema =
+      {
+        'name': 'TestWithArray',
+        'properties': {
+          'id': {
+            'type': 'number', 'id': true, 'generated': true,
+          },
+          'productCodes': {
+            'type': ['string'],
+          },
+        },
+      };
+    const models = db.modelBuilder.buildModels(schema);
+    const Model = models['TestWithArray'];
+    const count = 0;
+    Model.attachTo(db);
+
+    db.automigrate(function(err, data) {
+      async.series([
+        function(callback) {
+          Model.destroyAll(callback);
+        },
+        function(callback) {
+          Model.create({productCodes: ['AA', 'AB']}, callback);
+        },
+        function(callback) {
+          Model.updateAll({where: {id: 1}}, {productCodes: ['AA', 'AC']}, callback);
+        },
+        function(callback) {
+          Model.findOne({where: {id: 1}}, function(err, r) {
+            r.should.have.property('productCodes');
+            callback(null, r);
+          });
+        },
+      ], done);
+    });
+  });
+});
+
 const data = [
   {
     id: 1,
