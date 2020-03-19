@@ -1,3 +1,21 @@
+2020-03-19, Version 3.9.1
+=========================
+
+ * fix readme layout (Agnes Lin)
+
+ * fix README display on the site (Agnes Lin)
+
+ * Exclude 'deps' and '.github' from npm publish (Dominique Emond)
+
+ * fix (Agnes Lin)
+
+ * tests: column should be discovered and mapped (Agnes Lin)
+
+ * fix: `DEFAULT` for null values in where clause (DEEPAK RAJAMOHAN)
+
+ * fix postgres random ci failure (Agnes Lin)
+
+
 2020-02-25, Version 3.9.0
 =========================
 
