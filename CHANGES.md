@@ -1,3 +1,37 @@
+2020-04-21, Version 5.0.0
+=========================
+
+ * README: add info about LTS policy (Miroslav Bajtoš)
+
+ * Upgrade dev dependencies (Miroslav Bajtoš)
+
+ * [SEMVER-MAJOR] Upgrade `pg` to `8.0` (Miroslav Bajtoš)
+
+ * Update dependencies (Miroslav Bajtoš)
+
+ * Add Node.js 13.x to Travis CI matrix (Miroslav Bajtoš)
+
+ * Drop support for Node.js 8.x (Miroslav Bajtoš)
+
+ * chore: update strong-globalize version (Diana Lau)
+
+## Breaking changes
+
+The client library `pg` was upgraded to `8.0` with the following notable changes:
+
+- Change default behavior when not specifying `rejectUnauthorized` with the
+  SSL connection parameters. Previously we defaulted to
+  `rejectUnauthorized: false` when it was not specifically included. We now
+  default to `rejectUnauthorized: true`. Manually specify
+  `{ ssl: { rejectUnauthorized: false } }` for old behavior.
+
+- Change default database when not specified to use the `user` config option
+  if available. Previously `process.env.USER` was used.
+
+See pg's changelog for the full list of breaking changes.
+https://github.com/brianc/node-postgres/blob/master/CHANGELOG.md#pg800
+
+
 2020-03-19, Version 3.9.1
 =========================
 
