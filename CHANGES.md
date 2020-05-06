@@ -1,3 +1,9 @@
+2020-05-06, Version 5.0.1
+=========================
+
+ * Fix serialization of arrays of string in update (#428) (Selim Arsever)
+
+
 2020-04-21, Version 5.0.0
 =========================
 
@@ -14,22 +20,6 @@
  * Drop support for Node.js 8.x (Miroslav Bajtoš)
 
  * chore: update strong-globalize version (Diana Lau)
-
-## Breaking changes
-
-The client library `pg` was upgraded to `8.0` with the following notable changes:
-
-- Change default behavior when not specifying `rejectUnauthorized` with the
-  SSL connection parameters. Previously we defaulted to
-  `rejectUnauthorized: false` when it was not specifically included. We now
-  default to `rejectUnauthorized: true`. Manually specify
-  `{ ssl: { rejectUnauthorized: false } }` for old behavior.
-
-- Change default database when not specified to use the `user` config option
-  if available. Previously `process.env.USER` was used.
-
-See pg's changelog for the full list of breaking changes.
-https://github.com/brianc/node-postgres/blob/master/CHANGELOG.md#pg800
 
 
 2020-03-19, Version 3.9.1
