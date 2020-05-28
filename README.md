@@ -720,7 +720,7 @@ export class Order extends Entity {
 
 </details>
 <br>
-{% include tips.html content="
+{% include tip.html content="
 Removing or updating the value of `foreignKeys` will be updated or delete or update the constraints in the db tables. If there is a reference to an object being deleted then the `DELETE` will fail. Likewise if there is a create with an invalid FK id then the `POST` will fail.
 " %}
 
