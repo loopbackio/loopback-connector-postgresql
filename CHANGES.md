@@ -1,3 +1,15 @@
+2020-07-10, Version 5.0.2
+=========================
+
+ * fix: fix uuid setup (Agnes Lin)
+
+ * fix: fix example prop def (Agnes Lin)
+
+ * fix: use tip.html (Diana Lau)
+
+ * docs: update readme with more lb4 form (Agnes Lin)
+
+
 2020-05-06, Version 5.0.1
 =========================
 
