@@ -38,7 +38,7 @@ docker -v > /dev/null 2>&1
 DOCKER_EXISTS=$?
 if [ "$DOCKER_EXISTS" -ne 0 ]; then
     printf "\n\n${CYAN}Status: ${PLAIN}${RED}Docker not found. Terminating setup.${PLAIN}\n\n"
-    exit 1
+    return 1
 fi
 printf "\n${CYAN}Found docker. Moving on with the setup.${PLAIN}\n"
 
@@ -57,7 +57,7 @@ printf "\n${RED}>> Starting the postgresql container${PLAIN} ${GREEN}...${PLAIN}
 CONTAINER_STATUS=$(docker run --name $POSTGRESQL_CONTAINER -e POSTGRES_USER=$USER -e POSTGRES_PASSWORD=$PASSWORD -p $PORT:5432 -d postgres:latest 2>&1)
 if [[ "$CONTAINER_STATUS" == *"Error"* ]]; then
     printf "\n\n${CYAN}Status: ${PLAIN}${RED}Error starting container. Terminating setup.${PLAIN}\n\n"
-    exit 1
+    return 1
 fi
 docker cp ./test/schema.sql $POSTGRESQL_CONTAINER:/home/ > /dev/null 2>&1
 printf "\n${CYAN}Container is up and running.${PLAIN}\n"
@@ -91,7 +91,7 @@ while [ "$OUTPUT" -ne 0 ] && [ "$TIMEOUT" -gt 0 ]
 
 if [ "$TIMEOUT" -le 0 ]; then
     printf "\n\n${CYAN}Status: ${PLAIN}${RED}Failed to export schema. Terminating setup.${PLAIN}\n\n"
-    exit 1
+    return 1
 fi
 printf "\n${CYAN}Successfully exported schema to database.${PLAIN}\n"
 
@@ -102,7 +102,7 @@ docker exec -it $POSTGRESQL_CONTAINER /bin/sh -c "psql -U $USER -c 'CREATE DATAB
 CREATE_DATABASE=$?
 if [ "$CREATE_DATABASE" -ne 0 ]; then
     printf "\n\n${CYAN}Status: ${PLAIN}${RED}Error creating database: $DATABASE. Terminating setup.${PLAIN}\n\n"
-    exit 1
+    return 1
 fi
 printf "\n${CYAN}Database created.${PLAIN}\n"
 
