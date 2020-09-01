@@ -1,3 +1,17 @@
+2020-09-01, Version 5.1.0
+=========================
+
+ * update dependencies to latest (Miroslav Bajtoš)
+
+ * fix setup script to not exit calling shell (Miroslav Bajtoš)
+
+ * chore: switch to DCO (Diana Lau)
+
+ * docs: update loopback types link (Agnes Lin)
+
+ * Update .travis.yml (karanssj4)
+
+
 2020-07-10, Version 5.0.2
 =========================
 
