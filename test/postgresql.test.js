@@ -263,6 +263,16 @@ describe('postgresql connector', function() {
       });
   });
 
+  it('should support where filter for array type field', async () => {
+    Post.dataSource.settings.allowExtendedOperators = true;
+    const post = await Post.find({where: {and: [
+      {
+        categories: {'contains': ['AA']},
+      },
+    ]}});
+    should.exist(post);
+    post.length.should.equal(1);
+  });
   it('should support boolean types with false value', function(done) {
     Post.create(
       {title: 'T2', content: 'C2', approved: false, created: created},
