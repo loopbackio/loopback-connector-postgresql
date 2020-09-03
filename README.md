@@ -202,6 +202,29 @@ const config = {
 };
 ```
 
+
+## Additional properties
+
+<table>
+  <thead>
+  <tr>
+    <th width="160">Property</th>
+    <th width="90">Type</th>
+    <th>Default</th>
+    <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>allowExtendedOperators</td>
+      <td>Boolean</td>
+      <td><code>false</code></td>
+      <td>Set to <code>true</code> to enable using Postgres operators such as <code>contains</code> which is used to perform filter on postgres array type field.</td>
+    </tr>
+  </tbody>
+</table>
+
+
 ## Defining models
 
 LoopBack allows you to specify some database settings through the model definition and/or the property definition. These definitions would be mapped to the database. Please check out the CLI [`lb4 model`](https://loopback.io/doc/en/lb4/Model-generator.html) for generating LB4 models. The following is a typical LoopBack 4 model that specifies the schema, table and column details through model definition and property definitions:
@@ -413,6 +436,12 @@ details on LoopBack's data types.
         Default length is 1024
       </td>
     </tr>
+     <tr>
+      <td>String[]</td>
+      <td>
+        VARCHAR2[]
+      </td>
+    </tr>
     <tr>
       <td>Number</td>
       <td>INTEGER</td>
@@ -530,6 +559,35 @@ CustomerRepository.find({
   order: 'address.city',
 });
 ```
+
+## Querying Postgres Array type fields
+
+**Note** The fields you are querying should be setup to use the  postgresql array data type - see Defining models
+
+Assuming a model such as this:
+
+```ts
+  @property({
+    type: ['string'],
+    postgresql: {
+          dataType: 'varchar[]',
+        },
+  })
+  categories?: string[];
+```
+
+You can query the tags fields via setting allowExtendedOperators to true
+
+```ts
+Model.dataSource.settings.allowExtendedOperators = true;
+    const post = await Post.find({where: {
+        {
+          categories: {'contains': ['AA']},
+        }
+      }
+    });
+```
+
 
 ## Discovery and auto-migration
 
