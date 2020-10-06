@@ -73,7 +73,7 @@ describe('postgresql connector', function() {
           dataType: 'varchar[]',
         },
       },
-    });
+    }, {allowExtendedOperators: true});
     created = new Date();
   });
 
@@ -264,15 +264,23 @@ describe('postgresql connector', function() {
   });
 
   it('should support where filter for array type field', async () => {
-    Post.dataSource.settings.allowExtendedOperators = true;
-    const post = await Post.find({where: {and: [
+    await Post.create({
+      title: 'LoopBack Participates in Hacktoberfest',
+      categories: ['LoopBack', 'Announcements'],
+    });
+    await Post.create({
+      title: 'Growing LoopBack Community',
+      categories: ['LoopBack', 'Community'],
+    });
+
+    const found = await Post.find({where: {and: [
       {
-        categories: {'contains': ['AA']},
+        categories: {'contains': ['LoopBack', 'Community']},
       },
     ]}});
-    should.exist(post);
-    post.length.should.equal(1);
+    found.map(p => p.title).should.deepEqual(['Growing LoopBack Community']);
   });
+
   it('should support boolean types with false value', function(done) {
     Post.create(
       {title: 'T2', content: 'C2', approved: false, created: created},
