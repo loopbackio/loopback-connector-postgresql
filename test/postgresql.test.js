@@ -218,7 +218,7 @@ describe('postgresql connector', function() {
         post.should.have.property('tags');
         post.tags.should.be.Array();
         post.tags.length.should.eql(2);
-        post.tags.should.eql(['AA', 'AB']);
+        post.tags.toArray().should.eql(['AA', 'AB']);
         return Post.updateAll({where: {id: postId}}, {tags: ['AA', 'AC']});
       })
       .then(()=> {
@@ -228,7 +228,7 @@ describe('postgresql connector', function() {
         post.should.have.property('tags');
         post.tags.should.be.Array();
         post.tags.length.should.eql(2);
-        post.tags.should.eql(['AA', 'AC']);
+        post.tags.toArray().should.eql(['AA', 'AC']);
         done();
       })
       .catch((error) => {
@@ -245,7 +245,7 @@ describe('postgresql connector', function() {
         post.should.have.property('categories');
         post.categories.should.be.Array();
         post.categories.length.should.eql(2);
-        post.categories.should.eql(['AA', 'AB']);
+        post.categories.toArray().should.eql(['AA', 'AB']);
         return Post.updateAll({where: {id: postId}}, {categories: ['AA', 'AC']});
       })
       .then(()=> {
@@ -255,7 +255,7 @@ describe('postgresql connector', function() {
         post.should.have.property('categories');
         post.categories.should.be.Array();
         post.categories.length.should.eql(2);
-        post.categories.should.eql(['AA', 'AC']);
+        post.categories.toArray().should.eql(['AA', 'AC']);
         done();
       })
       .catch((error) => {
