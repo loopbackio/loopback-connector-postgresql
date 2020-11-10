@@ -1,3 +1,9 @@
+2020-11-10, Version 5.2.1
+=========================
+
+ * Ensure order of and/or clauses are preserved (Raymond Feng)
+
+
 2020-10-06, Version 5.2.0
 =========================
 
