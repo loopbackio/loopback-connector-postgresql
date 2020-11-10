@@ -423,6 +423,14 @@ describe('postgresql connector', function() {
         done();
       });
     });
+
+    it('should preserve order of and/or in where', async function() {
+      await Post.create({title: 'T3', content: 'C3', approved: false});
+      // WHERE (title='T3' OR approved=false) AND (content='C2')
+      const posts = await Post.find({where: {or: [{title: 'T3'},
+        {approved: false}], content: 'C2'}});
+      posts.length.should.equal(0);
+    });
   });
 
   context('pattern matching operators', function() {
