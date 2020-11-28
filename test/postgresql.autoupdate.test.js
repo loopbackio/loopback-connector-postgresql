@@ -4,6 +4,8 @@
 // License text available at https://opensource.org/licenses/Artistic-2.0
 
 'use strict';
+const async = require('async');
+const sinon = require('sinon');
 const assert = require('assert');
 const _ = require('lodash');
 let ds, properties, SimpleEmployee, Emp1, Emp2;
@@ -675,6 +677,276 @@ describe('autoupdate', function() {
           done();
         });
       });
+    });
+  });
+
+  describe('multicolumn indexes on table in schema', () => {
+    const schema = {
+      name: 'Person',
+      options: {
+        postgresql: {
+          schema: 'public',
+          table: 'Person',
+        },
+        indexes: {
+          uniqueNameIndex: {
+            keys: {'firstName': 1, 'lastName': 1},
+            options: {unique: false},
+          },
+        },
+      },
+      properties: {
+        firstName: {
+          type: 'string',
+        },
+        lastName: {
+          type: 'string',
+        },
+        middleName: {
+          type: 'string',
+        },
+      },
+    };
+    const changedSchema = {
+      ...schema,
+      options: {
+        ...schema.options,
+        indexes: {
+          uniqueNameIndex: {
+            keys: {'firstName': -1, 'lastName': -1},
+            options: {unique: true},
+          },
+        },
+      },
+    };
+    const DROP_INDEX_REGEX = /DROP INDEX.*uniqueNameIndex/;
+
+    let personModel;
+
+    afterEach(async () => {
+      await personModel.destroyAll();
+    });
+
+    describe('when table has no existing indexes', () => {
+      it('updates without errors', async () => {
+        personModel = ds.define(schema.name, schema.properties, schema.options);
+        await ds.autoupdate([schema.name]);
+        assert(true, true);
+      });
+    });
+
+    describe('when table has existing index', () => {
+      let sandbox;
+      let spy;
+
+      before(() => { sandbox = sinon.createSandbox(); });
+      after(() => { sandbox = null; });
+
+      beforeEach(setupExistingSchemaAndSpy);
+      afterEach(teardownSpy);
+
+      it('removes existing index successfully', (done) => {
+        const noIndexSchema = {
+          ...schema,
+          options: {
+            ...schema.options,
+            indexes: {},
+          },
+        };
+
+        async.series([
+          cb => {
+            // Remove index from schema
+            ds.define(noIndexSchema.name, noIndexSchema.properties, noIndexSchema.options);
+            ds.autoupdate([schema.name], cb);
+          },
+          cb => {
+            // Validate post-update indexes contain expected values
+            ds.connector.discoverModelIndexes(schema.name, (err, indexes) => {
+              if (err) {
+                return cb(err);
+              }
+
+              assert.deepEqual(indexes, {
+                Person_pkey: {
+                  table: 'Person',
+                  type: 'btree',
+                  primary: true,
+                  unique: true,
+                  keys: ['id'],
+                  order: ['ASC']},
+              });
+
+              cb();
+            });
+          },
+        ], (err) => {
+          assert(!err, err);
+          done();
+        });
+      });
+
+      describe('and index is modified', () => {
+        it('updates successfully', (done) => {
+          async.series([
+            cb => {
+              // Update schema
+              ds.define(schema.name, changedSchema.properties, changedSchema.options);
+              ds.autoupdate([schema.name], cb);
+            },
+            cb => {
+              // Validate post-update indexes contain expected values
+              ds.connector.discoverModelIndexes(schema.name, (err, indexes) => {
+                if (err) {
+                  return cb(err);
+                }
+
+                assert.deepEqual(indexes, {
+                  Person_pkey: {
+                    table: 'Person',
+                    type: 'btree',
+                    primary: true,
+                    unique: true,
+                    keys: ['id'],
+                    order: ['ASC']},
+                  uniqueNameIndex: {
+                    table: 'Person',
+                    type: 'btree',
+                    primary: false,
+                    unique: true,
+                    keys: ['firstname', 'lastname'],
+                    order: ['DESC', 'DESC']},
+                });
+
+                cb();
+              });
+            },
+          ], (err) => {
+            assert(!err, err);
+            done();
+          });
+        });
+
+        describe('for index uniqueness', () => {
+          const updatedSchema = {
+            ...schema,
+            options: {
+              ...schema.options,
+              indexes: {
+                uniqueNameIndex: {
+                  keys: {'firstName': 1, 'lastName': 1},
+                  options: {unique: true},
+                },
+              },
+            },
+          };
+
+          it('drops the existing index', async () => {
+            ds.define(updatedSchema.name, updatedSchema.properties, updatedSchema.options);
+            await ds.autoupdate([updatedSchema.name]);
+
+            const calls = spy.getCalls();
+            const match = calls.some(call => DROP_INDEX_REGEX.test(call.firstArg));
+            assert(match);
+          });
+        });
+
+        describe('for included keys', () => {
+          const updatedSchema = {
+            ...schema,
+            options: {
+              ...schema.options,
+              indexes: {
+                uniqueNameIndex: {
+                  keys: {'firstName': 1, 'middleName': 1},
+                  options: {unique: false},
+                },
+              },
+            },
+          };
+
+          it('drops the existing index', async () => {
+            ds.define(updatedSchema.name, updatedSchema.properties, updatedSchema.options);
+            await ds.autoupdate([updatedSchema.name]);
+
+            const calls = spy.getCalls();
+            const match = calls.some(call => DROP_INDEX_REGEX.test(call.firstArg));
+            assert(match);
+          });
+        });
+
+        describe('for number of keys', () => {
+          const updatedSchema = {
+            ...schema,
+            options: {
+              ...schema.options,
+              indexes: {
+                uniqueNameIndex: {
+                  keys: {'firstName': 1, 'lastName': 1, 'middleName': 1},
+                  options: {unique: false},
+                },
+              },
+            },
+          };
+
+          it('drops the existing index', async () => {
+            ds.define(updatedSchema.name, updatedSchema.properties, updatedSchema.options);
+            await ds.autoupdate([updatedSchema.name]);
+
+            const calls = spy.getCalls();
+            const match = calls.some(call => DROP_INDEX_REGEX.test(call.firstArg));
+            assert(match);
+          });
+        });
+
+        describe('for order of keys', () => {
+          const updatedSchema = {
+            ...schema,
+            options: {
+              ...schema.options,
+              indexes: {
+                uniqueNameIndex: {
+                  keys: {'lastName': 1, 'firstName': 1},
+                  options: {unique: false},
+                },
+              },
+            },
+          };
+
+          it('drops the existing index', async () => {
+            ds.define(updatedSchema.name, updatedSchema.properties, updatedSchema.options);
+            await ds.autoupdate([updatedSchema.name]);
+
+            const calls = spy.getCalls();
+            const match = calls.some(call => DROP_INDEX_REGEX.test(call.firstArg));
+            assert(match);
+          });
+        });
+      });
+
+      describe('and index is not modified', () => {
+        it('does not drop the existing index', async () => {
+          await ds.autoupdate([schema.name]);
+
+          const calls = spy.getCalls();
+          const match = calls.some(call => DROP_INDEX_REGEX.test(call.firstArg));
+          assert(!match, match);
+        });
+      });
+
+      async function setupExistingSchemaAndSpy() {
+        // Create initial schema
+        personModel = ds.define(schema.name, schema.properties, schema.options);
+        await ds.autoupdate([schema.name]);
+
+        // Watch sql execution calls
+        spy = sandbox.spy(ds.connector, 'execute');
+      }
+
+      async function teardownSpy() {
+        sandbox.restore();
+        spy = null;
+      }
     });
   });
 });
