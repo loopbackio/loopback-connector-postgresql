@@ -1,6 +1,6 @@
 {
   "name": "loopback-connector-postgresql",
-  "version": "5.2.1",
+  "version": "5.3.0",
   "description": "Loopback PostgreSQL Connector",
   "engines": {
     "node": ">=10"
