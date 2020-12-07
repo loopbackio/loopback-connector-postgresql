@@ -1,3 +1,9 @@
+2020-12-07, Version 5.3.0
+=========================
+
+ * fix: enable pool error handling (Matthew Gabeler-Lee)
+
+
 2020-11-10, Version 5.2.1
 =========================
 
