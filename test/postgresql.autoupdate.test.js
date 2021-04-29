@@ -469,6 +469,8 @@ describe('autoupdate', function() {
               'entity': 'Product',
               'entityKey': 'id',
               'foreignKey': 'productId',
+              'onDelete': 'CASCADE',
+              'onUpdate': 'SET NULL',
             },
           },
         },
@@ -578,6 +580,8 @@ describe('autoupdate', function() {
               assert.equal(foreignKeys[0].pkTableName, 'customer_test2');
               assert.equal(foreignKeys[0].fkColumnName, 'customerId');
               assert.equal(foreignKeys[0].fkName, 'fk_ordertest_customerId');
+              assert.equal(foreignKeys[0].onDelete, 'NO ACTION');
+              assert.equal(foreignKeys[0].onUpdate, 'NO ACTION');
 
               // update the fk of model OrderTest from customerId to productId
               // productId refers to model Product
@@ -596,6 +600,8 @@ describe('autoupdate', function() {
                   assert.equal(foreignKeys[0].pkTableName, 'product_test');
                   assert.equal(foreignKeys[0].fkColumnName, 'productId');
                   assert.equal(foreignKeys[0].fkName, 'fk_ordertest_productId');
+                  assert.equal(foreignKeys[0].onDelete, 'CASCADE');
+                  assert.equal(foreignKeys[0].onUpdate, 'SET NULL');
 
                   // remove fk from model OrderTest
                   ds.createModel(orderTest_schema_v3.name, orderTest_schema_v3.properties,
