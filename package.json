@@ -37,6 +37,8 @@
   },
   "devDependencies": {
     "eslint": "^7.7.0",
+    "chai": "^4.3.4",
+    "chai-subset": "^1.6.0",
     "eslint-config-loopback": "^13.1.0",
     "juggler-v3": "file:./deps/juggler-v3",
     "juggler-v4": "file:./deps/juggler-v4",
