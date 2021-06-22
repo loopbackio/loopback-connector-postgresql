@@ -378,6 +378,16 @@ CREATE TABLE reservation (
 
 
 --
+-- Name: encrypted_data; Type: TABLE; Schema: strongloop; Owner: strongloop
+--
+
+CREATE TABLE encrypted_data (
+    id character varying(64),
+    data text
+);
+
+
+--
 -- Name: session; Type: TABLE; Schema: strongloop; Owner: strongloop
 --
 
@@ -1206,6 +1216,8 @@ INSERT INTO product VALUES ('86', 'Flashlight', NULL, NULL, NULL, NULL, NULL);
 INSERT INTO product VALUES ('87', 'NV Goggles', NULL, NULL, NULL, NULL, NULL);
 INSERT INTO product VALUES ('2', 'G17', 53, 75, 15, 'Flashlight', 'Single');
 INSERT INTO product VALUES ('5', 'M9 SD', 0, 75, 15, 'Silenced', 'Single');
+
+INSERT INTO encrypted_data VALUES('1', '1c93722e6cf53f93dd4eb15a18444dc3e910fded18239db612794059af1fa5e8');
 
 
 --
