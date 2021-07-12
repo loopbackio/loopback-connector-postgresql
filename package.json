@@ -6,7 +6,6 @@
     "node": ">=10"
   },
   "keywords": [
-    "StrongLoop",
     "LoopBack",
     "PostgreSQL",
     "DataSource",
@@ -46,11 +45,12 @@
     "mocha": "^8.1.2",
     "rc": "^1.0.0",
     "should": "^13.2.3",
-    "sinon": "^9.0.2"
+    "sinon": "^9.0.2",
+    "@commitlint/config-conventional": "^12.1.4"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/strongloop/loopback-connector-postgresql.git"
+    "url": "https://github.com/loopbackio/loopback-connector-postgresql.git"
   },
   "license": "Artistic-2.0",
   "author": "IBM Corp."
