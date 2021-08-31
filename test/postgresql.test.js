@@ -281,6 +281,24 @@ describe('postgresql connector', function() {
     found.map(p => p.title).should.deepEqual(['Growing LoopBack Community']);
   });
 
+  it('should support full text search for text type fields using simple string query', async () => {
+    await Post.create({
+      title: 'Loopback joined the OpenJS Foundation',
+      categories: ['Loopback', 'Announcements'],
+    });
+    await Post.create({
+      title: 'Loopback is a new incubating project in the OpenJS foundation',
+      categories: ['Loopback', 'Community'],
+    });
+
+    const found = await Post.find({where: {and: [
+      {
+        title: {match: 'joining'},
+      },
+    ]}});
+    found.map(p => p.title).should.deepEqual(['Loopback joined the OpenJS Foundation']);
+  });
+
   it('should support boolean types with false value', function(done) {
     Post.create(
       {title: 'T2', content: 'C2', approved: false, created: created},
