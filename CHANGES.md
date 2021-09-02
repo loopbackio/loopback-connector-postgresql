@@ -1,3 +1,89 @@
+2021-05-03, Version 5.4.0
+=========================
+
+ * Add on delete options on FK constraints (Quentin Le Bour)
+
+ * ci: switch from Travis to Github Actions (Agnes Lin)
+
+ * Revert "ci: switch travis to github actions" (Miroslav Bajtoš)
+
+ * ci: switch travis to github actions (Francisco Buceta)
+
+
+2020-12-07, Version 5.3.0
+=========================
+
+ * fix: enable pool error handling (Matthew Gabeler-Lee)
+
+
+2020-11-10, Version 5.2.1
+=========================
+
+ * Ensure order of and/or clauses are preserved (Raymond Feng)
+
+
+2020-10-06, Version 5.2.0
+=========================
+
+ * test: clean test for `contains` operator (Miroslav Bajtoš)
+
+ * test: fix array tests to handle List values (Miroslav Bajtoš)
+
+ * docs: improve README organization (Miroslav Bajtoš)
+
+ * feat: adds 'contains' operator for querying arrays (shubhisood)
+
+
+2020-09-01, Version 5.1.0
+=========================
+
+ * update dependencies to latest (Miroslav Bajtoš)
+
+ * fix setup script to not exit calling shell (Miroslav Bajtoš)
+
+ * chore: switch to DCO (Diana Lau)
+
+ * docs: update loopback types link (Agnes Lin)
+
+ * Update .travis.yml (karanssj4)
+
+
+2020-07-10, Version 5.0.2
+=========================
+
+ * fix: fix uuid setup (Agnes Lin)
+
+ * fix: fix example prop def (Agnes Lin)
+
+ * fix: use tip.html (Diana Lau)
+
+ * docs: update readme with more lb4 form (Agnes Lin)
+
+
+2020-05-06, Version 5.0.1
+=========================
+
+ * Fix serialization of arrays of string in update (#428) (Selim Arsever)
+
+
+2020-04-21, Version 5.0.0
+=========================
+
+ * README: add info about LTS policy (Miroslav Bajtoš)
+
+ * Upgrade dev dependencies (Miroslav Bajtoš)
+
+ * [SEMVER-MAJOR] Upgrade `pg` to `8.0` (Miroslav Bajtoš)
+
+ * Update dependencies (Miroslav Bajtoš)
+
+ * Add Node.js 13.x to Travis CI matrix (Miroslav Bajtoš)
+
+ * Drop support for Node.js 8.x (Miroslav Bajtoš)
+
+ * chore: update strong-globalize version (Diana Lau)
+
+
 2020-03-19, Version 3.9.1
 =========================
 

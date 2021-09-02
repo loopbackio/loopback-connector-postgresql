@@ -64,7 +64,16 @@ describe('postgresql connector', function() {
       loc: 'GeoPoint',
       created: Date,
       approved: Boolean,
-    });
+      tags: {
+        type: ['string'],
+      },
+      categories: {
+        type: ['string'],
+        postgresql: {
+          dataType: 'varchar[]',
+        },
+      },
+    }, {allowExtendedOperators: true});
     created = new Date();
   });
 
@@ -199,6 +208,77 @@ describe('postgresql connector', function() {
         done();
       });
     });
+  });
+
+  it('should support creating and updating arrays with default dataType', function(done) {
+    let postId;
+    Post.create({title: 'Updating Arrays', content: 'Content', tags: ['AA', 'AB']})
+      .then((post)=> {
+        postId = post.id;
+        post.should.have.property('tags');
+        post.tags.should.be.Array();
+        post.tags.length.should.eql(2);
+        post.tags.toArray().should.eql(['AA', 'AB']);
+        return Post.updateAll({where: {id: postId}}, {tags: ['AA', 'AC']});
+      })
+      .then(()=> {
+        return Post.findOne({where: {id: postId}});
+      })
+      .then((post)=> {
+        post.should.have.property('tags');
+        post.tags.should.be.Array();
+        post.tags.length.should.eql(2);
+        post.tags.toArray().should.eql(['AA', 'AC']);
+        done();
+      })
+      .catch((error) => {
+        done(error);
+      });
+  });
+
+  it('should support creating and updating arrays with "varchar[]" dataType', function(done) {
+    let postId;
+    Post.create({title: 'Updating Arrays', content: 'Content', categories: ['AA', 'AB']})
+      .then((post)=> {
+        postId = post.id;
+        post.should.have.property('categories');
+        post.should.have.property('categories');
+        post.categories.should.be.Array();
+        post.categories.length.should.eql(2);
+        post.categories.toArray().should.eql(['AA', 'AB']);
+        return Post.updateAll({where: {id: postId}}, {categories: ['AA', 'AC']});
+      })
+      .then(()=> {
+        return Post.findOne({where: {id: postId}});
+      })
+      .then((post)=> {
+        post.should.have.property('categories');
+        post.categories.should.be.Array();
+        post.categories.length.should.eql(2);
+        post.categories.toArray().should.eql(['AA', 'AC']);
+        done();
+      })
+      .catch((error) => {
+        done(error);
+      });
+  });
+
+  it('should support where filter for array type field', async () => {
+    await Post.create({
+      title: 'LoopBack Participates in Hacktoberfest',
+      categories: ['LoopBack', 'Announcements'],
+    });
+    await Post.create({
+      title: 'Growing LoopBack Community',
+      categories: ['LoopBack', 'Community'],
+    });
+
+    const found = await Post.find({where: {and: [
+      {
+        categories: {'contains': ['LoopBack', 'Community']},
+      },
+    ]}});
+    found.map(p => p.title).should.deepEqual(['Growing LoopBack Community']);
   });
 
   it('should support boolean types with false value', function(done) {
@@ -342,6 +422,14 @@ describe('postgresql connector', function() {
         post.length.should.equal(0);
         done();
       });
+    });
+
+    it('should preserve order of and/or in where', async function() {
+      await Post.create({title: 'T3', content: 'C3', approved: false});
+      // WHERE (title='T3' OR approved=false) AND (content='C2')
+      const posts = await Post.find({where: {or: [{title: 'T3'},
+        {approved: false}], content: 'C2'}});
+      posts.length.should.equal(0);
     });
   });
 

@@ -83,4 +83,32 @@ describe('postgresql connector errors', function() {
       done();
     });
   });
+
+  it('honours onError=ignore', function() {
+    const settings = newConfig();
+    settings.onError = 'ignore';
+
+    const dataSource = new DataSource(connector, settings);
+
+    dataSource.connector.pg.listenerCount('error').should.equal(1);
+  });
+
+  it('honours onError=listener', function() {
+    const settings = newConfig();
+    let errorsCaught = 0;
+    settings.onError = function(err, client) {
+      err.should.be.ok();
+      client.should.be.ok();
+      ++errorsCaught;
+    };
+
+    const dataSource = new DataSource(connector, settings);
+
+    dataSource.connector.pg.listenerCount('error').should.equal(1);
+    dataSource.connector.pg.listeners('error').should.deepEqual([settings.onError]);
+
+    // send a fake error in and make sure it is bound to our listener
+    dataSource.connector.pg.emit('error', new Error('fake error'), {fakeClient: true});
+    errorsCaught.should.equal(1);
+  });
 });

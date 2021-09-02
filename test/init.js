@@ -21,6 +21,9 @@ process.env.PGUSER = process.env.POSTGRESQL_USER ||
 process.env.PGPASSWORD = process.env.POSTGRESQL_PASSWORD ||
     process.env.PGPASSWORD ||
     '';
+process.env.ENCRYPTION_HEX_KEY = process.env.ENCRYPTION_HEX_KEY || 'abcdef0123456789abcdef0123456789';
+process.env.ENCRYPTION_HEX_IV = process.env.ENCRYPTION_HEX_IV || '0123456789abcdef0123456789abcdef';
+
 config = {
   host: process.env.PGHOST,
   port: process.env.PGPORT,
