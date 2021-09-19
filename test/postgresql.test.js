@@ -442,6 +442,15 @@ describe('postgresql connector', function() {
       });
     });
 
+    it('should disregard empty and/or fields', function(done) {
+      Post.find({where: {and: []}}, function(err, post) {
+        should.not.exist(err);
+        should.exist(post);
+        post.length.should.not.equal(0);
+        done();
+      });
+    });
+
     it('should preserve order of and/or in where', async function() {
       await Post.create({title: 'T3', content: 'C3', approved: false});
       // WHERE (title='T3' OR approved=false) AND (content='C2')
