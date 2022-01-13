@@ -1,3 +1,17 @@
+2022-01-13, Version 5.5.0
+=========================
+
+ * chore: add Rifa and Mario as codeowners (Diana Lau)
+
+ * fix: disregard empty and/or fields (Abhilash Murthy)
+
+ * feat(operators): add fts match operator (Akshat  Dubey)
+
+ * chore: move repo to loopbackio org (Diana Lau)
+
+ * Defensively drop constraints during migrations (Chris Kobrzak)
+
+
 2021-05-03, Version 5.4.0
 =========================
 
