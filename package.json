@@ -2,21 +2,34 @@
   "name": "loopback-connector-postgresql",
   "version": "5.5.0",
   "description": "Loopback PostgreSQL Connector",
-  "engines": {
-    "node": ">=10"
-  },
   "keywords": [
     "LoopBack",
     "PostgreSQL",
     "DataSource",
     "Connector"
   ],
+  "license": "Artistic-2.0",
+  "author": "IBM Corp.",
   "main": "index.js",
+  "repository": "github:loopbackio/loopback-connector-postgresql",
+  "engines": {
+    "node": ">=10"
+  },
   "scripts": {
     "pretest": "node pretest.js",
     "test": "mocha test/*.test.js node_modules/juggler-v3/test.js node_modules/juggler-v4/test.js",
     "lint": "eslint .",
     "posttest": "npm run lint"
+  },
+  "dependencies": {
+    "async": "^3.2.3",
+    "bluebird": "^3.7.2",
+    "chalk": "^4.1.2",
+    "debug": "^4.3.4",
+    "loopback-connector": "^5.0.1",
+    "pg": "^8.7.3",
+    "strong-globalize": "^6.0.5",
+    "uuid": "^8.3.2"
   },
   "files": [
     "intl",
@@ -25,33 +38,18 @@
     "index.js",
     "setup.sh"
   ],
-  "dependencies": {
-    "async": "^3.2.0",
-    "bluebird": "^3.4.6",
-    "chalk": "^4.0.0",
-    "debug": "^4.1.1",
-    "loopback-connector": "^5.0.0",
-    "pg": "^8.0.2",
-    "strong-globalize": "^6.0.0",
-    "uuid": "^8.3.0"
-  },
   "devDependencies": {
-    "eslint": "^7.7.0",
+    "@commitlint/cli": "^17.0.0",
+    "@commitlint/config-conventional": "^17.0.0",
+    "eslint": "^8.16.0",
     "eslint-config-loopback": "^13.1.0",
     "juggler-v3": "file:./deps/juggler-v3",
     "juggler-v4": "file:./deps/juggler-v4",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.21",
     "loopback-datasource-juggler": "^3.0.0 || ^4.0.0",
-    "mocha": "^8.1.2",
-    "rc": "^1.0.0",
+    "mocha": "^8.4.0",
+    "rc": "^1.2.8",
     "should": "^13.2.3",
-    "sinon": "^9.0.2",
-    "@commitlint/config-conventional": "^12.1.4"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/loopbackio/loopback-connector-postgresql.git"
-  },
-  "license": "Artistic-2.0",
-  "author": "IBM Corp."
+    "sinon": "^9.2.4"
+  }
 }
