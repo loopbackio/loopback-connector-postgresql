@@ -263,7 +263,7 @@ describe('postgresql connector', function() {
       });
   });
 
-  it('should support where filter for array type field', async () => {
+  it('should support the "contains" where filter for array type field', async () => {
     await Post.create({
       title: 'LoopBack Participates in Hacktoberfest',
       categories: ['LoopBack', 'Announcements'],
@@ -279,6 +279,24 @@ describe('postgresql connector', function() {
       },
     ]}});
     found.map(p => p.title).should.deepEqual(['Growing LoopBack Community']);
+  });
+
+  it('should support the "overlaps" where filter for array type field', async () => {
+    await Post.create({
+      title: 'Overlaps: LoopBack Participates in Hacktoberfest',
+      categories: ['OL_LoopBack', 'OL_Announcements'],
+    });
+    await Post.create({
+      title: 'Overlaps: Growing LoopBack Community',
+      categories: ['OL_LoopBack', 'OL_Community'],
+    });
+
+    const found = await Post.find({where: {and: [
+      {
+        categories: {'overlaps': ['OL_Super', 'OL_Community']},
+      },
+    ]}});
+    found.map(p => p.title).should.deepEqual(['Overlaps: Growing LoopBack Community']);
   });
 
   it('should support full text search for text type fields using simple string query', async () => {
