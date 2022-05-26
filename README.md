@@ -600,7 +600,7 @@ const posts = await postRepository.find({
 
 ### Operator `overlaps`
 
-The `overlaps` operator allow you to query array properties and pick only rows where the stored value contains one or more of the items specified by the query.
+The `overlaps` operator allow you to query array properties and pick only rows where the stored value contains any of the items specified by the query.
 
 The operator is implemented using PostgreSQL [array operator `&&`](https://www.postgresql.org/docs/current/functions-array.html).
 
