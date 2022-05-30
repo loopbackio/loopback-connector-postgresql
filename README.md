@@ -565,7 +565,7 @@ rows where the stored value contains all of the items specified by the query.
 The operator is implemented using PostgreSQL [array operator
 `@>`](https://www.postgresql.org/docs/current/functions-array.html).
 
-**Note** The fields you are querying must be setup to use the postgresql array data type - see [Defining models](#defining-models) above.
+**Note** The fields you are querying must be setup to use the postgresql array data type - see [Defining models](#defining-models) above. 
 
 Assuming a model such as this:
 

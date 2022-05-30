@@ -281,7 +281,7 @@ describe('postgresql connector', function() {
     found.map(p => p.title).should.deepEqual(['Growing LoopBack Community']);
   });
 
-  it('should support the "overlaps" where filter for array type field', async () => {
+  it('should support the "overlaps" where filter for array type field', async () => { 
     await Post.create({
       title: 'Overlaps: LoopBack Participates in Hacktoberfest',
       categories: ['OL_LoopBack', 'OL_Announcements'],
