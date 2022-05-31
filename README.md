@@ -550,6 +550,7 @@ CustomerRepository.find({
 PostgreSQL supports the following PostgreSQL-specific operators:
 
 - [`contains`](#operator-contains)
+- [`overlaps`](#operator-overlaps)
 - [`match`](#operator-match)
 
 Please note extended operators are disabled by default, you must enable
@@ -564,7 +565,7 @@ rows where the stored value contains all of the items specified by the query.
 The operator is implemented using PostgreSQL [array operator
 `@>`](https://www.postgresql.org/docs/current/functions-array.html).
 
-**Note** The fields you are querying must be setup to use the postgresql array data type - see [Defining models](#defining-models) above.
+**Note** The fields you are querying must be setup to use the postgresql array data type - see [Defining models](#defining-models) above. 
 
 Assuming a model such as this:
 
@@ -596,6 +597,15 @@ const posts = await postRepository.find({
   }
 });
 ```
+
+### Operator `overlaps`
+
+Like the `contains` operator, the 'overlaps' operator allow you to query array properties and pick only rows where the stored value contains **any** of the items specified by the query.
+
+The operator is implemented using PostgreSQL [array operator `&&`](https://www.postgresql.org/docs/current/functions-array.html).
+
+**Note** The fields you are querying must be setup to use the postgresql array data type - see [Defining models](#defining-models) above.
+
 
 ### Operator `match`
 
