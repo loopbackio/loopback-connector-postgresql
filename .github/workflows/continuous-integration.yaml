@@ -12,6 +12,7 @@ jobs:
     strategy:
       matrix:
         node-version: [14, 16, 18] # Maintenance, Active LTS & Current
+      fail-fast: false
     services:
       postgres:
         image: postgres:latest
