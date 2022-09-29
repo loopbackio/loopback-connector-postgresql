@@ -1,3 +1,15 @@
+2022-09-29, Version 5.5.2
+=========================
+
+ * chore(deps): update actions/setup-node action to v3 (renovate[bot])
+
+ * chore(deps): update actions/checkout action to v3 (renovate[bot])
+
+ * chore(deps): add renovate.json (renovate[bot])
+
+ * fix: crash with blank `url` (Rifa Achrinza)
+
+
 2022-08-06, Version 5.5.1
 =========================
 
