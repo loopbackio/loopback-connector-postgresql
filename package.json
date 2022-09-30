@@ -31,7 +31,7 @@
   "dependencies": {
     "async": "^3.2.0",
     "bluebird": "^3.4.6",
-    "chalk": "^4.0.0",
+    "chalk": "^5.0.0",
     "debug": "^4.1.1",
     "loopback-connector": "^5.0.0",
     "pg": "^8.0.2",
