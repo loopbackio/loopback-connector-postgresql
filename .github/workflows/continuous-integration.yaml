@@ -9,6 +9,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     strategy:
       matrix:
         node-version: [14, 16, 18] # Maintenance, Active LTS & Current
@@ -37,7 +38,6 @@ jobs:
   code-lint:
     name: Code Lint
     runs-on: ubuntu-latest
-    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -50,7 +50,7 @@ jobs:
   commit-lint:
     name: Commit Lint
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    if: ${{ github.event.pull_request }}
     steps:
       - uses: actions/checkout@v3
         with:
