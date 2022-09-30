@@ -3,6 +3,7 @@
   "extends": [
     ":dependencyDashboard",
     ":semanticPrefixFixDepsChoreOthers",
+    ":gitSignOff",
     ":ignoreModulesAndTests",
     ":prConcurrentLimit10",
     "workarounds:typesNodeVersioning"
