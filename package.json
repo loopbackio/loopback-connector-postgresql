@@ -47,7 +47,7 @@
     "juggler-v4": "file:./deps/juggler-v4",
     "lodash": "^4.17.4",
     "loopback-datasource-juggler": "^3.0.0 || ^4.0.0",
-    "mocha": "^8.1.2",
+    "mocha": "^10.0.0",
     "rc": "^1.0.0",
     "should": "^13.2.3",
     "sinon": "^9.0.2"
