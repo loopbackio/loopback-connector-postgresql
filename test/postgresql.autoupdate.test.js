@@ -6,6 +6,7 @@
 'use strict';
 const assert = require('assert');
 const _ = require('lodash');
+
 let ds, properties, SimpleEmployee, Emp1, Emp2;
 
 before(function() {
@@ -213,23 +214,30 @@ describe('autoupdate', function() {
 
     ds.createModel(schema_v1.name, schema_v1.properties, schema_v1.options);
 
-    ds.automigrate(function() {
-      ds.discoverModelProperties('customer_test', function(err, props) {
+    ds.automigrate(() => {
+      ds.discoverModelProperties('customer_test', (err, props) => {
+        // FixMe: In GH Actions the properties are sorted in alphabetical order.
+        props = props
+          .sort((a, b) => {
+            const schemaKeys = _.keys(schema_v1.properties);
+            if (_.indexOf(schemaKeys, a.columnName) > _.indexOf(schemaKeys, b.columnName)) return 1;
+            if (_.indexOf(schemaKeys, a.columnName) < _.indexOf(schemaKeys, b.columnName)) return -1;
+            return 0;
+          });
+        const names = props.map((p) => p.columnName);
+
         assert.equal(props.length, 4);
-        const names = props.map(function(p) {
-          return p.columnName;
-        });
-        assert.equal(props[0].nullable, 'NO');
-        assert.equal(props[1].nullable, 'YES');
-        assert.equal(props[2].nullable, 'NO');
-        assert.equal(props[3].nullable, 'YES');
         assert.equal(names[0], 'id');
+        assert.equal(props[0].nullable, 'NO');
         assert.equal(names[1], 'name');
+        assert.equal(props[1].nullable, 'YES');
         assert.equal(names[2], 'email');
+        assert.equal(props[2].nullable, 'NO');
         assert.equal(names[3], 'age');
+        assert.equal(props[3].nullable, 'YES');
 
         // check indexes
-        ds.connector.discoverModelIndexes('CustomerTest', function(err, indexes) {
+        ds.connector.discoverModelIndexes('CustomerTest', (err, indexes) => {
           assert.deepEqual(indexes, {
             customer_test_email_idx: {
               table: 'customer_test',
@@ -250,19 +258,18 @@ describe('autoupdate', function() {
 
           ds.createModel(schema_v2.name, schema_v2.properties, schema_v2.options);
 
-          ds.autoupdate(function(err, result) {
-            ds.discoverModelProperties('customer_test', function(err, props) {
+          ds.autoupdate((err, result) => {
+            ds.discoverModelProperties('customer_test', (err, props) => {
+              const names = props.map((p) => p.columnName);
+
               assert.equal(props.length, 4);
-              const names = props.map(function(p) {
-                return p.columnName;
-              });
               assert.equal(names[0], 'id');
               assert.equal(names[1], 'email');
               assert.equal(names[2], 'firstname');
               assert.equal(names[3], 'lastname');
 
               // verify that indexes have been updated
-              ds.connector.discoverModelIndexes('CustomerTest', function(err, indexes) {
+              ds.connector.discoverModelIndexes('CustomerTest', (err, indexes) => {
                 assert.deepEqual(indexes, {
                   customer_test_pkey: {
                     table: 'customer_test',
