@@ -7,5 +7,12 @@
     ":ignoreModulesAndTests",
     ":prConcurrentLimit10",
     "workarounds:typesNodeVersioning"
-  ]
+  ],
+  "lockFileMaintenance": {
+    "extends": [
+      "schedule:monthly"
+    ],
+    "enabled": true,
+    "automerge": true
+  }
 }
