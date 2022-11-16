@@ -23,7 +23,10 @@ process.env.PGPASSWORD = process.env.TEST_POSTGRESQL_PASSWORD ||
   process.env.POSTGRESQL_PASSWORD || process.env.PGPASSWORD || 'test';
 
 console.log('seeding DB with test db...');
-const psql = cp.spawn('psql', {stdio: stdio});
+const args = process.env.POSTGRESQL_DATABASE ?
+  ['-U', process.env.PGUSER, process.env.POSTGRESQL_DATABASE] :
+  ['-U', process.env.PGUSER];
+const psql = cp.spawn('psql', args, {stdio: stdio});
 sql.pipe(psql.stdin);
 psql.on('exit', function(code) {
   console.log('done seeding DB');

@@ -59,6 +59,15 @@ describe('postgresql connector', function() {
     db = global.getDataSource();
 
     Post = db.define('PostWithBoolean', {
+      // Use a different property name for id than the column in DB
+      // to test 'name' setting in id column
+      idCol: {
+        type: 'string',
+        name: 'id',
+        id: true,
+        required: false,
+        generated: true,
+      },
       title: {type: String, length: 255, index: true},
       content: {type: String},
       loc: 'GeoPoint',
@@ -150,6 +159,7 @@ describe('postgresql connector', function() {
   });
 
   let post;
+
   it('should support boolean types with true value', function(done) {
     Post.create(
       {title: 'T1', content: 'C1', approved: true, created: created},
@@ -338,9 +348,9 @@ describe('postgresql connector', function() {
   });
 
   it('should return the model instance for upsert', function(done) {
-    Post.upsert({id: post.id, title: 'T2_new', content: 'C2_new',
+    Post.upsert({idCol: post.id, title: 'T2_new', content: 'C2_new',
       approved: true}, function(err, p) {
-      p.should.have.property('id', post.id);
+      p.should.have.property('idCol', post.id);
       p.should.have.property('title', 'T2_new');
       p.should.have.property('content', 'C2_new');
       p.should.have.property('approved', true);
@@ -352,7 +362,7 @@ describe('postgresql connector', function() {
     function(done) {
       Post.upsert({title: 'T2_new', content: 'C2_new', approved: true},
         function(err, p) {
-          p.should.have.property('id');
+          p.should.have.property('idCol');
           p.should.have.property('title', 'T2_new');
           p.should.have.property('content', 'C2_new');
           p.should.have.property('approved', true);
@@ -370,7 +380,7 @@ describe('postgresql connector', function() {
 
   it('should escape number values to defect SQL injection in find (where)',
     function(done) {
-      Post.find({where: {id: '(SELECT 1+1)'}}, function(err, p) {
+      Post.find({where: {idCol: '(SELECT 1+1)'}}, function(err, p) {
         should.exists(err);
         done();
       });
@@ -378,7 +388,7 @@ describe('postgresql connector', function() {
 
   it('should escape number values to defect SQL injection in find with gt',
     function(done) {
-      Post.find({where: {id: {gt: '(SELECT 1+1)'}}}, function(err, p) {
+      Post.find({where: {idCol: {gt: '(SELECT 1+1)'}}}, function(err, p) {
         should.exists(err);
         done();
       });
@@ -394,7 +404,7 @@ describe('postgresql connector', function() {
 
   it('should escape number values to defect SQL injection in find with inq',
     function(done) {
-      Post.find({where: {id: {inq: ['(SELECT 1+1)']}}}, function(err, p) {
+      Post.find({where: {idCol: {inq: ['(SELECT 1+1)']}}}, function(err, p) {
         should.exists(err);
         done();
       });
@@ -552,7 +562,7 @@ describe('postgresql connector', function() {
     });
 
     it('supports like for date types (with explicit typecast)', function(done) {
-      PostWithDate.find({where: {created: {like: '%05%'}}}, function(err, result) {
+      PostWithDate.find({where: {created: {like: '%-05-%'}}}, function(err, result) {
         should.not.exists(err);
         result.length.should.equal(1);
         done();
@@ -560,7 +570,7 @@ describe('postgresql connector', function() {
     });
 
     it('supports case insensitive queries using ilike for date types (with explicit typecast)', function(done) {
-      PostWithDate.find({where: {created: {ilike: '%05%'}}}, function(err, result) {
+      PostWithDate.find({where: {created: {ilike: '%-05-%'}}}, function(err, result) {
         should.not.exists(err);
         result.length.should.equal(1);
         done();
@@ -605,7 +615,7 @@ describe('postgresql connector', function() {
       });
       db.automigrate(function(err, result) {
         if (err) throw err;
-        Post.create([{
+        Post.createAll([{
           title: 't1',
           content: 'T1_TestCase',
         }, {
@@ -613,7 +623,7 @@ describe('postgresql connector', function() {
           content: 'T2_TheOtherCase',
         }], function(err, result) {
           should.not.exist(err);
-          PostWithDate.create([
+          PostWithDate.createAll([
             {
               title: 'Title 1',
               content: 'Content 1',
@@ -635,7 +645,7 @@ describe('postgresql connector', function() {
       Post.destroyAll(done);
     });
     before(function createTestFixtures(done) {
-      Post.create([{
+      Post.createAll([{
         title: 'a',
         content: 'AAA',
       }, {
@@ -810,7 +820,7 @@ describe('postgresql connector', function() {
 
       db.automigrate(function(err) {
         if (err) return done(err);
-        Customer.create([{
+        Customer.createAll([{
           address: {
             city: 'Springfield',
             street: {
@@ -870,6 +880,25 @@ describe('postgresql connector', function() {
           done();
         });
       });
+    });
+  });
+
+  it('should return array of models with id column value for createAll()', function(done) {
+    Post.createAll([
+      {title: 'Title-1', content: 'Content-1', approved: true, created: created},
+      {title: 'Title-2', content: 'Content-2', approved: true, created: created},
+      {title: 'Title-3', content: 'Content-3', approved: true, created: created},
+      {title: 'Title-4', content: 'Content-4', approved: true, created: created},
+    ],
+    function(err, result) {
+      should.not.exists(err);
+      should.equal(result.length, 4);
+      for (let i = 0; i < result.length; i++) {
+        result[i].should.have.property('idCol');
+        result[i].should.have.property('title');
+        result[i].should.have.property('loc');
+      }
+      done();
     });
   });
 });

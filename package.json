@@ -13,7 +13,7 @@
   "author": "IBM Corp.",
   "repository": "github:loopbackio/loopback-connector-postgresql",
   "engines": {
-    "node": ">=10"
+    "node": "14 || 16 || 18"
   },
   "scripts": {
     "pretest": "node pretest.js",
@@ -33,7 +33,7 @@
     "bluebird": "^3.4.6",
     "chalk": "^4.0.0",
     "debug": "^4.1.1",
-    "loopback-connector": "^5.0.0",
+    "loopback-connector": "^5.1.1",
     "pg": "^8.0.2",
     "strong-globalize": "^6.0.0",
     "uuid": "^9.0.0"
@@ -46,7 +46,7 @@
     "juggler-v3": "file:./deps/juggler-v3",
     "juggler-v4": "file:./deps/juggler-v4",
     "lodash": "^4.17.4",
-    "loopback-datasource-juggler": "^3.0.0 || ^4.0.0",
+    "loopback-datasource-juggler": "^4.28.0",
     "mocha": "^10.0.0",
     "rc": "^1.0.0",
     "should": "^13.2.3",
