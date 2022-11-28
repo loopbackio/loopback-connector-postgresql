@@ -1,3 +1,33 @@
+2022-11-28, Version 6.0.0
+=========================
+
+ * feat(postgresql): add support for multiple insert in one query using createAll() of connector (Samarpan Bhattacharya)
+
+ * chore(deps): lock file maintenance (renovate[bot])
+
+ * chore: add lock-file maintenance (renovate) (Francisco Buceta)
+
+ * fix(deps): update dependency uuid to v9 (renovate[bot])
+
+ * chore(deps): update dependency eslint to v8 (renovate[bot])
+
+ * chore(deps): update dependency mocha to v10 (renovate[bot])
+
+ * chore: sign off renovatebot PR (Francisco Buceta)
+
+ * ci: run commit-lint job only on PR (Francisco Buceta)
+
+ * test: solution to alphabetical order in github actions (Francisco Buceta)
+
+ * ci: disable fast-fail (Francisco Buceta)
+
+ * chore: remove redundant code (Francisco Buceta)
+
+ * chore: order keys and install @commitlint/cli locally (Francisco Buceta)
+
+ * ci: remove test in NodeJS version 12 and add version 18 (Francisco Buceta)
+
+
 2022-09-29, Version 5.5.2
 =========================
 
