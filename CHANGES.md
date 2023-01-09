@@ -1,3 +1,11 @@
+2023-01-09, Version 6.0.1
+=========================
+
+ * chore(deps): lock file maintenance (renovate[bot])
+
+ * chore(deps): update dependency sinon to v15 (renovate[bot])
+
+
 2022-11-28, Version 6.0.0
 =========================
 
