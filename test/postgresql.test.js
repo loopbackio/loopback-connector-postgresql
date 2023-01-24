@@ -881,6 +881,56 @@ describe('postgresql connector', function() {
         });
       });
     });
+
+    it('allows querying for null values', function(done) {
+      Customer.find({
+        where: {
+          'address.city': null,
+        },
+      }, function(err, results) {
+        if (err) return done(err);
+        results.length.should.eql(0);
+        done();
+      });
+    });
+
+    it('allows querying for null values in nested properties', function(done) {
+      Customer.find({
+        where: {
+          'address.street.number': null,
+        },
+      }, function(err, results) {
+        if (err) return done(err);
+        results.length.should.eql(0);
+        done();
+      });
+    });
+
+    it('should return array of models with saved json object for createAll()', function(done) {
+      Customer.createAll([{
+        address: {
+          city: 'New Delhi',
+          street: {
+            number: 42,
+          },
+        },
+      }, {
+        address: {
+          city: 'Hilton',
+          street: {
+            number: 56,
+          },
+        },
+      }], function(err, customers) {
+        should.not.exists(err);
+        should.equal(customers.length, 2);
+        should.equal(customers[0].address.city, 'New Delhi');
+        should.equal(customers[0].address.street.number, 42);
+        should.equal(customers[1].address.city, 'Hilton');
+        should.equal(customers[1].address.street.number, 56);
+        done();
+      });
+    });
   });
 
   it('should return array of models with id column value for createAll()', function(done) {
