@@ -17,7 +17,7 @@
   },
   "scripts": {
     "pretest": "node pretest.js",
-    "test": "mocha test/*.test.js node_modules/juggler-v3/test.js node_modules/juggler-v4/test.js",
+    "test": "mocha test/*.test.js",
     "posttest": "npm run lint",
     "lint": "eslint ."
   },
@@ -43,10 +43,8 @@
     "@commitlint/config-conventional": "^17.1.0",
     "eslint": "^8.0.0",
     "eslint-config-loopback": "^13.1.0",
-    "juggler-v3": "file:./deps/juggler-v3",
-    "juggler-v4": "file:./deps/juggler-v4",
     "lodash": "^4.17.4",
-    "loopback-datasource-juggler": "^4.28.0",
+    "loopback-datasource-juggler": "^4.28.2",
     "mocha": "^10.0.0",
     "rc": "^1.0.0",
     "should": "^13.2.3",
