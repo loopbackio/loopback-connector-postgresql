@@ -1,3 +1,11 @@
+2023-02-02, Version 6.0.2
+=========================
+
+ * fix: remove deprecated juggler-v3 and juggler-v4 deps folder and test cases (Samarpan Bhattacharya)
+
+ * chore(deps): lock file maintenance (renovate[bot])
+
+
 2023-01-09, Version 6.0.1
 =========================
 
