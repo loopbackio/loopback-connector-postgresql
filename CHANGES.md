@@ -1,3 +1,27 @@
+2023-06-14, Version 6.0.5
+=========================
+
+ * chore(deps): update dependency sinon to v15.1.2 (renovate[bot])
+
+ * chore(deps): update dependency eslint to v8.42.0 (renovate[bot])
+
+ * chore(deps): lock file maintenance (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/config-conventional to v17.6.5 (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/cli to v17.6.5 (renovate[bot])
+
+ * fix(deps): update dependency pg to v8.11.0 (renovate[bot])
+
+ * chore(deps): update dependency sinon to v15.1.0 (renovate[bot])
+
+ * chore(deps): update dependency eslint to v8.41.0 (renovate[bot])
+
+ * chore(deps): update dependency loopback-datasource-juggler to v4.28.5 (renovate[bot])
+
+ * fix(deps): update dependency loopback-connector to v5.3.1 (renovate[bot])
+
+
 2023-05-15, Version 6.0.4
 =========================
 
