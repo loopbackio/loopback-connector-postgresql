@@ -33,7 +33,7 @@
     "bluebird": "^3.4.6",
     "chalk": "^4.0.0",
     "debug": "^4.1.1",
-    "loopback-connector": "^5.1.1",
+    "loopback-connector": "^6.0.0",
     "pg": "^8.0.2",
     "strong-globalize": "^6.0.0",
     "uuid": "^9.0.0"
