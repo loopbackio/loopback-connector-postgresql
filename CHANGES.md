@@ -1,3 +1,23 @@
+2023-09-12, Version 6.0.8
+=========================
+
+ * fix(deps): update dependency uuid to v9.0.1 (renovate[bot])
+
+ * fix(deps): update dependency loopback-connector to v6.0.2 (renovate[bot])
+
+ * chore(deps): update dependency eslint to v8.49.0 (renovate[bot])
+
+ * chore(deps): update actions/checkout action to v4 (renovate[bot])
+
+ * chore(deps): update dependency eslint to v8.48.0 (renovate[bot])
+
+ * fix(deps): update dependency pg to v8.11.3 (renovate[bot])
+
+ * fix(deps): update dependency strong-globalize to v6.0.6 (renovate[bot])
+
+ * fix(deps): update dependency loopback-connector to v6.0.1 (renovate[bot])
+
+
 2023-08-14, Version 6.0.7
 =========================
 
