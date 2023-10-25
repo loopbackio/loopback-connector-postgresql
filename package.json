@@ -13,7 +13,7 @@
   "author": "IBM Corp.",
   "repository": "github:loopbackio/loopback-connector-postgresql",
   "engines": {
-    "node": "14 || 16 || 18"
+    "node": "14 || 16 || 18 || 20"
   },
   "scripts": {
     "pretest": "node pretest.js",
