@@ -319,7 +319,8 @@ CREATE TABLE inventory (
     product_id character varying(20),
     location_id character varying(20),
     available integer,
-    total integer
+    total integer,
+    token integer GENERATED ALWAYS AS (total * 1000) STORED
 );
 
 
