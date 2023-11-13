@@ -1,3 +1,37 @@
+2023-11-13, Version 7.0.0
+=========================
+
+ * fix: add generated property to model properties (Muhammad Aaqil)
+
+ * chore(deps): update dependency @commitlint/cli to v18 (renovate[bot])
+
+ * chore(deps): update dependency sinon to v17 (renovate[bot])
+
+ * chore: drop support for Node.js 16 and lower (dhmlau)
+
+ * chore(deps): update dependency @commitlint/config-conventional to v18.4.0 (renovate[bot])
+
+ * chore(deps): update actions/setup-node action to v4 (renovate[bot])
+
+ * chore(deps): update dependency eslint to v8.53.0 (renovate[bot])
+
+ * chore(deps): update dependency sinon to v16.1.3 (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/config-conventional to v18.1.0 (renovate[bot])
+
+ * fix(deps): update dependency async to v3.2.5 (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/config-conventional to v18 (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/cli to v17.8.1 (renovate[bot])
+
+ * chore(deps): update dependency eslint to v8.52.0 (renovate[bot])
+
+ * fix(deps): update dependency loopback-connector to v6.0.3 (renovate[bot])
+
+ * fix(migration): add dbDefault also when altering table (Antonio Ramón Sánchez Morales)
+
+
 2023-10-16, Version 6.0.9
 =========================
 
