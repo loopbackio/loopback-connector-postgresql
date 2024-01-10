@@ -1,3 +1,19 @@
+2024-01-10, Version 7.0.2
+=========================
+
+ * fix(deps): update dependency loopback-connector to v6.1.1 (renovate[bot])
+
+ * chore(deps): update dependency loopback-datasource-juggler to v5.0.5 (renovate[bot])
+
+ * fix: add missing connection error handler in pool, resolving process crash (Quentin Machu)
+
+ * chore(deps): update dependency @commitlint/config-conventional to v18.4.4 (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/cli to v18.4.4 (renovate[bot])
+
+ * chore(deps): lock file maintenance (renovate[bot])
+
+
 2023-12-07, Version 7.0.1
 =========================
 
