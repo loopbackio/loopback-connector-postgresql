@@ -268,6 +268,15 @@ CREATE TABLE "GeoPoint" (
 
 
 --
+-- Name: user; Type: TABLE; Schema: strongloop; Owner: strongloop
+--
+
+CREATE TABLE "user" (
+    id integer NOT NULL GENERATED ALWAYS AS IDENTITY,
+    email character varying(100)
+);
+
+--
 -- Name: GeoPoint_id_seq; Type: SEQUENCE; Schema: strongloop; Owner: strongloop
 --
 
