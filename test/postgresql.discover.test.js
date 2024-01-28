@@ -382,6 +382,16 @@ describe('Discover LDL schema from a table', function() {
       done(null, schema);
     });
   });
+
+  it('should return an LDL schema for user which has id as generated', function(done) {
+    db.discoverSchema('user', {owner: 'strongloop'}, function(err, schema) {
+      console.log('This is our err: ', err);
+      console.log('This is our schema: ', schema);
+      assert(schema.properties.id.generated);
+      assert(typeof schema.properties.id.generated === 'boolean');
+      done(null, schema);
+    });
+  });
 });
 
 describe('Discover and map correctly database types', function() {
