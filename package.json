@@ -40,7 +40,7 @@
   },
   "devDependencies": {
     "@commitlint/cli": "^19.0.0",
-    "@commitlint/config-conventional": "^18.0.0",
+    "@commitlint/config-conventional": "^19.0.0",
     "eslint": "^8.0.0",
     "eslint-config-loopback": "^13.1.0",
     "lodash": "^4.17.4",
