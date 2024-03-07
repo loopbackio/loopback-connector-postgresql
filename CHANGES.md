@@ -1,3 +1,19 @@
+2024-03-07, Version 7.0.4
+=========================
+
+ * fix(deps): update dependency loopback-connector to v6.1.3 (renovate[bot])
+
+ * fix: return auto-increment as generated (Muhammad Aaqil)
+
+ * chore(deps): lock file maintenance (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/cli to v19.0.1 (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/config-conventional to v19 (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/cli to v19 (renovate[bot])
+
+
 2024-02-13, Version 7.0.3
 =========================
 
