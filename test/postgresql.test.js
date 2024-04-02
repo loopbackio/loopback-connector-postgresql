@@ -273,22 +273,54 @@ describe('postgresql connector', function() {
       });
   });
 
-  it('should support where filter for array type field', async () => {
-    await Post.create({
-      title: 'LoopBack Participates in Hacktoberfest',
-      categories: ['LoopBack', 'Announcements'],
+  context('array operators', () => {
+    before(deleteTestFixtures);
+    before(createTestFixtures);
+    it('should support contains filter for array type field', async () => {
+      const found = await Post.find({where: {and: [
+        {
+          categories: {'contains': ['LoopBack', 'Community']},
+        },
+      ]}});
+      found.map(p => p.title).should.deepEqual(['Growing LoopBack Community']);
     });
-    await Post.create({
-      title: 'Growing LoopBack Community',
-      categories: ['LoopBack', 'Community'],
+    it('should support containedBy filter for array type field', async () => {
+      const found = await Post.find({where: {and: [
+        {
+          categories: {'containedBy': ['LoopBack', 'Community', 'SomethingElse']},
+        },
+      ]}});
+      found.map(p => p.title).should.deepEqual(['Growing LoopBack Community']);
     });
-
-    const found = await Post.find({where: {and: [
-      {
-        categories: {'contains': ['LoopBack', 'Community']},
-      },
-    ]}});
-    found.map(p => p.title).should.deepEqual(['Growing LoopBack Community']);
+    it('should support containsAnyOf filter for array type field', async () => {
+      const found = await Post.find({where: {and: [
+        {
+          categories: {'containsAnyOf': ['LoopBack']},
+        },
+      ]}});
+      found.map(p => p.title).should.deepEqual([
+        'LoopBack Participates in Hacktoberfest',
+        'Growing LoopBack Community',
+      ]);
+    });
+    function deleteTestFixtures(done) {
+      Post.destroyAll(function(err) {
+        should.not.exist(err);
+        done();
+      });
+    }
+    function createTestFixtures(done) {
+      Post.createAll([
+        {
+          title: 'LoopBack Participates in Hacktoberfest',
+          categories: ['LoopBack', 'Hacktoberfest'],
+        },
+        {
+          title: 'Growing LoopBack Community',
+          categories: ['LoopBack', 'Community'],
+        },
+      ], done);
+    }
   });
 
   it('should support full text search for text type fields using simple string query', async () => {
