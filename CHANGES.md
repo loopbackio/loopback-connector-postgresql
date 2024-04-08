@@ -1,3 +1,23 @@
+2024-04-08, Version 7.1.0
+=========================
+
+ * feat(operators): add containedBy and containsAnyOf operators (akshatdubeysf)
+
+ * chore(deps): update dependency loopback-datasource-juggler to v5.0.8 (renovate[bot])
+
+ * fix(deps): update dependency loopback-connector to v6.1.4 (renovate[bot])
+
+ * fix(deps): update dependency pg to v8.11.5 (renovate[bot])
+
+ * chore(deps): lock file maintenance (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/cli to v19.2.1 (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/config-conventional to v19.1.0 (renovate[bot])
+
+ * chore(deps): update dependency loopback-datasource-juggler to v5.0.7 (renovate[bot])
+
+
 2024-03-07, Version 7.0.4
 =========================
 
