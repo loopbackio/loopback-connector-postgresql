@@ -1,3 +1,23 @@
+2024-05-15, Version 7.1.1
+=========================
+
+ * chore(deps): update dependency sinon to v18 (renovate[bot])
+
+ * chore(deps): update dependency loopback-datasource-juggler to v5.0.9 (renovate[bot])
+
+ * fix(deps): update dependency loopback-connector to v6.1.5 (renovate[bot])
+
+ * chore(deps): update dependency sinon to v17.0.2 (renovate[bot])
+
+ * chore(deps): lock file maintenance (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/cli to v19.3.0 (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/cli to v19.2.2 (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/config-conventional to v19.2.2 (renovate[bot])
+
+
 2024-04-08, Version 7.1.0
 =========================
 
