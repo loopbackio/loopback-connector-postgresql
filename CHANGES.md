@@ -1,3 +1,13 @@
+2024-06-06, Version 7.1.2
+=========================
+
+ * fix(deps): update dependency loopback-connector to v6.1.6 (renovate[bot])
+
+ * chore(deps): update dependency loopback-datasource-juggler to v5.0.10 (renovate[bot])
+
+ * chore(deps): lock file maintenance (renovate[bot])
+
+
 2024-05-15, Version 7.1.1
 =========================
 
