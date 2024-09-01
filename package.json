@@ -33,7 +33,7 @@
     "bluebird": "^3.4.6",
     "chalk": "^4.0.0",
     "debug": "^4.1.1",
-    "loopback-connector": "^6.0.0",
+    "loopback-connector": "https://github.com/mo-solutions/loopback-connector.git",
     "pg": "^8.0.2",
     "strong-globalize": "^6.0.0",
     "uuid": "^10.0.0"
