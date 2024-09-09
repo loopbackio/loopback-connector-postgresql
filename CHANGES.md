@@ -1,3 +1,23 @@
+2024-09-09, Version 7.1.5
+=========================
+
+ * chore(deps): update dependency loopback-datasource-juggler to v5.1.0 (renovate[bot])
+
+ * fix(deps): update dependency loopback-connector to v6.1.9 (renovate[bot])
+
+ * fix(deps): update dependency debug to v4.3.7 (renovate[bot])
+
+ * chore(deps): lock file maintenance (renovate[bot])
+
+ * fix(deps): update dependency async to v3.2.6 (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/cli to v19.4.1 (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/config-conventional to v19.4.1 (renovate[bot])
+
+ * fix(deps): update dependency loopback-connector to v6.1.8 (renovate[bot])
+
+
 2024-08-12, Version 7.1.4
 =========================
 
