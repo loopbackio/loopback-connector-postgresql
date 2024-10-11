@@ -1,6 +1,6 @@
 {
   "name": "loopback-connector-postgresql",
-  "version": "7.1.5",
+  "version": "7.1.6",
   "description": "Loopback PostgreSQL Connector",
   "keywords": [
     "LoopBack",

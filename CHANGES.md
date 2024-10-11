@@ -1,3 +1,21 @@
+2024-10-11, Version 7.1.6
+=========================
+
+ * chore(deps): update dependency loopback-datasource-juggler to v5.1.1 (renovate[bot])
+
+ * chore(deps): update dependency sinon to v19 (renovate[bot])
+
+ * chore(deps): update dependency eslint to v8.57.1 (renovate[bot])
+
+ * fix(deps): update dependency pg to v8.13.0 (renovate[bot])
+
+ * chore(deps): update dependency sinon to v18.0.1 (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/cli to v19.5.0 (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/config-conventional to v19.5.0 (renovate[bot])
+
+
 2024-09-09, Version 7.1.5
 =========================
 
