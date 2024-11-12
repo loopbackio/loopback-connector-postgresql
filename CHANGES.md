@@ -1,3 +1,21 @@
+2024-11-12, Version 7.1.7
+=========================
+
+ * fix(deps): update dependency loopback-connector to v6.1.11 (renovate[bot])
+
+ * fix(deps): update dependency uuid to v11 (renovate[bot])
+
+ * chore(deps): update dependency loopback-datasource-juggler to v5.1.2 (renovate[bot])
+
+ * chore(deps): update node.js to v22 (renovate[bot])
+
+ * chore(deps): lock file maintenance (renovate[bot])
+
+ * fix(deps): update dependency pg to v8.13.1 (renovate[bot])
+
+ * fix(deps): update dependency loopback-connector to v6.1.10 (renovate[bot])
+
+
 2024-10-11, Version 7.1.6
 =========================
 
