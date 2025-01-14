@@ -1,3 +1,15 @@
+2025-01-14, Version 7.1.9
+=========================
+
+ * fix(deps): update dependency uuid to v11.0.5 (renovate[bot])
+
+ * chore(deps): lock file maintenance (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/cli to v19.6.1 (renovate[bot])
+
+ * fix(deps): update dependency debug to v4.4.0 (renovate[bot])
+
+
 2024-12-05, Version 7.1.8
 =========================
 
