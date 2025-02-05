@@ -12,7 +12,7 @@ jobs:
     timeout-minutes: 5
     strategy:
       matrix:
-        node-version: [18, 20] # Maintenance, Active LTS & Current
+        node-version: [18, 20, 22] # Maintenance, Active LTS & Current
       fail-fast: false
     services:
       postgres:
@@ -42,7 +42,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 18 # LTS
+          node-version: 20 # LTS
       - run: npm ci --ignore-scripts
       - name: Verify code linting
         run: npx --no eslint .
@@ -57,7 +57,7 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
-          node-version: 18 # LTS
+          node-version: 20 # LTS
       - run: npm ci --ignore-scripts
       - name: Verify commit linting
         run: npx --no -p @commitlint/cli commitlint --from origin/master --to HEAD --verbose
