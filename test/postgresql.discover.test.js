@@ -394,6 +394,17 @@ describe('Discover LDL schema from a table', function() {
   });
 });
 
+describe('Discover unique properties', function() {
+  it('should validate unique key for user', function(done) {
+    db.discoverSchema('user', {owner: 'strongloop'}, function(err, schema) {
+      console.log('This is our err: ', err);
+      console.log('This is our schema: ', schema);
+      assert(schema.properties.email.index.unique, true);
+      done(null, schema);
+    });
+  });
+});
+
 describe('Discover and map correctly database types', function() {
   it('should handle character varying, date, timestamp with time zone, timestamp without time zone', function(done) {
     db.discoverSchema('customer', {owner: 'strongloop'}, function(err, schema) {
