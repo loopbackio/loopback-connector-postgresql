@@ -276,6 +276,7 @@ CREATE TABLE "user" (
     email character varying(100)
 );
 
+ALTER TABLE "user" ADD UNIQUE (email);
 --
 -- Name: GeoPoint_id_seq; Type: SEQUENCE; Schema: strongloop; Owner: strongloop
 --
