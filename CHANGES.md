@@ -1,3 +1,15 @@
+2025-02-12, Version 7.1.10
+==========================
+
+ * fix(deps): update dependency pg to v8.13.2 (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/cli to v19.7.1 (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/config-conventional to v19.7.1 (renovate[bot])
+
+ * chore(deps): update dependency mocha to v11.1.0 (renovate[bot])
+
+
 2025-01-14, Version 7.1.9
 =========================
 
