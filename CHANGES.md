@@ -1,3 +1,23 @@
+2025-03-18, Version 7.1.11
+==========================
+
+ * fix(deps): update dependency pg to v8.14.1 (renovate[bot])
+
+ * fix(deps): update dependency pg to v8.14.0 (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/cli to v19.8.0 (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/config-conventional to v19.8.0 (renovate[bot])
+
+ * chore: add node.js 22 to CI (dhmlau)
+
+ * fix: remove error event listener before releasing connection back to pool (vinod-hansda)
+
+ * fix(deps): update dependency uuid to v11.1.0 (renovate[bot])
+
+ * fix(deps): update dependency pg to v8.13.3 (renovate[bot])
+
+
 2025-02-12, Version 7.1.10
 ==========================
 
