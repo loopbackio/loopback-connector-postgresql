@@ -33,7 +33,7 @@
     "bluebird": "^3.4.6",
     "chalk": "^4.0.0",
     "debug": "^4.1.1",
-    "loopback-connector": "^6.0.0",
+    "loopback-connector": "^6.2.1",
     "pg": "^8.0.2",
     "strong-globalize": "^6.0.0",
     "uuid": "^11.0.0"
@@ -44,7 +44,7 @@
     "eslint": "^8.0.0",
     "eslint-config-loopback": "^13.1.0",
     "lodash": "^4.17.4",
-    "loopback-datasource-juggler": "^5.0.0",
+    "loopback-datasource-juggler": "^5.1.5",
     "mocha": "^11.0.0",
     "rc": "^1.0.0",
     "should": "^13.2.3",
