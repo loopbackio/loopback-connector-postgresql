@@ -1,3 +1,19 @@
+2025-04-14, Version 7.2.0
+=========================
+
+ * chore(deps): update dependency loopback-datasource-juggler to v5.1.7 (renovate[bot])
+
+ * chore(deps): lock file maintenance (renovate[bot])
+
+ * chore(deps): update dependency loopback-datasource-juggler to v5.1.6 (renovate[bot])
+
+ * feat: query to fetch unique columns (Muhammad Aaqil)
+
+ * chore(deps): update dependency sinon to v20 (renovate[bot])
+
+ * chore(deps): update dependency sinon to v19.0.5 (renovate[bot])
+
+
 2025-03-18, Version 7.1.11
 ==========================
 
