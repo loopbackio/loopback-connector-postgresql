@@ -1,3 +1,25 @@
+2025-07-15, Version 7.2.3
+=========================
+
+ * chore(deps): update dependency loopback-datasource-juggler to v5.1.10 (renovate[bot])
+
+ * fix(deps): update dependency loopback-connector to v6.2.6 (renovate[bot])
+
+ * chore(deps): lock file maintenance (renovate[bot])
+
+ * fix(deps): update dependency pg to v8.16.3 (renovate[bot])
+
+ * chore(deps): update dependency mocha to v11.7.1 (renovate[bot])
+
+ * fix(deps): update dependency pg to v8.16.2 (renovate[bot])
+
+ * chore(deps): update dependency mocha to v11.7.0 (renovate[bot])
+
+ * fix(deps): update dependency pg to v8.16.1 (renovate[bot])
+
+ * chore(deps): update dependency sinon to v21 (renovate[bot])
+
+
 2025-06-09, Version 7.2.2
 =========================
 
