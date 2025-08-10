@@ -42,7 +42,7 @@ jobs:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v4
         with:
-          node-version: 20 # LTS
+          node-version: 22 # LTS
       - run: npm ci --ignore-scripts
       - name: Verify code linting
         run: npx --no eslint .
@@ -57,7 +57,7 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
-          node-version: 20 # LTS
+          node-version: 22 # LTS
       - run: npm ci --ignore-scripts
       - name: Verify commit linting
         run: npx --no -p @commitlint/cli commitlint --from origin/master --to HEAD --verbose
