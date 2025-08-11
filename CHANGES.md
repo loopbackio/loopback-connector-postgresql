@@ -1,3 +1,21 @@
+2025-08-11, Version 8.0.0
+=========================
+
+ * fix(deps): update dependency loopback-connector to v6.2.7 (renovate[bot])
+
+ * chore: drop Node.js 18 support (dhmlau)
+
+ * chore(deps): update dependency node to v22 (renovate[bot])
+
+ * chore(deps): update dependency loopback-datasource-juggler to v5.1.11 (renovate[bot])
+
+ * chore(deps): update actions/checkout action to v5 (renovate[bot])
+
+ * chore(deps): lock file maintenance (renovate[bot])
+
+ * fix: handle unexpected connection termination error in error listener (Ramachandran Mani)
+
+
 2025-07-15, Version 7.2.3
 =========================
 
