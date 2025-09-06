@@ -37,7 +37,7 @@
     "loopback-connector": "^6.2.1",
     "pg": "^8.0.2",
     "strong-globalize": "^6.0.0",
-    "uuid": "^11.0.0"
+    "uuid": "^12.0.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.0.0",
