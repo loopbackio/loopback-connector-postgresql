@@ -1,3 +1,23 @@
+2025-09-09, Version 8.0.1
+=========================
+
+ * chore: update dependencies (dhmlau)
+
+ * fix: revert to debug@4.4.1 (dhmlau)
+
+ * chore(deps): update dependency mocha to v11.7.2 (renovate[bot])
+
+ * chore(deps): update actions/setup-node action to v5 (renovate[bot])
+
+ * fix(deps): update dependency chalk to v5.6.1 (renovate[bot])
+
+ * fix(deps): update dependency debug to v4.4.2 (renovate[bot])
+
+ * fix(deps): update dependency chalk to v5 (renovate[bot])
+
+ * chore(deps): update dependency rewire to v9.0.1 (renovate[bot])
+
+
 2025-08-11, Version 8.0.0
 =========================
 
