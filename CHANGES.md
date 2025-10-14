@@ -1,3 +1,23 @@
+2025-10-14, Version 8.0.2
+=========================
+
+ * chore(deps): update dependency loopback-datasource-juggler to v5.2.2 (renovate[bot])
+
+ * chore(deps): update dependency loopback-connector to v6.2.12 (renovate[bot])
+
+ * chore(deps): update actions/setup-node action to v6 (renovate[bot])
+
+ * chore(deps): update dependency mocha to v11.7.4 (renovate[bot])
+
+ * chore(deps): lock file maintenance (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/cli to v20 (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/config-conventional to v20 (renovate[bot])
+
+ * fix(deps): update dependency debug to v4.4.3 (renovate[bot])
+
+
 2025-09-09, Version 8.0.1
 =========================
 
