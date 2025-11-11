@@ -1,3 +1,19 @@
+2025-11-11, Version 8.0.3
+=========================
+
+ * chore(deps): update dependency loopback-datasource-juggler to v6 (renovate[bot])
+
+ * fix(deps): update dependency loopback-connector to v7 (renovate[bot])
+
+ * chore(deps): update dependency mocha to v11.7.5 (renovate[bot])
+
+ * chore(deps): lock file maintenance (renovate[bot])
+
+ * chore(deps): update dependency eslint-config-loopback to v14 (renovate[bot])
+
+ * fix(deps): update dependency uuid to v13 (renovate[bot])
+
+
 2025-10-14, Version 8.0.2
 =========================
 
