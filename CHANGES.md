@@ -1,3 +1,19 @@
+2025-12-08, Version 8.0.4
+=========================
+
+ * chore(deps): update dependency loopback-datasource-juggler to v6.0.1 (renovate[bot])
+
+ * chore(deps): update dependency loopback-connector to v7.0.1 (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/cli to v20.2.0 (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/config-conventional to v20.2.0 (renovate[bot])
+
+ * chore(deps): lock file maintenance (renovate[bot])
+
+ * chore(deps): update actions/checkout action to v6 (renovate[bot])
+
+
 2025-11-11, Version 8.0.3
 =========================
 
