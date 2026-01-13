@@ -1001,6 +1001,47 @@ describe('postgresql connector', function() {
         });
       });
     });
+
+    it('should support update of multiple fields in jsonb data type using CONCAT', function(done) {
+      Customer.create({
+        address: {
+          city: 'Test City',
+          street: {
+            number: 200,
+            name: 'Test Street',
+          },
+        },
+        metadata: {
+          extenalid: '456',
+          isactive: true,
+          status: 'pending',
+          priority: 'low',
+        },
+      }, function(err, customer) {
+        if (err) return done(err);
+        const partialUpdate = {
+          metadata: {
+            CONCAT: {
+              isactive: false,
+              status: 'completed',
+              priority: 'high',
+            },
+          },
+        };
+
+        Customer.updateAll({id: customer.id}, partialUpdate, function(err) {
+          if (err) return done(err);
+          Customer.findById(customer.id, function(err, updatedCustomer) {
+            if (err) return done(err);
+            updatedCustomer.metadata.isactive.should.equal(false);
+            updatedCustomer.metadata.status.should.equal('completed');
+            updatedCustomer.metadata.priority.should.equal('high');
+            updatedCustomer.metadata.extenalid.should.equal('456');
+            done();
+          });
+        });
+      });
+    });
   });
 
   it('should return array of models with id column value for createAll()', function(done) {

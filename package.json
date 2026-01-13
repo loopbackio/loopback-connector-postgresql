@@ -1,6 +1,6 @@
 {
   "name": "loopback-connector-postgresql",
-  "version": "7.2.3",
+  "version": "8.0.5",
   "description": "Loopback PostgreSQL Connector",
   "keywords": [
     "LoopBack",
@@ -10,10 +10,10 @@
   ],
   "license": "Artistic-2.0",
   "main": "index.js",
-  "author": "IBM Corp.",
+  "author": "IBM Corp. and LoopBack contributors",
   "repository": "github:loopbackio/loopback-connector-postgresql",
   "engines": {
-    "node": "18 || 20 || 22"
+    "node": ">=20"
   },
   "scripts": {
     "pretest": "node pretest.js",
@@ -32,20 +32,20 @@
   "dependencies": {
     "async": "^3.2.0",
     "bluebird": "^3.4.6",
-    "chalk": "^4.0.0",
+    "chalk": "^5.0.0",
     "debug": "^4.1.1",
-    "loopback-connector": "^6.2.1",
+    "loopback-connector": "^7.0.0",
     "pg": "^8.0.2",
     "strong-globalize": "^6.0.0",
-    "uuid": "^11.0.0"
+    "uuid": "^13.0.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "^19.0.0",
-    "@commitlint/config-conventional": "^19.0.0",
+    "@commitlint/cli": "^20.0.0",
+    "@commitlint/config-conventional": "^20.0.0",
     "eslint": "^8.0.0",
-    "eslint-config-loopback": "^13.1.0",
+    "eslint-config-loopback": "^14.0.0",
     "lodash": "^4.17.4",
-    "loopback-datasource-juggler": "^5.1.5",
+    "loopback-datasource-juggler": "^6.0.0",
     "mocha": "^11.0.0",
     "rc": "^1.0.0",
     "rewire": "^9.0.0",
