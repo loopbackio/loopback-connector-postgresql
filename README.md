@@ -545,6 +545,43 @@ CustomerRepository.find({
 });
 ```
 
+## Partial updates of JSON fields (CONCAT)
+
+By default, updating a property mapped to the PostgreSQL 'jsonb' data type will replace the entire JSON value.
+With this enhancement, you can now perform partial updates (merges) of jsonb columns using the PostgreSQL JSONB concatenation operator (||).
+
+ ### How it works
+
+ If you set the value of a property to an object containing a special CONCAT key, the connector will:
+
+- Generate an UPDATE statement using || ?::jsonb
+
+- Merge the object specified in CONCAT into the existing JSONB column value, overriding fields with the same key but leaving others unchanged.
+
+Assuming a model property such as this:
+
+```ts
+@property({
+  type: 'object',
+  postgresql: {
+    dataType: 'jsonb'
+  },
+})
+address?: object;
+```
+
+Now perform a partial update to change only the city leaving the street intact:
+
+```ts
+await customerRepository.updateById(customerId, {
+  address: {
+    CONCAT: {
+      city: 'New City'
+    }
+  }
+});
+```
+
 ## Extended operators
 
 PostgreSQL supports the following PostgreSQL-specific operators:
