@@ -1,3 +1,19 @@
+2026-02-10, Version 8.0.6
+=========================
+
+ * chore(deps): update dependency loopback-datasource-juggler to v6.0.3 (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/cli to v20.4.1 (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/config-conventional to v20.4.1 (renovate[bot])
+
+ * chore(deps): lock file maintenance (renovate[bot])
+
+ * chore(deps): update dependency lodash to v4.17.23 [security] (renovate[bot])
+
+ * chore(deps): update dependency pg to v8.17.2 (renovate[bot])
+
+
 2026-01-12, Version 8.0.5
 =========================
 
