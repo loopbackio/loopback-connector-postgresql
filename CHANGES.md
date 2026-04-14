@@ -1,3 +1,25 @@
+2026-04-14, Version 8.0.8
+=========================
+
+ * chore(deps): update dependency loopback-connector to v7.0.5 (renovate[bot])
+
+ * chore(deps): update dependency loopback-datasource-juggler to v6.0.5 (renovate[bot])
+
+ * chore(deps): update dependency sinon to v21.1.2 (renovate[bot])
+
+ * chore(deps): update dependency lodash to v4.18.1 (renovate[bot])
+
+ * chore(deps): lock file maintenance (renovate[bot])
+
+ * fix: stop overriding clientConfig's Promise (Jérémy Lal)
+
+ * chore(deps): update dependency @commitlint/cli to v20.5.0 (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/config-conventional to v20.5.0 (renovate[bot])
+
+ * chore(deps): update dependency sinon to v21.0.3 (renovate[bot])
+
+
 2026-03-09, Version 8.0.7
 =========================
 
