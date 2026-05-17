@@ -12,7 +12,7 @@ jobs:
     timeout-minutes: 5
     strategy:
       matrix:
-        node-version: [20, 22, 24] # Maintenance, Active LTS & Current
+        node-version: [22, 24, 26] # Maintenance, Active LTS & Current
       fail-fast: false
     services:
       postgres:
