@@ -1,3 +1,27 @@
+2026-06-09, Version 9.0.0
+=========================
+
+ * fix(deps): update dependency uuid to v14 (renovate[bot])
+
+ * chore(deps): lock file maintenance (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/config-conventional to v21.0.2 (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/cli to v21.0.2 (renovate[bot])
+
+ * chore(deps): update dependency mocha to v11.7.6 (renovate[bot])
+
+ * chore: drop Node.js 20 support (dhmlau)
+
+ * chore(deps): update dependency sinon to v22 (renovate[bot])
+
+ * chore(deps): update dependency pg to v8.21.0 (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/config-conventional to v21 (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/cli to v21.0.1 (renovate[bot])
+
+
 2026-05-11, Version 8.0.9
 =========================
 
