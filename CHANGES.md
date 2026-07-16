@@ -1,3 +1,23 @@
+2026-07-16, Version 9.0.1
+=========================
+
+ * chore(deps): update dependency @commitlint/cli to v21.2.1 (renovate[bot])
+
+ * chore(deps): lock file maintenance (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/cli to v21.1.0 (renovate[bot])
+
+ * chore(deps): update dependency uuid to v14.0.1 (renovate[bot])
+
+ * chore(deps): update dependency pg to v8.22.0 (renovate[bot])
+
+ * chore(deps): update actions/checkout action to v7 (renovate[bot])
+
+ * fix(deps): update dependency loopback-connector to v8 (renovate[bot])
+
+ * chore(deps): update dependency loopback-datasource-juggler to v7 (renovate[bot])
+
+
 2026-06-09, Version 9.0.0
 =========================
 
