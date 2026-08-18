@@ -1,4 +1,28 @@
-2026-07-16, Version 9.0.1
+2026-08-18, Version 9.0.2
+=========================
+
+ * chore(deps): update dependency loopback-datasource-juggler to v7.0.2 (renovate[bot])
+
+ * chore(deps): update dependency loopback-connector to v8.0.2 (renovate[bot])
+
+ * chore(deps): update dependency pg to v8.23.0 (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/cli to v21.2.2 (renovate[bot])
+
+ * fix(deps): update dependency chalk to v6 (renovate[bot])
+
+ * chore(deps): update dependency mocha to v11.8.0 (renovate[bot])
+
+ * chore(deps): lock file maintenance (renovate[bot])
+
+ * chore(deps): update dependency sinon to v22.1.0 (renovate[bot])
+
+ * chore(deps): update actions/setup-node action to v7 (renovate[bot])
+
+ * chore(deps): update dependency loopback-connector to v8.0.1 (renovate[bot])
+
+
+2026-07-15, Version 9.0.1
 =========================
 
  * chore(deps): update dependency @commitlint/cli to v21.2.1 (renovate[bot])
