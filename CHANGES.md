@@ -1,3 +1,19 @@
+2026-09-15, Version 9.0.3
+=========================
+
+ * chore(deps): update dependency loopback-datasource-juggler to v7.0.3 (renovate[bot])
+
+ * chore(deps): update dependency loopback-connector to v8.0.3 (renovate[bot])
+
+ * chore(deps): update dependency mocha to v12.0.1 (renovate[bot])
+
+ * chore(deps): update dependency mocha to v12 (renovate[bot])
+
+ * chore(deps): lock file maintenance (renovate[bot])
+
+ * chore(deps): update dependency uuid to v14.0.2 (renovate[bot])
+
+
 2026-08-18, Version 9.0.2
 =========================
 
