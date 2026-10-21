@@ -1,3 +1,27 @@
+2026-10-21, Version 9.0.4
+=========================
+
+ * chore(deps): update dependency loopback-datasource-juggler to v7.0.4 (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/cli to v21.2.4 (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/config-conventional to v21.2.4 (renovate[bot])
+
+ * chore(deps): update dependency uuid to v14.0.3 (renovate[bot])
+
+ * chore(deps): update dependency pg to v8.23.1 (renovate[bot])
+
+ * chore(deps): update dependency mocha to v12.0.3 (renovate[bot])
+
+ * chore(deps): update dependency chalk to v6.0.1 (renovate[bot])
+
+ * chore(deps): update dependency mocha to v12.0.2 (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/cli to v21.2.3 (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/config-conventional to v21.2.3 (renovate[bot])
+
+
 2026-09-15, Version 9.0.3
 =========================
 
