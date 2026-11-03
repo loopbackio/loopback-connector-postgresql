@@ -981,10 +981,11 @@ WARNING: It is the users' responsibility to make sure the provided extension and
 
 This module adopts the [Module Long Term Support (LTS)](http://github.com/CloudNativeJS/ModuleLTS) policy, with the following End Of Life (EOL) dates:
 
-| Version | Status     | Published | EOL                  |
-| ------- | ---------- | --------- | -------------------- |
-| 5.x     | Current    | Apr 2020  | Apr 2023 _(minimum)_ |
-| 3.x     | Active LTS | Mar 2017  | Apr 2022             |
+| Version | Status       | Published | EOL                  |
+| ------- | ------------ | --------- | -------------------- |
+| 7.x     | Current      | Nov 2023  | Apr 2026 _(minimum)_ |
+| 6.x     | Active       | Nov 2022  | Apr 2025             |
+| 5.x     | End-of-Life  | Apr 2020  | Apr 2023             |
 
 Learn more about our LTS plan in [docs](https://loopback.io/doc/en/contrib/Long-term-support.html).
 
