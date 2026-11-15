@@ -983,6 +983,91 @@ describe('postgresql connector', function() {
       done();
     });
   });
+
+  context('jsonContains operator', function() {
+    let ItemWithJson, ItemWithIntegerArray, ItemWithStringArray;
+
+    before(function(done) {
+      db = global.getDataSource();
+      // Define a test model utilizing a jsonb column type to test JSON containment filters.
+      ItemWithJson = db.define('ItemWithJson', {
+        name: {type: String},
+        tags: {
+          type: [String],
+          postgresql: {
+            dataType: 'jsonb',
+          },
+        },
+      });
+      ItemWithIntegerArray = db.define('ItemWithIntegerArray', {
+        name: {type: String},
+        tags: {
+          type: [Number],
+          postgresql: {
+            dataType: 'jsonb',
+          },
+        },
+      });
+      ItemWithStringArray = db.define('ItemWithStringArray', {
+        name: {type: String},
+        tags: {
+          type: [String],
+          postgresql: {
+            dataType: 'jsonb',
+          },
+        },
+      });
+      db.automigrate(['ItemWithJson', 'ItemWithIntegerArray', 'ItemWithStringArray'], done);
+    });
+
+    beforeEach(function(done) {
+      ItemWithJson.destroyAll();
+      ItemWithIntegerArray.destroyAll();
+      ItemWithStringArray.destroyAll(done);
+    });
+
+    after(function(done) {
+      ItemWithJson.destroyAll();
+      ItemWithIntegerArray.destroyAll();
+      ItemWithStringArray.destroyAll(done);
+    });
+
+    it('should support unit-level SQL building verification for jsonContains', function() {
+      const where = db.connector.buildWhere(
+        'ItemWithJson',
+        {tags: {jsonContains: ['bar', 'foo']}},
+      );
+
+      where.toJSON().should.eql({
+        sql: 'WHERE ("tags" @> CAST(? AS JSONB) OR "tags" @> CAST(? AS JSONB))',
+        params: ['["bar"]', '["foo"]'],
+      });
+    });
+
+    it('should support unit-level SQL building verification for jsonContains with integer array', function() {
+      const where = db.connector.buildWhere(
+        'ItemWithIntegerArray',
+        {tags: {jsonContains: [1, 2]}},
+      );
+
+      where.toJSON().should.eql({
+        sql: 'WHERE ("tags" @> CAST(? AS JSONB) OR "tags" @> CAST(? AS JSONB))',
+        params: ['[1]', '[2]'],
+      });
+    });
+
+    it('should support unit-level SQL building verification for jsonContains with string array', function() {
+      const where = db.connector.buildWhere(
+        'ItemWithStringArray',
+        {tags: {jsonContains: ['bar', 'foo']}},
+      );
+
+      where.toJSON().should.eql({
+        sql: 'WHERE ("tags" @> CAST(? AS JSONB) OR "tags" @> CAST(? AS JSONB))',
+        params: ['["bar"]', '["foo"]'],
+      });
+    });
+  });
 });
 
 describe('Serial properties', function() {
