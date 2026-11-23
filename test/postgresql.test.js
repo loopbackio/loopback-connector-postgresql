@@ -848,6 +848,12 @@ describe('postgresql connector', function() {
             dataType: 'json',
           },
         },
+        metadata: {
+          type: 'object',
+          postgresql: {
+            dataType: 'jsonb',
+          },
+        },
       });
 
       db.automigrate(function(err) {
@@ -961,6 +967,81 @@ describe('postgresql connector', function() {
         should.equal(customers[1].address.city, 'Hilton');
         should.equal(customers[1].address.street.number, 56);
         done();
+      });
+    });
+    it('should support partial update of json data type using CONCAT', function(done) {
+      Customer.create({
+        address: {
+          city: 'Old City',
+          street: {
+            number: 100,
+            name: 'Old Street',
+          },
+        },
+        metadata: {
+          externalid: '123',
+          isactive: true,
+        },
+      }, function(err, customer) {
+        if (err) return done(err);
+        const partialUpdate = {
+          metadata: {
+            CONCAT: {
+              isactive: false,
+            },
+          },
+        };
+
+        Customer.updateAll({id: customer.id}, partialUpdate, function(err) {
+          if (err) return done(err);
+          Customer.findById(customer.id, function(err, updatedCustomer) {
+            if (err) return done(err);
+            updatedCustomer.metadata.isactive.should.equal(false);
+            updatedCustomer.metadata.externalid.should.equal('123');
+            done();
+          });
+        });
+      });
+    });
+
+    it('should support update of multiple fields in jsonb data type using CONCAT', function(done) {
+      Customer.create({
+        address: {
+          city: 'Test City',
+          street: {
+            number: 200,
+            name: 'Test Street',
+          },
+        },
+        metadata: {
+          externalid: '456',
+          isactive: true,
+          status: 'pending',
+          priority: 'low',
+        },
+      }, function(err, customer) {
+        if (err) return done(err);
+        const partialUpdate = {
+          metadata: {
+            CONCAT: {
+              isactive: false,
+              status: 'completed',
+              priority: 'high',
+            },
+          },
+        };
+
+        Customer.updateAll({id: customer.id}, partialUpdate, function(err) {
+          if (err) return done(err);
+          Customer.findById(customer.id, function(err, updatedCustomer) {
+            if (err) return done(err);
+            updatedCustomer.metadata.isactive.should.equal(false);
+            updatedCustomer.metadata.status.should.equal('completed');
+            updatedCustomer.metadata.priority.should.equal('high');
+            updatedCustomer.metadata.externalid.should.equal('456');
+            done();
+          });
+        });
       });
     });
   });
